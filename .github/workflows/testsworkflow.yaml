@@ -22,11 +22,10 @@ jobs:
           java-version: 17
           distribution: 'adopt'
 
-      - name: Navigate to backend directory
-        run: cd backend
-
       - name: Build with Maven
-        run: mvn -B clean test
+        run: |
+          cd backend
+          mvn -B clean test
 
 
 
