@@ -19,9 +19,16 @@ jobs:
         with:
           ref: 'main'
           fetch-depth: 0
+
+      - name: Set up Git
+        run: |
+          git config --global user.email "github-actions@github.com"
+          git config --global user.name "GitHub Actions"
+
       - name: Merge Branches
         run: |
           git merge --no-ff origin/dev -m "Merge branch 'dev' into main"
+
       - name: Push to Main
         uses: ad-m/github-push-action@master
         with:
