@@ -34,6 +34,8 @@ public class AppointmentController {
     }
 
 
+
+
     @PostMapping("/appointments")
     public ResponseEntity<Appointment> createAppointment(@RequestBody Appointment appointment) {
         try {
