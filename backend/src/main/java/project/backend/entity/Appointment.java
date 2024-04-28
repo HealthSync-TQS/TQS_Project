@@ -25,6 +25,9 @@ public class Appointment {
     @Column(name = "date")
     private Date date;
 
+    @Column(name="price")
+    private double price;
+
     @Column(name = "medical_specialty")
     private String medicalSpecialty;
 
@@ -34,16 +37,18 @@ public class Appointment {
     public Appointment() {
     }
 
-    public Appointment(Patient patient, Date date, String medicalSpecialty, String doctorName) {
+    public Appointment(Patient patient, Date date, String medicalSpecialty, String doctorName, double price) {
         this.patient = patient;
         this.date = date;
+        this.price = price;
         this.medicalSpecialty = medicalSpecialty;
         this.doctorName = doctorName;
     }
 
-    public Appointment(Date date, String medicalSpecialty, String doctorName) {
+    public Appointment(Date date, String medicalSpecialty, String doctorName, double price) {
         this.patient = null;
         this.date = date;
+        this.price = price;
         this.medicalSpecialty = medicalSpecialty;
         this.doctorName = doctorName;
     }

@@ -9,6 +9,8 @@ import project.backend.repository.AppointmentRepo;
 import project.backend.repository.PatientRepo;
 import project.backend.service.AppointmentService;
 
+import java.util.List;
+
 @Service
 public class AppointmentServiceImpl implements AppointmentService {
 
@@ -29,8 +31,9 @@ public class AppointmentServiceImpl implements AppointmentService {
     }
 
     @Override
-    public void addAppointment(Appointment appointment) {
+    public Appointment addAppointment(Appointment appointment) {
         appointmentRepo.save(appointment);
+        return appointment;
     }
 
     @Override
@@ -42,4 +45,18 @@ public class AppointmentServiceImpl implements AppointmentService {
 
     }
 
+    @Override
+    public List<Appointment> getAll() {
+        return appointmentRepo.findAll();
+    }
+
+    @Override
+    public List<Appointment> getAppointmentsWithoutPatient() {
+        return appointmentRepo.findByPatientIsNull();
+    }
+
+    @Override
+    public Appointment getAppointmentById(Long id) {
+        return appointmentRepo.findById(id).orElse(null);
+    }
 }

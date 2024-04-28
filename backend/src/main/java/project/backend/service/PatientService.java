@@ -11,4 +11,6 @@ public interface PatientService {
     void deleteAll();
 
     void addPatient(Patient patient);
+
+    Patient getPatientById(int id);
 }

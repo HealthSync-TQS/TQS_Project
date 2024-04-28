@@ -36,11 +36,11 @@ public class DataInitializer implements CommandLineRunner {
         patientService.addPatient(patient1);
         patientService.addPatient(patient2);
 
-        Appointment appointment1 = new Appointment(patient1, new Date(), "Cardiology", "Dr. Smith");
-        Appointment appointment2 = new Appointment(patient2, new Date(), "Dermatology", "Dr. Johnson");
-        Appointment appointment3 = new Appointment(new Date(124, 10, 12), "Cardiology", "Dr. Smith");
-        Appointment appointment4 = new Appointment(new Date(124, 10, 12), "Dermatology", "Dr. Johnson");
-        Appointment appointment5 = new Appointment(new Date(124, 5, 2), "Cardiology", "Dr. Smith");
+        Appointment appointment1 = new Appointment(patient1, new Date(), "Cardiology", "Dr. Smith", 100.0);
+        Appointment appointment2 = new Appointment(patient2, new Date(), "Dermatology", "Dr. Johnson", 150.0);
+        Appointment appointment3 = new Appointment(new Date(124, 10, 12), "Cardiology", "Dr. Smith", 100.0);
+        Appointment appointment4 = new Appointment(new Date(124, 10, 12), "Dermatology", "Dr. Johnson", 150.0);
+        Appointment appointment5 = new Appointment(new Date(124, 5, 2), "Cardiology", "Dr. Smith", 100.0);
         appointmentService.addAppointment(appointment1);
         appointmentService.addAppointment(appointment2);
         appointmentService.addAppointment(appointment3);
