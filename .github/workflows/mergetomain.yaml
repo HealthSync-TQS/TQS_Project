@@ -1,12 +1,12 @@
 name: Merge to Main
 
-on:
-  workflow_run:
-    workflows: ["Test Workflow"]
-    branches:
-      - dev
-    types:
-      - completed
+#on:
+#  workflow_run:
+#    workflows: ["Test Workflow"]
+#    branches:
+#      - dev
+#    types:
+#      - completed
 
 jobs:
   merge-to-main:
