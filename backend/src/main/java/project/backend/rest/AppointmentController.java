@@ -15,7 +15,6 @@ import java.util.List;
 @RestController
 public class AppointmentController {
 
-
     private final AppointmentService appointmentService;
     private final PatientService patientService;
 
