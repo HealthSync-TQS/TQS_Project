@@ -24,19 +24,56 @@ import MKBox from "components/MKBox";
 import DefaultNavbar from "examples/Navbars/DefaultNavbar";
 import DefaultFooter from "examples/Footers/DefaultFooter";
 import InputNumUtente from "layouts/sections/input-areas/inputs/components/InputNumUtente";
+import SearchResult from "components/SearchResult/SearchResult";
+import DisplayScreen from "components/DisplayScreen/DisplayScreen";
 
 // Routes
 import routes from "routes";
 import footerRoutes from "footer.routes";
+
+// Data
+const nextPerson = {
+  balconyNumber: 1,
+  consultNumber: 1,
+};
+
+// Functions
+const handlePassLeft = () => {
+  // Handle pass left action
+};
+
+const handlePassRight = () => {
+  // Handle pass right action
+};
 
 function Presentation() {
   return (
     <>
       <DefaultNavbar routes={routes} sticky />
       <Container>
-        <Grid container spacing={3}>
+        <Grid container>
           <Grid item xs={12} lg={4}>
             <InputNumUtente />
+          </Grid>
+          <Grid item xs={12} lg={12}></Grid>
+          <Grid item xs={12} lg={6}>
+            <SearchResult
+              data={{
+                patientName: "John Doe",
+                patientBI: "123456789",
+                consultAbout: "Headache",
+                doctorName: "Dr. Smith",
+                date: "2023-10-01, 10:00 AM",
+              }}
+            />
+          </Grid>
+          <Grid item xs={12} lg={6}>
+            {/* DisplayScreen stays here */}
+            <DisplayScreen
+              nextPerson={nextPerson}
+              onPassLeft={handlePassLeft}
+              onPassRight={handlePassRight}
+            />
           </Grid>
         </Grid>
       </Container>
