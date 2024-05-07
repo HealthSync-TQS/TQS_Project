@@ -77,7 +77,18 @@ function Presentation() {
           </Grid>
         </Grid>
       </Container>
-      <MKBox pt={6} px={1} mt={6}>
+      <MKBox
+        pt={6}
+        px={1}
+        mt={6}
+        sx={{
+          position: "fixed",
+          bottom: -100,
+          left: "50%",
+          transform: "translateX(-50%)",
+          zIndex: 1000,
+        }}
+      >
         <DefaultFooter content={footerRoutes} />
       </MKBox>
     </>

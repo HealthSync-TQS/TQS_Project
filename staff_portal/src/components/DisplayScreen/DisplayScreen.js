@@ -8,7 +8,7 @@ const DisplayScreen = ({ nextPerson, onPassLeft, onPassRight }) => {
     <Box
       sx={{
         width: "30%",
-        height: "50%", // Set height to 100%
+        height: "60%", // Set height to 100%
         position: "fixed", // Position fixed to make it stay on the right side
         top: 85, // Align to the top
         right: 300, // Align to the right
@@ -58,7 +58,7 @@ const DisplayScreen = ({ nextPerson, onPassLeft, onPassRight }) => {
       <Box
         sx={{
           position: "absolute",
-          bottom: "16px",
+          bottom: "50px",
           left: "50px",
           display: "flex",
           justifyContent: "space-between",
@@ -71,7 +71,7 @@ const DisplayScreen = ({ nextPerson, onPassLeft, onPassRight }) => {
       <Box
         sx={{
           position: "absolute",
-          bottom: "16px",
+          bottom: "50px",
           right: "50px",
           display: "flex",
           justifyContent: "space-between",
