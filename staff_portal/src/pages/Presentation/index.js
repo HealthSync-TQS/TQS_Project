@@ -18,7 +18,6 @@ import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
 
 // Material Kit 2 React components
-import MKBox from "components/MKBox";
 
 // Material Kit 2 React examples
 import DefaultNavbar from "examples/Navbars/DefaultNavbar";
@@ -86,7 +85,6 @@ function Presentation() {
     console.log("Found Consult: ", foundConsult);
     setSearchResult(foundConsult);
     console.log("Search Results: ", searchResult);
-    //flag=true;
   };
 
   return (
@@ -94,11 +92,8 @@ function Presentation() {
       <DefaultNavbar routes={routes} sticky />
       <Container>
         <Grid container>
-          <Grid item xs={12} lg={4}>
-            <InputNumUtente onSearch={handleSearch} />
-          </Grid>
-          <Grid item xs={12} lg={12}></Grid>
           <Grid item xs={12} lg={6}>
+            <InputNumUtente onSearch={handleSearch} />
             <SearchResult data={searchResult} />
           </Grid>
           <Grid item xs={12} lg={6}>
@@ -111,20 +106,7 @@ function Presentation() {
           </Grid>
         </Grid>
       </Container>
-      <MKBox
-        pt={6}
-        px={1}
-        mt={6}
-        sx={{
-          position: "fixed",
-          bottom: -100,
-          left: "50%",
-          transform: "translateX(-50%)",
-          zIndex: 1000,
-        }}
-      >
-        <DefaultFooter content={footerRoutes} />
-      </MKBox>
+      <DefaultFooter content={footerRoutes} />
     </>
   );
 }

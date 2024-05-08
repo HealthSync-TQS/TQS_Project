@@ -7,24 +7,28 @@ const DisplayScreen = ({ balconyNumber, consultNumber, onPassLeft, onPassRight }
   return (
     <Box
       sx={{
-        width: "30%",
-        height: "60%", // Set height to 100%
-        position: "fixed", // Position fixed to make it stay on the right side
-        top: 85, // Align to the top
-        right: 300, // Align to the right
-        bottom: 500, // Align to the bottom
+        height: "80%",
+        position: "relative",
         border: "1px solid #ccc",
         borderRadius: "8px",
         padding: "16px",
         backgroundColor: "#f9f9f9",
         overflow: "auto", // Enable scrolling if content overflows
+        marginLeft: "25px",
+        marginTop: "100px",
       }}
     >
       <Typography variant="h6">Next Person</Typography>
-      <Box sx={{ display: "flex", justifyContent: "space-between", marginTop: "16px" }}>
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "space-between",
+          marginTop: "16px",
+          marginBottom: "16px",
+        }}
+      >
         <Box
           sx={{
-            position: "absolute",
             left: "100px",
             display: "flex",
           }}
@@ -40,7 +44,6 @@ const DisplayScreen = ({ balconyNumber, consultNumber, onPassLeft, onPassRight }
         </Box>
         <Box
           sx={{
-            position: "absolute",
             right: "125px",
             display: "flex",
           }}
@@ -57,26 +60,16 @@ const DisplayScreen = ({ balconyNumber, consultNumber, onPassLeft, onPassRight }
       </Box>
       <Box
         sx={{
-          position: "absolute",
           bottom: "50px",
           left: "50px",
           display: "flex",
           justifyContent: "space-between",
+          marginBottom: "16px",
         }}
       >
         <MKButton variant="contained" color="dark" onClick={onPassLeft}>
           Pass Balcony Number
         </MKButton>
-      </Box>
-      <Box
-        sx={{
-          position: "absolute",
-          bottom: "50px",
-          right: "50px",
-          display: "flex",
-          justifyContent: "space-between",
-        }}
-      >
         <MKButton variant="contained" color="dark" onClick={onPassRight}>
           Pass Consult Number
         </MKButton>

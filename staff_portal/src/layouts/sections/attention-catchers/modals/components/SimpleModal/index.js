@@ -24,6 +24,7 @@ import Slide from "@mui/material/Slide";
 
 // @mui icons
 import CloseIcon from "@mui/icons-material/Close";
+import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 
 // Material Kit 2 React components
 import MKBox from "components/MKBox";
@@ -34,12 +35,25 @@ function SimpleModal() {
   const [show, setShow] = useState(false);
   const toggleModal = () => setShow(!show);
 
+  const [paymentConfirmed, setPaymentConfirmed] = useState(false);
+
+  const handlePayment = () => {
+    alert("Payment Confirmed!");
+    setPaymentConfirmed(true);
+    toggleModal();
+  };
+
   return (
     <MKBox component="section" py={6}>
       <Container>
         <Grid container item xs={12} lg={10} justifyContent="center" mx="auto">
-          <MKButton variant="gradient" color="info" onClick={toggleModal}>
-            Launch Demo Modal
+          <MKButton
+            variant={paymentConfirmed ? "outlined" : "contained"}
+            color={paymentConfirmed ? "success" : "primary"}
+            startIcon={paymentConfirmed ? <CheckCircleOutlineIcon /> : null}
+            onClick={toggleModal}
+          >
+            {paymentConfirmed ? "Paid" : "To Be Paid"}
           </MKButton>
         </Grid>
         <Modal open={show} onClose={toggleModal} sx={{ display: "grid", placeItems: "center" }}>
@@ -54,7 +68,7 @@ function SimpleModal() {
               shadow="xl"
             >
               <MKBox display="flex" alignItems="center" justifyContent="space-between" p={2}>
-                <MKTypography variant="h5">Your modal title</MKTypography>
+                <MKTypography variant="h5">Payment</MKTypography>
                 <CloseIcon fontSize="medium" sx={{ cursor: "pointer" }} onClick={toggleModal} />
               </MKBox>
               <Divider sx={{ my: 0 }} />
@@ -74,8 +88,8 @@ function SimpleModal() {
                 <MKButton variant="gradient" color="dark" onClick={toggleModal}>
                   close
                 </MKButton>
-                <MKButton variant="gradient" color="info">
-                  save changes
+                <MKButton variant="gradient" color="success" onClick={handlePayment}>
+                  Comfirm Payment
                 </MKButton>
               </MKBox>
             </MKBox>

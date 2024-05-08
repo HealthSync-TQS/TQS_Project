@@ -2,14 +2,10 @@ import React, { useState } from "react";
 import { Typography, IconButton, Box } from "@mui/material";
 import PropTypes from "prop-types";
 import CloseIcon from "@mui/icons-material/Close";
-import MKButton from "components/MKButton";
+import SimpleModal from "layouts/sections/attention-catchers/modals/components/SimpleModal";
 
 const SearchResult = ({ data }) => {
   const [isVisible, setIsVisible] = useState(true);
-
-  const handleButtonClick = () => {
-    // Handle button click action
-  };
 
   const handleClose = () => {
     setIsVisible(false);
@@ -27,7 +23,7 @@ const SearchResult = ({ data }) => {
             position: "relative",
             border: "1px solid #e0e0e0",
             borderRadius: "8px",
-            padding: "16px",
+            padding: "10px",
             marginBottom: "16px",
             backgroundColor: "#ffffff",
             boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
@@ -45,17 +41,7 @@ const SearchResult = ({ data }) => {
           <Typography variant="body1">Consult About: {data.consultAbout}</Typography>
           <Typography variant="body2">Doctor: {data.doctorName}</Typography>
           <Typography variant="body2">Date: {data.date}</Typography>
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "flex-end",
-              marginTop: "16px",
-            }}
-          >
-            <MKButton variant="contained" color="primary" onClick={handleButtonClick}>
-              Por Pagar
-            </MKButton>
-          </div>
+          <SimpleModal />
         </Box>
       )}
     </>
