@@ -3,7 +3,7 @@ import { Box, Typography } from "@mui/material";
 import PropTypes from "prop-types";
 import MKButton from "components/MKButton";
 
-const DisplayScreen = ({ nextPerson, onPassLeft, onPassRight }) => {
+const DisplayScreen = ({ balconyNumber, consultNumber, onPassLeft, onPassRight }) => {
   return (
     <Box
       sx={{
@@ -31,11 +31,11 @@ const DisplayScreen = ({ nextPerson, onPassLeft, onPassRight }) => {
         >
           <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
             <Typography variant="subtitle1">Balcony</Typography>
-            <Typography variant="body1">{nextPerson.balconyNumber}</Typography>
-            <Typography variant="body1">{nextPerson.balconyNumber}</Typography>
-            <Typography variant="body1">{nextPerson.balconyNumber}</Typography>
-            <Typography variant="body1">{nextPerson.balconyNumber}</Typography>
-            <Typography variant="body1">{nextPerson.balconyNumber}</Typography>
+            <Typography variant="body1">{balconyNumber}</Typography>
+            <Typography variant="body1">{balconyNumber}</Typography>
+            <Typography variant="body1">{balconyNumber}</Typography>
+            <Typography variant="body1">{balconyNumber}</Typography>
+            <Typography variant="body1">{balconyNumber}</Typography>
           </div>
         </Box>
         <Box
@@ -47,11 +47,11 @@ const DisplayScreen = ({ nextPerson, onPassLeft, onPassRight }) => {
         >
           <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
             <Typography variant="subtitle1">Consult</Typography>
-            <Typography variant="body1">{nextPerson.consultNumber}</Typography>
-            <Typography variant="body1">{nextPerson.consultNumber}</Typography>
-            <Typography variant="body1">{nextPerson.consultNumber}</Typography>
-            <Typography variant="body1">{nextPerson.consultNumber}</Typography>
-            <Typography variant="body1">{nextPerson.consultNumber}</Typography>
+            <Typography variant="body1">{consultNumber}</Typography>
+            <Typography variant="body1">{consultNumber}</Typography>
+            <Typography variant="body1">{consultNumber}</Typography>
+            <Typography variant="body1">{consultNumber}</Typography>
+            <Typography variant="body1">{consultNumber}</Typography>
           </div>
         </Box>
       </Box>
@@ -86,10 +86,8 @@ const DisplayScreen = ({ nextPerson, onPassLeft, onPassRight }) => {
 };
 
 DisplayScreen.propTypes = {
-  nextPerson: PropTypes.shape({
-    balconyNumber: PropTypes.number.isRequired,
-    consultNumber: PropTypes.number.isRequired,
-  }).isRequired,
+  balconyNumber: PropTypes.string.isRequired,
+  consultNumber: PropTypes.string.isRequired,
   onPassLeft: PropTypes.func.isRequired,
   onPassRight: PropTypes.func.isRequired,
 };

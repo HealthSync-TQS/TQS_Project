@@ -1,30 +1,18 @@
-/* eslint-disable no-param-reassign */
-/**
-=========================================================
-* Material Kit 2 React - v2.1.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/material-kit-react
-* Copyright 2023 Creative Tim (https://www.creative-tim.com)
-
-Coded by www.creative-tim.com
-
- =========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-*/
-
-// @mui material components
-import Container from "@mui/material/Container";
-import Grid from "@mui/material/Grid";
-import Icon from "@mui/material/Icon";
-
-// Material Kit 2 React components
+import React, { useState } from "react";
 import MKBox from "components/MKBox";
 import MKInput from "components/MKInput";
 import MKButton from "components/MKButton";
+import PropTypes from "prop-types";
 
-function InputNumUtente() {
+const InputNumUtente = ({ onSearch }) => {
+  const [numUtente, setNumUtente] = useState("");
+  const [id, setId] = useState("");
+
+  const handleSearchClick = () => {
+    // Call the onSearch function with numUtente and id as arguments
+    onSearch(numUtente, id);
+  };
+
   return (
     <MKBox
       component="section"
@@ -33,24 +21,33 @@ function InputNumUtente() {
       alignItems="center"
       py={12}
     >
-      <Container>
-        <Grid container spacing={2}>
-          <Grid item xs={12} lg={4}>
-            <MKInput variant="standard" label="Nº Utente" />
-          </Grid>
-          <Grid item xs={12} lg={4}>
-            <MKInput variant="standard" label="Id Consulta" />
-          </Grid>
-          <Grid item xs={12} lg={4}>
-            <MKButton color="info" size="small">
-              <Icon sx={{ mr: 1 }}>search</Icon>
-              Search
-            </MKButton>
-          </Grid>
-        </Grid>
-      </Container>
+      <div>
+        <MKInput
+          variant="standard"
+          label="Nº Utente"
+          value={numUtente}
+          onChange={(e) => setNumUtente(e.target.value)}
+        />
+      </div>
+      <div>
+        <MKInput
+          variant="standard"
+          label="Id Consulta"
+          value={id}
+          onChange={(e) => setId(e.target.value)}
+        />
+      </div>
+      <div>
+        <MKButton color="info" size="small" onClick={handleSearchClick}>
+          Search
+        </MKButton>
+      </div>
     </MKBox>
   );
-}
+};
+
+InputNumUtente.propTypes = {
+  onSearch: PropTypes.func,
+};
 
 export default InputNumUtente;

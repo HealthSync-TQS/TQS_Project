@@ -26,51 +26,85 @@ import DefaultFooter from "examples/Footers/DefaultFooter";
 import InputNumUtente from "layouts/sections/input-areas/inputs/components/InputNumUtente";
 import SearchResult from "components/SearchResult/SearchResult";
 import DisplayScreen from "components/DisplayScreen/DisplayScreen";
+import { useState } from "react";
 
 // Routes
 import routes from "routes";
 import footerRoutes from "footer.routes";
 
 // Data
-const nextPerson = {
-  balconyNumber: 1,
-  consultNumber: 1,
-};
+const balconyNumber = "A1";
+const consultNumber = "C1";
 
-// Functions
-const handlePassLeft = () => {
-  // Handle pass left action
-};
-
-const handlePassRight = () => {
-  // Handle pass right action
-};
+// Data: Array of consults
+const consults = [
+  {
+    id: 1,
+    patientUtente: "123456",
+    patientName: "John Doe",
+    patientBI: "123456789",
+    consultAbout: "Headache",
+    doctorName: "Dr. Smith",
+    date: "2023-10-01, 10:00 AM",
+  },
+  {
+    id: 2,
+    patientUtente: "987654",
+    patientName: "Jane Doe",
+    patientBI: "987654321",
+    consultAbout: "Fever",
+    doctorName: "Dr. Brown",
+    date: "2023-10-02, 11:00 AM",
+  },
+  // Add more consults as needed
+];
 
 function Presentation() {
+  const [searchResult, setSearchResult] = useState(consults[0]);
+  console.log("Search Results: ", searchResult);
+  console.log("Consult: ", consults[0]);
+
+  // Functions
+  const handlePassLeft = () => {
+    // Handle pass left action
+  };
+
+  const handlePassRight = () => {
+    // Handle pass right action
+  };
+
+  const handleSearch = (numUtente, id) => {
+    // Search for the patient and consult in consults array
+    console.log("Num Utente: ", numUtente);
+    console.log("Id: ", id);
+
+    id = parseInt(id);
+
+    const foundConsult = consults.find(
+      (consult) => consult.id === id && consult.patientUtente === numUtente
+    );
+    console.log("Found Consult: ", foundConsult);
+    setSearchResult(foundConsult);
+    console.log("Search Results: ", searchResult);
+    //flag=true;
+  };
+
   return (
     <>
       <DefaultNavbar routes={routes} sticky />
       <Container>
         <Grid container>
           <Grid item xs={12} lg={4}>
-            <InputNumUtente />
+            <InputNumUtente onSearch={handleSearch} />
           </Grid>
           <Grid item xs={12} lg={12}></Grid>
           <Grid item xs={12} lg={6}>
-            <SearchResult
-              data={{
-                patientName: "John Doe",
-                patientBI: "123456789",
-                consultAbout: "Headache",
-                doctorName: "Dr. Smith",
-                date: "2023-10-01, 10:00 AM",
-              }}
-            />
+            <SearchResult data={searchResult} />
           </Grid>
           <Grid item xs={12} lg={6}>
-            {/* DisplayScreen stays here */}
             <DisplayScreen
-              nextPerson={nextPerson}
+              balconyNumber={balconyNumber}
+              consultNumber={consultNumber}
               onPassLeft={handlePassLeft}
               onPassRight={handlePassRight}
             />

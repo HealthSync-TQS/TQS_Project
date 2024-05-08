@@ -15,6 +15,10 @@ const SearchResult = ({ data }) => {
     setIsVisible(false);
   };
 
+  if (!data) {
+    return <Typography variant="body1"> No search result found. </Typography>;
+  }
+
   return (
     <>
       {isVisible && ( // Render container only if isVisible state is true
