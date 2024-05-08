@@ -29,10 +29,26 @@ import DefaultFooter from "examples/Footers/DefaultFooter";
 import routes from "routes";
 import footerRoutes from "footer.routes";
 
-// Images
+// Imagens
 import bgImage from "assets/images/bgImage.jpg";
 
+// Pacotes de calendário
+import { StaticDatePicker } from "@mui/x-date-pickers/StaticDatePicker";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import TextField from "@mui/material/TextField";
+import dayjs from "dayjs";
+import React, { useState } from "react";
+
 function Schedule() {
+  const [selectedDate, setSelectedDate] = useState(dayjs());
+  const [showDetails, setShowDetails] = useState(false);
+
+  const handleDateChange = (newDate) => {
+    setSelectedDate(newDate);
+    setShowDetails(true); // Mostrar a seção quando uma data é selecionada
+  };
+
   return (
     <>
       <DefaultNavbar routes={routes} />
@@ -99,7 +115,7 @@ function Schedule() {
             }}
           >
             <Grid container spacing={2} alignItems="center">
-              <Grid item xs={12} md={5}>
+              <Grid item xs={12} md={4}>
                 <MKTypography variant="h5" fontWeight="bold" sx={{ textAlign: "left", mb: 2 }}>
                   Detalhes do Utente
                 </MKTypography>
@@ -147,19 +163,35 @@ function Schedule() {
                   </Grid>
                 </Grid>
               </Grid>
-              <Grid item>
+              <Grid item xs={1}>
                 <Divider orientation="vertical" flexItem />
               </Grid>
-              <Grid item xs={12} md={6}>
-                {/* Conteúdo ao lado do divider */}
+              <Grid item xs={12} md={7}>
                 <MKTypography variant="h5" fontWeight="bold" sx={{ textAlign: "left", mb: 2 }}>
                   Selecione uma Data
                 </MKTypography>
                 <Divider sx={{ mb: 3 }} />
-                {/* Conteúdo extra */}
-                <MKTypography variant="body1" color="text">
-                  Adicione aqui informações adicionais sobre o utente ou outras funcionalidades.
-                </MKTypography>
+                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                  <StaticDatePicker
+                    displayStaticWrapperAs="desktop"
+                    orientation="landscape"
+                    value={selectedDate}
+                    onChange={handleDateChange}
+                    renderInput={(params) => <TextField {...params} />}
+                  />
+                </LocalizationProvider>
+                {showDetails && (
+                  <MKBox mt={2} sx={{ textAlign: "left" }}>
+                    <Divider sx={{ mb: 3 }} />
+                    <MKTypography variant="h5" fontWeight="bold" mb={2}>
+                      Detalhes da Consulta
+                    </MKTypography>
+                    <MKTypography variant="body1">
+                      Data Selecionada: {selectedDate.format("DD/MM/YYYY")}
+                    </MKTypography>
+                    {/* Adicionar aqui mais detalhes relevantes */}
+                  </MKBox>
+                )}
               </Grid>
             </Grid>
           </Card>
