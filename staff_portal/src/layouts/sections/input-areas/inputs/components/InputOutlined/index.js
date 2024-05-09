@@ -26,8 +26,8 @@ function InputOutlined() {
   return (
     <MKBox component="section" py={12}>
       <Container>
-        <Grid container item xs={12} lg={4} py={1} mx="auto">
-          <MKInput label="Outline" fullWidth />
+        <Grid container item xs={12} lg={6} py={1} mx="auto">
+          <MKInput label="Choose your balcony number" fullWidth />
         </Grid>
       </Container>
     </MKBox>

@@ -1,9 +1,10 @@
 import React from "react";
 import { Box, Typography } from "@mui/material";
 import PropTypes from "prop-types";
-import MKButton from "components/MKButton";
+import BalconyModal from "layouts/sections/attention-catchers/modals/components/BalconyModal";
+import ConsultModal from "layouts/sections/attention-catchers/modals/components/ConsultModal";
 
-const DisplayScreen = ({ balconyNumber, consultNumber, onPassLeft, onPassRight }) => {
+const DisplayScreen = ({ balconyNumber, consultNumber }) => {
   return (
     <Box
       sx={{
@@ -49,7 +50,7 @@ const DisplayScreen = ({ balconyNumber, consultNumber, onPassLeft, onPassRight }
           }}
         >
           <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-            <Typography variant="subtitle1">Consult</Typography>
+            <Typography variant="subtitle1">Clinic</Typography>
             <Typography variant="body1">{consultNumber}</Typography>
             <Typography variant="body1">{consultNumber}</Typography>
             <Typography variant="body1">{consultNumber}</Typography>
@@ -67,12 +68,8 @@ const DisplayScreen = ({ balconyNumber, consultNumber, onPassLeft, onPassRight }
           marginBottom: "16px",
         }}
       >
-        <MKButton variant="contained" color="dark" onClick={onPassLeft}>
-          Pass Balcony Number
-        </MKButton>
-        <MKButton variant="contained" color="dark" onClick={onPassRight}>
-          Pass Consult Number
-        </MKButton>
+        <BalconyModal />
+        <ConsultModal />
       </Box>
     </Box>
   );

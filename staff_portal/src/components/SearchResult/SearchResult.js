@@ -37,8 +37,8 @@ const SearchResult = ({ data }) => {
           </IconButton>
           <Typography variant="h6">Consult Details</Typography>
           <Typography variant="subtitle1">Patient: {data.patientName}</Typography>
-          <Typography variant="subtitle2">Patient BI: {data.patientBI}</Typography>
-          <Typography variant="body1">Consult About: {data.consultAbout}</Typography>
+          <Typography variant="subtitle2">Patient NºUtente: {data.patientUtente}</Typography>
+          <Typography variant="body1">Speciality: {data.speciality}</Typography>
           <Typography variant="body2">Doctor: {data.doctorName}</Typography>
           <Typography variant="body2">Date: {data.date}</Typography>
           <SimpleModal />
@@ -51,8 +51,8 @@ const SearchResult = ({ data }) => {
 SearchResult.propTypes = {
   data: PropTypes.shape({
     patientName: PropTypes.string.isRequired,
-    patientBI: PropTypes.string.isRequired,
-    consultAbout: PropTypes.string.isRequired,
+    patientUtente: PropTypes.string.isRequired,
+    speciality: PropTypes.string.isRequired,
     doctorName: PropTypes.string.isRequired,
     date: PropTypes.string.isRequired,
   }).isRequired,

@@ -42,7 +42,7 @@ const consults = [
     patientUtente: "123456",
     patientName: "John Doe",
     patientBI: "123456789",
-    consultAbout: "Headache",
+    speciality: "Cardiology",
     doctorName: "Dr. Smith",
     date: "2023-10-01, 10:00 AM",
   },
@@ -51,7 +51,7 @@ const consults = [
     patientUtente: "987654",
     patientName: "Jane Doe",
     patientBI: "987654321",
-    consultAbout: "Fever",
+    speciality: "Dermatology",
     doctorName: "Dr. Brown",
     date: "2023-10-02, 11:00 AM",
   },
@@ -62,15 +62,6 @@ function Presentation() {
   const [searchResult, setSearchResult] = useState(consults[0]);
   console.log("Search Results: ", searchResult);
   console.log("Consult: ", consults[0]);
-
-  // Functions
-  const handlePassLeft = () => {
-    // Handle pass left action
-  };
-
-  const handlePassRight = () => {
-    // Handle pass right action
-  };
 
   const handleSearch = (numUtente, id) => {
     // Search for the patient and consult in consults array
@@ -97,12 +88,7 @@ function Presentation() {
             <SearchResult data={searchResult} />
           </Grid>
           <Grid item xs={12} lg={6}>
-            <DisplayScreen
-              balconyNumber={balconyNumber}
-              consultNumber={consultNumber}
-              onPassLeft={handlePassLeft}
-              onPassRight={handlePassRight}
-            />
+            <DisplayScreen balconyNumber={balconyNumber} consultNumber={consultNumber} />
           </Grid>
         </Grid>
       </Container>
