@@ -1,0 +1,161 @@
+{
+  "collections": [
+    {
+      "id": "1",
+      "name": "Vinyl",
+      "img": "https://d33byq9npfy6u9.cloudfront.net/4/2022/08/01154625/coverstory_Memphis-Record-Pressing_46A3878.jpg",
+      "description": "vinyl records",
+      "items": [
+        {
+          "id": "1",
+          "name": "The Beatles – Abbey Road",
+          "img": "https://static.dw.com/image/39219505_6.jpg",
+          "description": "we all live in the yellow submarine",
+          "tags": [
+            "Drawer 2",
+            "Giro",
+            "Beatles",
+            "booga",
+            "1968"
+          ]
+        },
+        {
+          "id": "2",
+          "name": "Songs About Jane - Marron Five",
+          "img": "https://i.scdn.co/image/ab67616d0000b27317b3850d758fff5a2301e537",
+          "description": "Songs About Jane is the debut studio album by American pop rock band Maroon 5. The album was released on June 25, 2002, by Octone and J Records. It became a sleeper hit with the help of five singles that attained chart success, including Harder to Breathe, This Love, and She Will Be Loved. ",
+          "tags": [
+            "Drawer 3",
+            "Infacia",
+            "Marron Five",
+            "Jazus",
+            "Da pinta",
+            "yes",
+            "2003"
+          ]
+        },
+        {
+          "id": "3",
+          "name": "Pink Floyd – Dark Side of the Moon",
+          "img": "https://cdn.europosters.eu/image/750/telas-pink-floyd-dark-side-of-the-moon-i111439.jpg",
+          "description": "we all live in the yellow submarine",
+          "tags": [
+            "Drawer 2",
+            "Giro",
+            "Beatles",
+            "booga",
+            "submarino",
+            "yelow",
+            "1968"
+          ]
+        },
+        {
+          "id": "4",
+          "name": "Bob Marley & the Wailers – Legend",
+          "img": "https://dailyreview.com.au/wp-content/uploads/2015/11/Bobweb-Marley-And-The-Wailers-Live-At-The-Lyceum-Front-Cover-4260.jpg",
+          "description": "we all live in the yellow submarine",
+          "tags": [
+            "Drawer 2",
+            "Giro",
+            "Beatles",
+            "booga",
+            "submarino",
+            "yelow",
+            "1968"
+          ]
+        },
+        {
+          "id": "5",
+          "name": "Amy Winehouse – Back to Black",
+          "img": "https://upload.wikimedia.org/wikipedia/pt/9/93/Capa_de_Back_to_Black.jpg",
+          "description": "",
+          "tags": [
+            
+          ]
+        },
+        {
+          "id": "6",
+          "name": "Michael Jackson – Thriller",
+          "img": "https://i.ytimg.com/vi/ZEHsIcsjtdI/hqdefault.jpg",
+          "description": "",
+          "tags": [
+            
+          ]
+        },
+        {
+          "id": "7",
+          "name": "Lana Del Rey – Born to Die",
+          "img": "https://upload.wikimedia.org/wikipedia/pt/4/47/LanaDelRey_BornToDie.jpg",
+          "description": "",
+          "tags": [
+            
+          ]
+        },
+        {
+          "id": "8",
+          "name": "Miles Davis – Kind of Blue",
+          "img": "https://macdndev.azureedge.net/genesis-temp/5/4/9/5/7/4/549574beb034dcbaefb07a951354cee748b2ff9f.jpg",
+          "description": "",
+          "tags": [
+            
+          ]
+        },
+        {
+          "id": "9",
+          "name": "Yellow Submarine - The Beatles",
+          "img": "https://cdn.shopify.com/s/files/1/0308/8852/5956/products/24_4_21_3_42pmMicrosoftLens272_1600x.jpg?v=1620115681",
+          "description": "we all live in the yellow submarine",
+          "tags": [
+            "Drawer 2",
+            "Giro",
+            "Beatles",
+            "booga",
+            "submarino",
+            "yelow",
+            "1968"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "2",
+      "name": "Caps",
+      "img": "https://cdn.lojasonlinectt.pt/usercontent/grilokitchenware/media/images/9a98e5b-caricas-capsulas-garrafas-metal-grilo-kitchenware.jpg",
+      "description": "A minha colecao canina. Uns doceis outros bravos mas todos estao no meu coracon",
+      "tags": [],
+      "items": []
+    },
+    {
+      "id": "3",
+      "name": "Cars",
+      "img": "https://media.wired.com/photos/5926c2f38d4ebc5ab806b65e/master/w_2560%2Cc_limit/HotwheelsTA.jpg",
+      "description": "A minha colecao canina. Uns doceis outros bravos mas todos estao no meu coracon",
+      "tags": [],
+      "items": []
+    },
+    {
+      "id": "4",
+      "name": "Stamps",
+      "img": "https://cdn.e-konomista.pt/uploads/2019/07/1-colecionador-selos-850x514.jpg",
+      "description": "A minha colecao canina. Uns doceis outros bravos mas todos estao no meu coracon",
+      "tags": [],
+      "items": []
+    },
+    {
+      "id": "5",
+      "name": "Action Figure",
+      "img": "https://images-americanas.b2w.io/produtos/4811075188/imagens/naruto-combo-completo-12-pecas-miniaturas-colecionaveis/4811075196_1_large.jpg",
+      "description": "A minha colecao canina. Uns doceis outros bravos mas todos estao no meu coracon",
+      "tags": [],
+      "items": []
+    },
+    {
+      "id": "6",
+      "name": "Sneakers",
+      "img": "https://www.fashionbubbles.com/files/2009/04/colecao-sneakers-2.jpg",
+      "description": "A minha colecao canina. Uns doceis outros bravos mas todos estao no meu coracon",
+      "tags": [],
+      "items": []
+    }
+  ]
+}
