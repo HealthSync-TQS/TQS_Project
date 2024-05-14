@@ -39,12 +39,12 @@ services:
     ports:
       - "8080:8080"
 
-  customer:
-    build: ./customer_portal
-    depends_on:
-      - backend
-    ports:
-      - "3030:3030"
+#  customer:
+#    build: ./customer_portal
+#    depends_on:
+#      - backend
+#    ports:
+#      - "3030:3030"
 
   staff:
     build: ./staff_portal
