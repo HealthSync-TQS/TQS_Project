@@ -1,4 +1,4 @@
-package project.backend.unit;
+package project.backend.unit.entity;
 
 import org.junit.jupiter.api.Test;
 import project.backend.entity.Patient;

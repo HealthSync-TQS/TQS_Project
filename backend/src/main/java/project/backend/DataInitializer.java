@@ -49,6 +49,8 @@ public class DataInitializer implements CommandLineRunner {
         appointmentService.addAppointment(appointment3);
         appointmentService.addAppointment(appointment4);
         appointmentService.setPatient(appointment5, patient1.getNumUtente());
+        appointmentService.addAppointment(appointment5);
+
 
         logger.info("Appointment: " + appointment1.getId());
     }

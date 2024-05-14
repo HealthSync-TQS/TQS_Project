@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.util.Date;
+import java.util.Objects;
 
 @Entity
 @Table(name = "appointment")
@@ -53,52 +54,24 @@ public class Appointment {
         this.doctorName = doctorName;
     }
 
-    // Getters and Setters
-    public Patient getPatient() {
-        return patient;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Appointment that = (Appointment) o;
+        return Objects.equals(id, that.id) &&
+                Objects.equals(patient, that.patient) &&
+                Objects.equals(date, that.date) &&
+                Objects.equals(doctorName, that.doctorName) &&
+                Objects.equals(price, that.price) &&
+                Objects.equals(medicalSpecialty, that.medicalSpecialty);
     }
 
-    public Long getId() {
-        return id;
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, patient, date, doctorName, price, medicalSpecialty);
     }
 
-    public Date getDate() {
-        return date;
-    }
 
-    public double getPrice() {
-        return price;
-    }
 
-    public String getMedicalSpecialty() {
-        return medicalSpecialty;
-    }
-
-    public String getDoctorName() {
-        return doctorName;
-    }
-
-    public void setPatient(Patient patient) {
-        this.patient = patient;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
-    }
-
-    public void setPrice(double price) {
-        this.price = price;
-    }
-
-    public void setMedicalSpecialty(String medicalSpecialty) {
-        this.medicalSpecialty = medicalSpecialty;
-    }
-
-    public void setDoctorName(String doctorName) {
-        this.doctorName = doctorName;
-    }
 }
