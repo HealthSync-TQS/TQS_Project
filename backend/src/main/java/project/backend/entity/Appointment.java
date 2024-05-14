@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.util.Date;
+import java.util.Objects;
 
 @Entity
 @Table(name = "appointment")
@@ -53,6 +54,23 @@ public class Appointment {
         this.doctorName = doctorName;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Appointment that = (Appointment) o;
+        return Objects.equals(id, that.id) &&
+                Objects.equals(patient, that.patient) &&
+                Objects.equals(date, that.date) &&
+                Objects.equals(doctorName, that.doctorName) &&
+                Objects.equals(price, that.price) &&
+                Objects.equals(medicalSpecialty, that.medicalSpecialty);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, patient, date, doctorName, price, medicalSpecialty);
+    }
 
 
 

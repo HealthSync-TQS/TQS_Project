@@ -26,59 +26,95 @@ public class TicketController {
 
     @PostMapping("/newTicket")
     public ResponseEntity<String> newTicket() {
-        String newTicket = String.format("%03d", nextCheckInTickets.size() + pastTickets.size() + 1);
-        nextCheckInTickets.add(newTicket);
-        notifyBoard();
-        return ResponseEntity.ok(newTicket);
+        try {
+            String newTicket = String.format("%03d", nextCheckInTickets.size() + pastTickets.size() + 1);
+            nextCheckInTickets.add(newTicket);
+            notifyBoard();
+            return ResponseEntity.ok(newTicket);
+        }
+        catch (Exception e) {
+            return ResponseEntity.badRequest().body("Error creating ticket");
+        }
     }
 
     @PostMapping("/newAppointmentTicket")
     public ResponseEntity<String> newAppointmentTicket(@RequestParam("specialty") String specialty) {
-        String newTicket = Character.toUpperCase(specialty.charAt(0)) + String.format("%03d", nextAppointmentsTickets.size() + 1);
-        nextAppointmentsTickets.add(newTicket);
-        notifyBoard();
-        return ResponseEntity.ok(newTicket);
+        try {
+            String newTicket = Character.toUpperCase(specialty.charAt(0)) + String.format("%03d", nextAppointmentsTickets.size() + 1);
+            nextAppointmentsTickets.add(newTicket);
+            notifyBoard();
+            return ResponseEntity.ok(newTicket);
+        }
+        catch (Exception e) {
+            return ResponseEntity.badRequest().body("Error creating ticket");
+        }
     }
 
     @GetMapping("/nextCheckInTicket")
     public ResponseEntity<String> getNextCheckInTicket(@RequestParam("balcony") String balcony) {
-        if (!nextCheckInTickets.isEmpty()) {
-            String nextTicket = nextCheckInTickets.get(0);
-            nextCheckInTickets.remove(0);
-            pastTickets.put(nextTicket, balcony);
-            notifyBoard();
-            return ResponseEntity.ok(nextTicket + " balcony=" + balcony);
-        } else {
+        try {
+            if (!nextCheckInTickets.isEmpty()) {
+                String nextTicket = nextCheckInTickets.get(0);
+                nextCheckInTickets.remove(0);
+                pastTickets.put(nextTicket, balcony);
+                notifyBoard();
+                return ResponseEntity.ok(nextTicket + " balcony=" + balcony);
+            }
             return ResponseEntity.ok("empty");
+
+        }
+        catch (Exception e) {
+            return ResponseEntity.badRequest().body("Error getting ticket");
         }
     }
 
     @GetMapping("/nextAppointmentTicket")
     public ResponseEntity<String> getNextTicket(@RequestParam("clinic") String clinic) {
-        if (!nextAppointmentsTickets.isEmpty()) {
-            String nextTicket = nextAppointmentsTickets.get(0);
-            nextAppointmentsTickets.remove(0);
-            pastTickets.put(nextTicket, clinic);
-            notifyBoard();
-            return ResponseEntity.ok(nextTicket + " clinic=" + clinic);
-        } else {
+        try {
+            if (!nextAppointmentsTickets.isEmpty()) {
+                String nextTicket = nextAppointmentsTickets.get(0);
+                nextAppointmentsTickets.remove(0);
+                pastTickets.put(nextTicket, clinic);
+                notifyBoard();
+                return ResponseEntity.ok(nextTicket + " clinic=" + clinic);
+            }
+
             return ResponseEntity.ok("empty");
+
+        }
+        catch (Exception e) {
+            return ResponseEntity.badRequest().body("Error getting ticket");
         }
     }
 
     @GetMapping("/CheckInNotCalled")
     public ResponseEntity<List<String>> getCheckInNotCalled() {
-        return ResponseEntity.ok(nextCheckInTickets);
+        try {
+            return ResponseEntity.ok(nextCheckInTickets);
+        }
+        catch (Exception e) {
+            return ResponseEntity.badRequest().body(new ArrayList<>());
+        }
     }
 
     @GetMapping("/AppointmentsNotCalled")
     public ResponseEntity<List<String>> getAppointmentsotCalled() {
-        return ResponseEntity.ok(nextAppointmentsTickets);
+        try {
+            return ResponseEntity.ok(nextAppointmentsTickets);
+        }
+        catch (Exception e) {
+            return ResponseEntity.badRequest().body(new ArrayList<>());
+        }
     }
 
     @GetMapping("/called")
     public ResponseEntity<Map<String,String>> getCalledQueue() {
-        return ResponseEntity.ok(pastTickets);
+        try {
+            return ResponseEntity.ok(pastTickets);
+        }
+        catch (Exception e) {
+            return ResponseEntity.badRequest().body(new HashMap<>());
+        }
     }
 
     private void notifyBoard() {
