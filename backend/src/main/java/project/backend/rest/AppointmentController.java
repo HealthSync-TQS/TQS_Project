@@ -73,10 +73,11 @@ public class AppointmentController {
     }
 
     @GetMapping("/appointments/{appointmentId}")
-    public ResponseEntity<Appointment> getAppointmentById(@PathVariable Long appointmentId) {
+    public ResponseEntity<Appointment> getAppointmentById(@PathVariable Integer appointmentId) {
         try {
-            logger.info("Appointment Fetched: " + appointmentService.getAppointmentById(appointmentId));
-            return ResponseEntity.status(HttpStatus.OK).body(appointmentService.getAppointmentById(appointmentId));
+            long appointmentId1 = Long.parseLong(appointmentId.toString());
+            logger.info("Appointment Fetched: " + appointmentService.getAppointmentById(appointmentId1));
+            return ResponseEntity.status(HttpStatus.OK).body(appointmentService.getAppointmentById(appointmentId1));
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
