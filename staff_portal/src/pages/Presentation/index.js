@@ -31,6 +31,9 @@ import { useState } from "react";
 import routes from "routes";
 import footerRoutes from "footer.routes";
 
+// imports
+import axios from "axios";
+
 // Data
 const balconyNumber = "A1";
 const consultNumber = "C1";
@@ -70,12 +73,18 @@ function Presentation() {
 
     id = parseInt(id);
 
-    const foundConsult = consults.find(
-      (consult) => consult.id === id && consult.patientUtente === numUtente
-    );
-    console.log("Found Consult: ", foundConsult);
-    setSearchResult(foundConsult);
-    console.log("Search Results: ", searchResult);
+    // fetch consults from the database
+    axios.get(`http://localhost:8080/appointments/${id}`).then((response) => {
+      console.log("Consult Found: ", response.data);
+      setSearchResult(response.data);
+    });
+
+    // const foundConsult = consults.find(
+    //   (consult) => consult.id === id && consult.patientUtente === numUtente
+    // );
+    // console.log("Found Consult: ", foundConsult);
+    // setSearchResult(foundConsult);
+    // console.log("Search Results: ", searchResult);
   };
 
   return (
