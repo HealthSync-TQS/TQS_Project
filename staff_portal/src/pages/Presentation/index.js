@@ -72,9 +72,10 @@ function Presentation() {
     console.log("Id: ", id);
 
     id = parseInt(id);
+    const longId = BigInt(id);
 
     // fetch consults from the database
-    axios.get(`http://localhost:8080/appointments/${id}`).then((response) => {
+    axios.get(`http://localhost:8080/appointments/${longId}`).then((response) => {
       console.log("Consult Found: ", response.data);
       setSearchResult(response.data);
     });

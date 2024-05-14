@@ -36,11 +36,12 @@ const SearchResult = ({ data }) => {
             <CloseIcon />
           </IconButton>
           <Typography variant="h6">Consult Details</Typography>
-          <Typography variant="subtitle1">Patient: {data.patientName}</Typography>
-          <Typography variant="subtitle2">Patient NºUtente: {data.patientUtente}</Typography>
-          <Typography variant="body1">Speciality: {data.speciality}</Typography>
+          <Typography variant="subtitle1">Patient: {data.patient.name}</Typography>
+          <Typography variant="subtitle2">Patient NºUtente: {data.patient.numUtente}</Typography>
+          <Typography variant="body1">Speciality: {data.medicalSpecialty}</Typography>
           <Typography variant="body2">Doctor: {data.doctorName}</Typography>
           <Typography variant="body2">Date: {data.date}</Typography>
+          <Typography variant="body2">Price: {data.price} €</Typography>
           <SimpleModal />
         </Box>
       )}
@@ -50,11 +51,14 @@ const SearchResult = ({ data }) => {
 
 SearchResult.propTypes = {
   data: PropTypes.shape({
-    patientName: PropTypes.string.isRequired,
-    patientUtente: PropTypes.string.isRequired,
-    speciality: PropTypes.string.isRequired,
+    patient: PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      numUtente: PropTypes.number.isRequired,
+    }).isRequired,
+    medicalSpecialty: PropTypes.string.isRequired,
     doctorName: PropTypes.string.isRequired,
     date: PropTypes.string.isRequired,
+    price: PropTypes.number.isRequired,
   }).isRequired,
 };
 
