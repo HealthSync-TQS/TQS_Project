@@ -53,7 +53,52 @@ public class Appointment {
         this.doctorName = doctorName;
     }
 
+    // Getters and Setters
+    public Patient getPatient() {
+        return patient;
+    }
 
+    public Long getId() {
+        return id;
+    }
 
+    public Date getDate() {
+        return date;
+    }
 
+    public double getPrice() {
+        return price;
+    }
+
+    public String getMedicalSpecialty() {
+        return medicalSpecialty;
+    }
+
+    public String getDoctorName() {
+        return doctorName;
+    }
+
+    public void setPatient(Patient patient) {
+        this.patient = patient;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+    public void setMedicalSpecialty(String medicalSpecialty) {
+        this.medicalSpecialty = medicalSpecialty;
+    }
+
+    public void setDoctorName(String doctorName) {
+        this.doctorName = doctorName;
+    }
 }

@@ -11,6 +11,7 @@ import project.backend.service.AppointmentService;
 import project.backend.service.PatientService;
 
 import java.util.Date;
+import java.util.logging.Logger;
 
 @Component
 public class DataInitializer implements CommandLineRunner {
@@ -18,6 +19,8 @@ public class DataInitializer implements CommandLineRunner {
     private final PatientService patientService;
 
     private final AppointmentService appointmentService;
+
+    private static final Logger logger = Logger.getLogger(DataInitializer.class.getName());
 
     @Autowired
     public DataInitializer(PatientService patientService, AppointmentService appointmentService) {
@@ -47,9 +50,6 @@ public class DataInitializer implements CommandLineRunner {
         appointmentService.addAppointment(appointment4);
         appointmentService.setPatient(appointment5, patient1.getNumUtente());
 
-
-
-
-
+        logger.info("Appointment: " + appointment1.getId());
     }
 }

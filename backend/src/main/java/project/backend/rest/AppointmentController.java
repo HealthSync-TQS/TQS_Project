@@ -12,11 +12,15 @@ import project.backend.service.PatientService;
 
 import java.util.List;
 
+import java.util.logging.Logger;
+
 @RestController
 public class AppointmentController {
 
     private final AppointmentService appointmentService;
     private final PatientService patientService;
+
+    private static final Logger logger = Logger.getLogger(AppointmentController.class.getName());
 
     @Autowired
     public AppointmentController(AppointmentService appointmentService, PatientService patientService) {
@@ -68,7 +72,13 @@ public class AppointmentController {
         }
     }
 
-
-
-
+    @GetMapping("/appointments/{appointmentId}")
+    public ResponseEntity<Appointment> getAppointmentById(@PathVariable Long appointmentId) {
+        try {
+            logger.info("Appointment Fetched: " + appointmentService.getAppointmentById(appointmentId));
+            return ResponseEntity.status(HttpStatus.OK).body(appointmentService.getAppointmentById(appointmentId));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+    }
 }
