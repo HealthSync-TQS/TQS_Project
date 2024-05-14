@@ -44,18 +44,18 @@ services:
 #    depends_on:
 #      - backend
 #    ports:
-#      - "3030:3030"
+#      - "3000:3000"
 
- # staff:
- #   build: ./staff_portal
- #   depends_on:
- #     - backend
-  #  ports:
-  #    - "3031:3031"
+  staff:
+    build: ./staff_portal
+    depends_on:
+      - backend
+    ports:
+      - "3001:3001"
 
   board:
     build: ./board
     depends_on:
       - backend
     ports:
-      - "3000:3000"
+      - "3002:3002"
