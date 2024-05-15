@@ -9,6 +9,9 @@ import project.backend.repository.AppointmentRepo;
 import project.backend.repository.PatientRepo;
 import project.backend.service.AppointmentService;
 
+import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -58,5 +61,16 @@ public class AppointmentServiceImpl implements AppointmentService {
     @Override
     public Appointment getAppointmentById(Long id) {
         return appointmentRepo.findById(id).orElse(null);
+    }
+
+    @Override
+    public List<LocalTime> getAvailableTimes(Date date, String medicalSpeciality, String healthcareUnit) {
+        List<Appointment> appointments = appointmentRepo.findByPatientIsNullAndDateAndMedicalSpecialityAndHealthcareUnit(date, medicalSpeciality, healthcareUnit);
+        List<LocalTime> availableTimes = new ArrayList<LocalTime>();
+        for (Appointment appointment : appointments) {
+            LocalTime time = appointment.getTime();
+            availableTimes.add(time);
+        }
+        return availableTimes;
     }
 }

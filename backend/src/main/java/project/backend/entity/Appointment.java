@@ -29,8 +29,8 @@ public class Appointment {
     @Column(name="price")
     private double price;
 
-    @Column(name = "medical_specialty")
-    private String medicalSpecialty;
+    @Column(name = "medical_speciality")
+    private String medicalSpeciality;
 
     @Column(name = "doctor_name")
     private String doctorName;
@@ -44,21 +44,21 @@ public class Appointment {
     public Appointment() {
     }
 
-    public Appointment(Patient patient, Date date, String medicalSpecialty, String doctorName, String healthcareUnit, LocalTime time, double price) {
+    public Appointment(Patient patient, Date date, String medicalSpeciality, String doctorName, String healthcareUnit, LocalTime time, double price) {
         this.patient = patient;
         this.date = date;
         this.price = price;
-        this.medicalSpecialty = medicalSpecialty;
+        this.medicalSpeciality = medicalSpeciality;
         this.doctorName = doctorName;
         this.healthcareUnit = healthcareUnit;
         this.time = time;
     }
 
-    public Appointment(Date date, String medicalSpecialty, String doctorName, String healthcareUnit, LocalTime time, double price) {
+    public Appointment(Date date, String medicalSpeciality, String doctorName, String healthcareUnit, LocalTime time, double price) {
         this.patient = null;
         this.date = date;
         this.price = price;
-        this.medicalSpecialty = medicalSpecialty;
+        this.medicalSpeciality = medicalSpeciality;
         this.doctorName = doctorName;
         this.healthcareUnit = healthcareUnit;
         this.time = time;
