@@ -10,6 +10,7 @@ import project.backend.repository.PatientRepo;
 import project.backend.service.AppointmentService;
 import project.backend.service.PatientService;
 
+import java.time.LocalTime;
 import java.util.Date;
 import java.util.logging.Logger;
 
@@ -39,19 +40,20 @@ public class DataInitializer implements CommandLineRunner {
         patientService.addPatient(patient1);
         patientService.addPatient(patient2);
 
-        Appointment appointment1 = new Appointment(patient1, new Date(), "Cardiology", "Dr. Smith", 100.0);
-        Appointment appointment2 = new Appointment(patient2, new Date(), "Dermatology", "Dr. Johnson", 150.0);
-        Appointment appointment3 = new Appointment(new Date(124, 10, 12), "Cardiology", "Dr. Smith", 100.0);
-        Appointment appointment4 = new Appointment(new Date(124, 10, 12), "Dermatology", "Dr. Johnson", 150.0);
-        Appointment appointment5 = new Appointment(new Date(124, 5, 2), "Cardiology", "Dr. Smith", 100.0);
+        Appointment appointment1 = new Appointment(patient1, new Date(), "Cardiology", "Dr. Smith", "Centro de Saude Delta",  LocalTime.now(), 100.0, false);
+        Appointment appointment2 = new Appointment(patient2, new Date(), "Dermatology", "Dr. Johnson", "USF Gama",  LocalTime.now(), 150.0, true);
+        Appointment appointment3 = new Appointment(new Date(124, 10, 12), "Cardiology", "Dr. Smith", "USF Gama", LocalTime.now(), 100.0);
+        Appointment appointment4 = new Appointment(new Date(124, 10, 12), "Dermatology", "Dr. Johnson", "Centro de Saude Delta", LocalTime.now(),150.0);
+        Appointment appointment5 = new Appointment(new Date(124, 5, 2), "Cardiology", "Dr. Smith", "USF Gama ", LocalTime.now(), 100.0);
         appointmentService.addAppointment(appointment1);
         appointmentService.addAppointment(appointment2);
         appointmentService.addAppointment(appointment3);
         appointmentService.addAppointment(appointment4);
         appointmentService.setPatient(appointment5, patient1.getNumUtente());
-        appointmentService.addAppointment(appointment5);
 
 
-        logger.info("Appointment: " + appointment1.getId());
+
+
+
     }
 }

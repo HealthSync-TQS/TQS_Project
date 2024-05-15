@@ -15,6 +15,7 @@ import project.backend.repository.PatientRepo;
 import project.backend.service.AppointmentService;
 import project.backend.service.impl.AppointmentServiceImpl;
 
+import java.time.LocalTime;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -41,7 +42,7 @@ public class AppointmentServiceTest {
     @Test
     public void addAppointmentWithPatientTest() {
         Patient patient = new Patient(123, "John Doe", "john@example.com");
-        Appointment appointment = new Appointment(patient, new Date(), "Cardiology", "Dr. Smith", 100.0);
+        Appointment appointment = new Appointment(patient, new Date(), "Cardiology", "Dr. Smith", "Centro de Saude Delta",  LocalTime.now(), 100.0, false);
         when(appointmentRepo.save(appointment)).thenReturn(appointment);
 
         Appointment addedAppointment = appointmentService.addAppointment(appointment);
@@ -54,7 +55,7 @@ public class AppointmentServiceTest {
 
     @Test
     public void addAppointmentWithoutPatientTest() {
-        Appointment appointment = new Appointment(new Date(), "Cardiology", "Dr. Smith", 100.0);
+        Appointment appointment = new Appointment(new Date(124, 10, 12), "Cardiology", "Dr. Smith", "USF Gama", LocalTime.now(), 100.0);
         when(appointmentRepo.save(appointment)).thenReturn(appointment);
 
         Appointment addedAppointment = appointmentService.addAppointment(appointment);
@@ -69,7 +70,7 @@ public class AppointmentServiceTest {
     @Test
     public void setPatientTest() {
         Patient patient = new Patient(123456789, "John Doe", "john@example.com");
-        Appointment appointment = new Appointment(new Date(), "Cardiology", "Dr. Smith", 100.0);
+        Appointment appointment = new Appointment(new Date(124, 10, 12), "Cardiology", "Dr. Smith", "USF Gama", LocalTime.now(), 100.0);
         when(patientRepo.findById(123456789)).thenReturn(Optional.of(patient));
         when(appointmentRepo.save(appointment)).thenReturn(appointment);
 
@@ -83,7 +84,7 @@ public class AppointmentServiceTest {
     @Test
     public void setPatientNotFoundTest() {
         int patientId = 123;
-        Appointment appointment = new Appointment(new Date(), "Cardiology", "Dr. Smith", 100.0);
+        Appointment appointment = new Appointment(new Date(124, 10, 12), "Cardiology", "Dr. Smith", "USF Gama", LocalTime.now(), 100.0);
         when(patientRepo.findById(patientId)).thenReturn(Optional.empty());
 
         Appointment updatedAppointment = appointmentService.setPatient(appointment, patientId);
@@ -93,11 +94,12 @@ public class AppointmentServiceTest {
         verify(appointmentRepo, times(1)).save(appointment);
     }
 
+
     @Test
     public void getAllAppointmentsTest() {
         List<Appointment> appointments = Arrays.asList(
-                new Appointment(new Date(), "Cardiology", "Dr. Smith", 100.0),
-                new Appointment(new Date(), "Neurology", "Dr. Brown", 200.0)
+                new Appointment(new Date(124, 10, 12), "Cardiology", "Dr. Smith", "USF Gama", LocalTime.now(), 100.0),
+                new Appointment(new Date(124, 10, 12), "Dermatology", "Dr. Johnson", "Centro de Saude Delta", LocalTime.now(),150.0)
         );
         when(appointmentRepo.findAll()).thenReturn(appointments);
 
@@ -110,10 +112,9 @@ public class AppointmentServiceTest {
     @Test
     public void getAppointmentsWithoutPatientTest() {
         List<Appointment> appointments = Arrays.asList(
-                new Appointment(new Date(), "Cardiology", "Dr. Smith", 100.0),
-                new Appointment(new Date(), "Neurology", "Dr. Brown", 200.0)
-
-        );
+                new Appointment(new Date(124, 10, 12), "Cardiology", "Dr. Smith", "USF Gama", LocalTime.now(), 100.0),
+                new Appointment(new Date(124, 10, 12), "Dermatology", "Dr. Johnson", "Centro de Saude Delta", LocalTime.now(),150.0)
+                );
         when(appointmentRepo.findByPatientIsNull()).thenReturn(appointments);
 
         List<Appointment> result = appointmentService.getAppointmentsWithoutPatient();
@@ -125,7 +126,7 @@ public class AppointmentServiceTest {
     @Test
     public void getAppointmentByIdTest() {
         Long appointmentId = 1L;
-        Appointment appointment = new Appointment(null, new Date(), "Cardiology", "Dr. Smith", 100.0);
+        Appointment appointment = new Appointment(new Date(124, 10, 12), "Dermatology", "Dr. Johnson", "Centro de Saude Delta", LocalTime.now(),150.0);
         when(appointmentRepo.findById(appointmentId)).thenReturn(Optional.of(appointment));
 
         Appointment result = appointmentService.getAppointmentById(appointmentId);

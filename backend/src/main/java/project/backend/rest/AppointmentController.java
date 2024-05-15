@@ -91,4 +91,24 @@ public class AppointmentController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
     }
+
+    @PutMapping("/appointment/setPaymentDone")
+    public ResponseEntity<Appointment> setPayment(@RequestParam Long appointmentId) {
+        try {
+            return ResponseEntity.status(HttpStatus.OK).body(appointmentService.updatePayment(appointmentId, true));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
+    }
+
+    @PutMapping("/appointment/setCheckInDone")
+    public ResponseEntity<Appointment> setCheckIn(@RequestParam Long appointmentId) {
+        try {
+            return ResponseEntity.status(HttpStatus.OK).body(appointmentService.updateCheckIn(appointmentId, true));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
+    }
+
+
 }

@@ -15,6 +15,7 @@ import project.backend.repository.AppointmentRepo;
 import project.backend.repository.PatientRepo;
 import project.backend.service.impl.AppointmentServiceImpl;
 
+import java.time.LocalTime;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -68,7 +69,8 @@ public class AppointmentControllerIT {
         patient = new Patient(123456789, "John Doe", "john@example.com");
         patientRepo.save(patient);
 
-        appointment = new Appointment(null, new Date(), "Cardiology", "Dr. Smith", 100.0);
+        appointment = new Appointment(new Date(124, 10, 12), "Cardiology", "Dr. Smith", "USF Gama", LocalTime.now(), 100.0);
+
         appointmentRepo.save(appointment);
     }
 

@@ -64,4 +64,28 @@ public class AppointmentServiceImpl implements AppointmentService {
     public List<Appointment> getAppointmentByPatient(Long patientUtente) {
         return appointmentRepo.findByPatientNumUtente(patientUtente);
     }
+
+    @Override
+    public Appointment updatePayment(Long id, boolean paid) {
+        Appointment appointment = appointmentRepo.findById(id).orElse(null);
+        if (appointment != null){
+            appointment.setPaid(paid);
+            appointmentRepo.save(appointment);
+            return appointment;
+        }
+
+        return null;
+    }
+
+    @Override
+    public Appointment updateCheckIn(Long id, boolean checkedIn) {
+        Appointment appointment = appointmentRepo.findById(id).orElse(null);
+        if (appointment != null){
+            appointment.setCheckedIn(checkedIn);
+            appointmentRepo.save(appointment);
+            return appointment;
+        }
+
+        return null;
+    }
 }
