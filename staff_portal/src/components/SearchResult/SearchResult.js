@@ -3,9 +3,15 @@ import { Typography, IconButton, Box } from "@mui/material";
 import PropTypes from "prop-types";
 import CloseIcon from "@mui/icons-material/Close";
 import SimpleModal from "layouts/sections/attention-catchers/modals/components/SimpleModal";
+import MKButton from "components/MKButton";
+import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
+import axios from "axios";
+//import MKAlert from "components/MKAlert";
 
 const SearchResult = ({ data }) => {
   const [isVisible, setIsVisible] = useState(true);
+  const [paymentConfirmed, setPaymentConfirmed] = useState(false);
+  const [checkInConfirmed, setCheckInConfirmed] = useState(false);
 
   useEffect(() => {
     // Set initial visibility when data changes
@@ -14,6 +20,23 @@ const SearchResult = ({ data }) => {
 
   const handleClose = () => {
     setIsVisible(false);
+  };
+
+  const handlePayment = () => {
+    setPaymentConfirmed(true);
+  };
+
+  const handleCheckIn = () => {
+    axios
+      .post(`http://localhost:8080/newAppointmentTicket?specialty=${data.medicalSpecialty}`)
+      .then((response) => {
+        console.log("Check-in response: ", response);
+        alert("Check-in completed!");
+        setCheckInConfirmed(true);
+      })
+      .catch((error) => {
+        console.error("Error: ", error);
+      });
   };
 
   return (
@@ -48,8 +71,22 @@ const SearchResult = ({ data }) => {
           <Typography variant="body2">Speciality: {data.medicalSpecialty}</Typography>
           <Typography variant="body2">Doctor: {data.doctorName}</Typography>
           <Typography variant="body2">Date: {data.date}</Typography>
-          <Typography variant="body2">Price: {data.price} €</Typography>
-          <SimpleModal />
+          <Typography variant="body2">Price: {data.price}€</Typography>
+          {!checkInConfirmed ? (
+            <>
+              <SimpleModal onPaymentConfirmed={handlePayment} />
+              {paymentConfirmed && (
+                <MKButton color="info" size="small" onClick={handleCheckIn}>
+                  Complete Check-in
+                </MKButton>
+              )}
+            </>
+          ) : (
+            <MKButton variant="outlined" color="success" size="small">
+              <CheckCircleOutlineIcon style={{ marginRight: "5px" }} />
+              Check-in Completed
+            </MKButton>
+          )}
         </Box>
       )}
     </>

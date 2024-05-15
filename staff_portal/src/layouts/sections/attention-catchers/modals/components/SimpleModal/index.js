@@ -25,13 +25,14 @@ import Slide from "@mui/material/Slide";
 // @mui icons
 import CloseIcon from "@mui/icons-material/Close";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
+import PropTypes from "prop-types";
 
 // Material Kit 2 React components
 import MKBox from "components/MKBox";
 import MKButton from "components/MKButton";
 import MKTypography from "components/MKTypography";
 
-function SimpleModal() {
+function SimpleModal({ onPaymentConfirmed }) {
   const [show, setShow] = useState(false);
   const toggleModal = () => setShow(!show);
 
@@ -39,6 +40,7 @@ function SimpleModal() {
 
   const handlePayment = () => {
     alert("Payment Confirmed!");
+    onPaymentConfirmed();
     setPaymentConfirmed(true);
     toggleModal();
   };
@@ -99,5 +101,9 @@ function SimpleModal() {
     </MKBox>
   );
 }
+
+SimpleModal.propTypes = {
+  onPaymentConfirmed: PropTypes.func,
+};
 
 export default SimpleModal;
