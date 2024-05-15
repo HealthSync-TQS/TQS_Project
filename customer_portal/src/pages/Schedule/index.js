@@ -40,7 +40,12 @@ import TextField from "@mui/material/TextField";
 import dayjs from "dayjs";
 import React, { useState } from "react";
 
+import { useLocation } from "react-router-dom";
+
 function Schedule() {
+  const location = useLocation();
+  const { utente, nome, hospital, especialidade } = location.state;
+
   const [selectedDate, setSelectedDate] = useState(dayjs());
   const [showDetails, setShowDetails] = useState(false);
 
@@ -127,7 +132,7 @@ function Schedule() {
                         Nº de Utente:
                       </MKTypography>
                       <MKTypography variant="body1" color="text">
-                        123456789
+                        {utente}
                       </MKTypography>
                     </MKBox>
                   </Grid>
@@ -137,7 +142,7 @@ function Schedule() {
                         Nome do Utente:
                       </MKTypography>
                       <MKTypography variant="body1" color="text">
-                        João Silva
+                        {nome}
                       </MKTypography>
                     </MKBox>
                   </Grid>
@@ -147,7 +152,7 @@ function Schedule() {
                         Nome do Hospital:
                       </MKTypography>
                       <MKTypography variant="body1" color="text">
-                        Hospital Central
+                        {hospital}
                       </MKTypography>
                     </MKBox>
                   </Grid>
@@ -157,7 +162,7 @@ function Schedule() {
                         Especialidade:
                       </MKTypography>
                       <MKTypography variant="body1" color="text">
-                        Cardiologia
+                        {especialidade}
                       </MKTypography>
                     </MKBox>
                   </Grid>
