@@ -32,7 +32,7 @@ const InputNumUtente = ({ onSearch }) => {
       <div>
         <MKInput
           variant="standard"
-          label="Id Consulta"
+          label="Consult ID"
           value={id}
           onChange={(e) => setId(e.target.value)}
         />

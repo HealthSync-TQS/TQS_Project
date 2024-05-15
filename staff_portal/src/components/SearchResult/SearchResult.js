@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Typography, IconButton, Box } from "@mui/material";
 import PropTypes from "prop-types";
 import CloseIcon from "@mui/icons-material/Close";
@@ -6,13 +6,15 @@ import SimpleModal from "layouts/sections/attention-catchers/modals/components/S
 
 const SearchResult = ({ data }) => {
   const [isVisible, setIsVisible] = useState(true);
+
+  useEffect(() => {
+    // Set initial visibility when data changes
+    setIsVisible(true);
+  }, [data]);
+
   const handleClose = () => {
     setIsVisible(false);
   };
-
-  if (!data) {
-    return <Typography variant="body1"> No search result found. </Typography>;
-  }
 
   return (
     <>
@@ -59,11 +61,11 @@ SearchResult.propTypes = {
     patient: PropTypes.shape({
       name: PropTypes.string,
       numUtente: PropTypes.number,
-    }).isRequired,
-    medicalSpecialty: PropTypes.string.isRequired,
-    doctorName: PropTypes.string.isRequired,
-    date: PropTypes.string.isRequired,
-    price: PropTypes.number.isRequired,
+    }),
+    medicalSpecialty: PropTypes.string,
+    doctorName: PropTypes.string,
+    date: PropTypes.string,
+    price: PropTypes.number,
   }).isRequired,
 };
 
