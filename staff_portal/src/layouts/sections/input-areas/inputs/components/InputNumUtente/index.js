@@ -5,8 +5,8 @@ import MKButton from "components/MKButton";
 import PropTypes from "prop-types";
 
 const InputNumUtente = ({ onSearch }) => {
-  const [numUtente, setNumUtente] = useState("");
-  const [id, setId] = useState("");
+  const [numUtente, setNumUtente] = useState(null);
+  const [id, setId] = useState(null);
 
   const handleSearchClick = () => {
     // Call the onSearch function with numUtente and id as arguments

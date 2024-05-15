@@ -10,6 +10,7 @@ import project.backend.entity.Patient;
 import project.backend.service.AppointmentService;
 import project.backend.service.PatientService;
 
+import java.util.Collections;
 import java.util.List;
 
 import java.util.logging.Logger;
@@ -72,12 +73,20 @@ public class AppointmentController {
         }
     }
 
-    @GetMapping("/appointments/{appointmentId}")
-    public ResponseEntity<Appointment> getAppointmentById(@PathVariable Integer appointmentId) {
+    @GetMapping("/appointment")
+    public ResponseEntity<List<Appointment>> getAppointment(
+            @RequestParam(value = "id", required = false) Long appointmentId,
+            @RequestParam(value = "numUtente", required = false) Long numUtente) {
         try {
-            long appointmentId1 = Long.parseLong(appointmentId.toString());
-            logger.info("Appointment Fetched: " + appointmentService.getAppointmentById(appointmentId1));
-            return ResponseEntity.status(HttpStatus.OK).body(appointmentService.getAppointmentById(appointmentId1));
+
+            if(appointmentId != null)
+                return ResponseEntity.status(HttpStatus.OK).body(Collections.singletonList(appointmentService.getAppointmentById(appointmentId)));
+
+            if(numUtente != null)
+                return ResponseEntity.status(HttpStatus.OK).body(appointmentService.getAppointmentByPatient(numUtente));
+
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }

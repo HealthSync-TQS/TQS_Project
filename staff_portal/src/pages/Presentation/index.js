@@ -33,59 +33,32 @@ import footerRoutes from "footer.routes";
 
 // imports
 import axios from "axios";
+import Typography from "@mui/material/Typography";
 
 // Data
 const balconyNumber = "A1";
 const consultNumber = "C1";
-
-// Data: Array of consults
-const consults = [
-  {
-    id: 1,
-    patientUtente: "123456",
-    patientName: "John Doe",
-    patientBI: "123456789",
-    speciality: "Cardiology",
-    doctorName: "Dr. Smith",
-    date: "2023-10-01, 10:00 AM",
-  },
-  {
-    id: 2,
-    patientUtente: "987654",
-    patientName: "Jane Doe",
-    patientBI: "987654321",
-    speciality: "Dermatology",
-    doctorName: "Dr. Brown",
-    date: "2023-10-02, 11:00 AM",
-  },
-  // Add more consults as needed
-];
-
 function Presentation() {
-  const [searchResult, setSearchResult] = useState(consults[0]);
+  const [searchResult, setSearchResult] = useState(null);
   console.log("Search Results: ", searchResult);
-  console.log("Consult: ", consults[0]);
-
   const handleSearch = (numUtente, id) => {
     // Search for the patient and consult in consults array
     console.log("Num Utente: ", numUtente);
     console.log("Id: ", id);
 
-    id = parseInt(id);
-    const longId = BigInt(id);
+    const params = id ? { id } : { numUtente };
 
-    // fetch consults from the database
-    axios.get(`http://localhost:8080/appointments/${longId}`).then((response) => {
-      console.log("Consult Found: ", response.data);
-      setSearchResult(response.data);
-    });
+    const queryString = new URLSearchParams(params).toString();
 
-    // const foundConsult = consults.find(
-    //   (consult) => consult.id === id && consult.patientUtente === numUtente
-    // );
-    // console.log("Found Consult: ", foundConsult);
-    // setSearchResult(foundConsult);
-    // console.log("Search Results: ", searchResult);
+    axios
+      .get(`http://localhost:8080/appointment?${queryString}`)
+      .then((response) => {
+        console.log("Response: ", response);
+        setSearchResult(response.data);
+      })
+      .catch((error) => {
+        console.error("Error: ", error);
+      });
   };
 
   return (
@@ -95,7 +68,11 @@ function Presentation() {
         <Grid container>
           <Grid item xs={12} lg={6}>
             <InputNumUtente onSearch={handleSearch} />
-            <SearchResult data={searchResult} />
+            {searchResult && searchResult.length > 0 ? (
+              searchResult.map((result) => <SearchResult key={result.id} data={result} />)
+            ) : (
+              <Typography variant="body1">No search results found.</Typography>
+            )}
           </Grid>
           <Grid item xs={12} lg={6}>
             <DisplayScreen balconyNumber={balconyNumber} consultNumber={consultNumber} />

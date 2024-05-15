@@ -14,4 +14,6 @@ public interface AppointmentRepo extends JpaRepository<Appointment, Long> {
 
     List<Appointment> findByPatientIsNull();
 
+    List<Appointment> findByPatientNumUtente(Long patientId);
+
 }

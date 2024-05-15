@@ -6,7 +6,6 @@ import SimpleModal from "layouts/sections/attention-catchers/modals/components/S
 
 const SearchResult = ({ data }) => {
   const [isVisible, setIsVisible] = useState(true);
-
   const handleClose = () => {
     setIsVisible(false);
   };
@@ -36,9 +35,15 @@ const SearchResult = ({ data }) => {
             <CloseIcon />
           </IconButton>
           <Typography variant="h6">Consult Details</Typography>
-          <Typography variant="subtitle1">Patient: {data.patient.name}</Typography>
-          <Typography variant="subtitle2">Patient NºUtente: {data.patient.numUtente}</Typography>
-          <Typography variant="body1">Speciality: {data.medicalSpecialty}</Typography>
+          {data.patient ? (
+            <>
+              <Typography variant="subtitle1">Patient: {data.patient.name}</Typography>
+              <Typography variant="subtitle1">NºUtente: {data.patient.numUtente}</Typography>
+            </>
+          ) : (
+            <Typography variant="subtitle1">No patient assigned.</Typography>
+          )}
+          <Typography variant="body2">Speciality: {data.medicalSpecialty}</Typography>
           <Typography variant="body2">Doctor: {data.doctorName}</Typography>
           <Typography variant="body2">Date: {data.date}</Typography>
           <Typography variant="body2">Price: {data.price} €</Typography>
@@ -52,8 +57,8 @@ const SearchResult = ({ data }) => {
 SearchResult.propTypes = {
   data: PropTypes.shape({
     patient: PropTypes.shape({
-      name: PropTypes.string.isRequired,
-      numUtente: PropTypes.number.isRequired,
+      name: PropTypes.string,
+      numUtente: PropTypes.number,
     }).isRequired,
     medicalSpecialty: PropTypes.string.isRequired,
     doctorName: PropTypes.string.isRequired,
