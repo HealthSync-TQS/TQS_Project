@@ -13,6 +13,7 @@ import project.backend.service.PatientService;
 import java.util.List;
 
 @RestController
+@CrossOrigin
 public class AppointmentController {
 
     private final AppointmentService appointmentService;

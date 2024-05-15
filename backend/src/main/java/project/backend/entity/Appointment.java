@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalTime;
 import java.util.Date;
 
 @Entity
@@ -34,23 +35,33 @@ public class Appointment {
     @Column(name = "doctor_name")
     private String doctorName;
 
+    @Column(name="healthcare_unit")
+    private String healthcareUnit;
+
+    @Column(name = "time")
+    private LocalTime time;
+
     public Appointment() {
     }
 
-    public Appointment(Patient patient, Date date, String medicalSpecialty, String doctorName, double price) {
+    public Appointment(Patient patient, Date date, String medicalSpecialty, String doctorName, String healthcareUnit, LocalTime time, double price) {
         this.patient = patient;
         this.date = date;
         this.price = price;
         this.medicalSpecialty = medicalSpecialty;
         this.doctorName = doctorName;
+        this.healthcareUnit = healthcareUnit;
+        this.time = time;
     }
 
-    public Appointment(Date date, String medicalSpecialty, String doctorName, double price) {
+    public Appointment(Date date, String medicalSpecialty, String doctorName, String healthcareUnit, LocalTime time, double price) {
         this.patient = null;
         this.date = date;
         this.price = price;
         this.medicalSpecialty = medicalSpecialty;
         this.doctorName = doctorName;
+        this.healthcareUnit = healthcareUnit;
+        this.time = time;
     }
 
 
