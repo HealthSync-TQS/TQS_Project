@@ -31,6 +31,8 @@ public class AppointmentRepoTest {
 
     Appointment appointment;
 
+    Patient patient;
+
     /**
      * Sets up each test with a common appointment configuration.
      */
@@ -44,6 +46,9 @@ public class AppointmentRepoTest {
         LocalTime time = LocalTime.of(14, 30);
 
         appointment = new Appointment(date, medicalSpecialty, doctorName, healthcareUnit, time, price);
+
+        patient = new Patient();
+        patient.setNumUtente(123456);
     }
 
     /**
@@ -64,8 +69,7 @@ public class AppointmentRepoTest {
      */
     @Test
     public void testFindByPatientIsNull_negative_thenReturnEmpty() {
-        Patient patient = new Patient();
-        patient.setNumUtente(123456);
+
         entityManager.persist(patient);
 
         appointment.setPatient(patient);
@@ -100,8 +104,6 @@ public class AppointmentRepoTest {
      */
     @Test
     public void testFindByPatientNumUtente_thenReturnAppointment() {
-        Patient patient = new Patient();
-        patient.setNumUtente(123456);
         entityManager.persist(patient);
 
         appointment.setPatient(patient);
@@ -119,8 +121,6 @@ public class AppointmentRepoTest {
      */
     @Test
     public void testFindByPatientNumUtente_invalidId_thenReturnEmpty() {
-        Patient patient = new Patient();
-        patient.setNumUtente(123456);
         entityManager.persist(patient);
 
         appointment.setPatient(patient);
@@ -138,8 +138,6 @@ public class AppointmentRepoTest {
      */
     @Test
     public void testFindByPatientNumUtente_moreThanOneAppointment_thenReturnMoreThanOneAppointment() {
-        Patient patient = new Patient();
-        patient.setNumUtente(123456);
         entityManager.persist(patient);
 
         appointment.setPatient(patient);
