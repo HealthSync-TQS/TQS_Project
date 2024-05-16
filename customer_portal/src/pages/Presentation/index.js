@@ -1,6 +1,5 @@
 import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 
 // Routes
 import routes from "routes";
@@ -31,13 +30,16 @@ function Presentation() {
     patientId: "",
     fullName: "",
     email: "",
-    phoneNumber: "",
     healthcareUnit: "",
-    medicalSpecialty: ""
+    medicalSpeciality: ""
   });
 
   const handleChange = (event) => {
     const { name, value } = event.target;
+    setAppointmentData(prevState => ({
+      ...prevState,
+      [name]: value
+    }));
     setFormData(prevState => ({
       ...prevState,
       [name]: value
@@ -49,15 +51,8 @@ function Presentation() {
       alert("Please fill in all fields");
       return;
     }
-  
-    try {
-      const response = await axios.post("http://localhost:8080/appointments", formData);
-      setAppointmentData(response.data); 
-      navigate("/schedule");
-    } catch (error) {
-      console.error("Error:", error);
-      alert("Error sending data.");
-    }
+    setAppointmentData(formData); 
+    navigate("/schedule");
   };
   
 
@@ -178,12 +173,12 @@ function Presentation() {
                       </Grid>
                       <Grid item xs={12}>
                         <FormControl fullWidth variant="outlined">
-                          <InputLabel>Specialty</InputLabel>
+                          <InputLabel>Medical Speciality</InputLabel>
                           <Select
-                            value={formData.medicalSpecialty}
+                            value={formData.medicalSpeciality}
                             onChange={handleChange}
-                            name="specialty"
-                            label="Specialty"
+                            name="medicalSpeciality"
+                            label="medicalSpeciality"
                           >
                             <MenuItem value="Cardiology">Cardiology</MenuItem>
                             <MenuItem value="Dermatology">Dermatology</MenuItem>

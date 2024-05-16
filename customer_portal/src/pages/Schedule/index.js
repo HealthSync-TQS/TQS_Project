@@ -37,12 +37,15 @@ function Schedule() {
   const handleDateChange = (newDate) => {
     const dayjsDate = dayjs(newDate);
     setSelectedDate(dayjsDate);
+    console.log("Selected date:", dayjsDate.format("YYYY-MM-DD"));
     setShowDetails(true);
-    fetchAvailableTimes(
+    const times = fetchAvailableTimes(
       dayjsDate,
       appointmentData.medicalSpeciality,
       appointmentData.healthcareUnit
     );
+    console.log("Fetching available times...")
+    console.log("Times:", times);
   };
 
   function fetchAvailableTimes(date, medicalSpeciality, healthcareUnit) {
@@ -52,7 +55,7 @@ function Schedule() {
     }
     const formattedDate = date.format("YYYY-MM-DD");
     const params = new URLSearchParams({
-      medicalSpecialty: medicalSpeciality,
+      medicalSpeciality: medicalSpeciality,
       healthcareUnit,
     }).toString();
 
