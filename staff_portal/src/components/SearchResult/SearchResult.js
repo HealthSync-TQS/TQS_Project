@@ -40,6 +40,7 @@ const SearchResult = ({ data }) => {
       .then((response) => {
         console.log("Response: ", response);
         setCheckInConfirmed(true);
+        alert("Check-in confirmed!");
       })
       .catch((error) => {
         console.error("Error: ", error);
@@ -92,6 +93,7 @@ const SearchResult = ({ data }) => {
                   color="success"
                   startIcon={<CheckCircleOutlineIcon />}
                   onClick={handleGetTicket}
+                  style={{ marginLeft: "40%" }}
                 >
                   Get Ticket
                 </MKButton>
@@ -101,10 +103,13 @@ const SearchResult = ({ data }) => {
                     variant="outlined"
                     color="success"
                     startIcon={<CheckCircleOutlineIcon />}
+                    // put it in the center
+                    style={{ marginLeft: "40%" }}
                   >
                     Paid
                   </MKButton>
-                  <MKButton variant="contained" color="primary" onClick={handleCheckIn}>
+                  <br />
+                  <MKButton variant="contained" color="info" onClick={handleCheckIn}>
                     Check-in
                   </MKButton>
                 </>
