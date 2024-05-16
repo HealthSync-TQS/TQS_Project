@@ -21,11 +21,11 @@ import InputLabel from "@mui/material/InputLabel";
 import FormControl from "@mui/material/FormControl";
 import MKButton from "components/MKButton";
 
-import { AppointmentProvider } from "AppointmentContext";
+import { useAppointment } from "contexts/AppointmentContext";
 
 function Presentation() {
   const navigate = useNavigate();
-  const { setAppointmentData } = useContext(AppointmentProvider);
+  const { setAppointmentData } = useAppointment();
 
   const [formData, setFormData] = useState({
     patientId: "",
@@ -33,11 +33,15 @@ function Presentation() {
     email: "",
     phoneNumber: "",
     healthcareUnit: "",
-    specialty: ""
+    medicalSpecialty: ""
   });
 
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setFormData(prevState => ({
+      ...prevState,
+      [name]: value
+    }));
   };
 
   const handleSubmit = async () => {
@@ -45,16 +49,17 @@ function Presentation() {
       alert("Please fill in all fields");
       return;
     }
-
+  
     try {
       const response = await axios.post("http://localhost:8080/appointments", formData);
-      setAppointmentData(response.data);
+      setAppointmentData(response.data); 
       navigate("/schedule");
     } catch (error) {
       console.error("Error:", error);
       alert("Error sending data.");
     }
   };
+  
 
   return (
     <>
@@ -175,7 +180,7 @@ function Presentation() {
                         <FormControl fullWidth variant="outlined">
                           <InputLabel>Specialty</InputLabel>
                           <Select
-                            value={formData.specialty}
+                            value={formData.medicalSpecialty}
                             onChange={handleChange}
                             name="specialty"
                             label="Specialty"

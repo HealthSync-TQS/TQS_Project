@@ -25,40 +25,40 @@ import { StaticDatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import dayjs from "dayjs";
 import React, { useState } from "react";
-import { useLocation } from "react-router-dom";
 import axios from "axios";
+import { useAppointment } from "contexts/AppointmentContext";
 
 function Schedule() {
-  const location = useLocation();
-  const { utente, nome, email, healthcareUnit, medicalSpeciality } =
-    location.state;
-
+  const { appointmentData } = useAppointment(); // Destructure the necessary data
   const [selectedDate, setSelectedDate] = useState(dayjs());
   const [showDetails, setShowDetails] = useState(false);
   const [availableTimes, setAvailableTimes] = useState([]);
 
   const handleDateChange = (newDate) => {
-    const dayjsDate = dayjs(newDate); // Convert to Day.js object if not already
+    const dayjsDate = dayjs(newDate);
     setSelectedDate(dayjsDate);
     setShowDetails(true);
-    fetchAvailableTimes(dayjsDate, medicalSpeciality, healthcareUnit);
+    fetchAvailableTimes(
+      dayjsDate,
+      appointmentData.medicalSpeciality,
+      appointmentData.healthcareUnit
+    );
   };
 
   function fetchAvailableTimes(date, medicalSpeciality, healthcareUnit) {
     if (!date.isValid()) {
-      console.log("Invalid date provided");
+      console.error("Invalid date provided");
       return;
     }
-    const formattedDate = selectedDate.format("YYYY-MM-DD"); // Correctly format the date
+    const formattedDate = date.format("YYYY-MM-DD");
     const params = new URLSearchParams({
       medicalSpecialty: medicalSpeciality,
-      healthcareUnit: healthcareUnit,
+      healthcareUnit,
     }).toString();
 
     axios
       .get(`http://localhost:8080/appointments/${formattedDate}/?${params}`)
       .then((response) => {
-        console.log("Available times:", response.data);
         setAvailableTimes(response.data);
       })
       .catch((error) => {
@@ -107,7 +107,7 @@ function Schedule() {
                 },
               })}
             >
-              Encontra o teu horário ideal!
+              Find the perfect schedule for you!
             </MKTypography>
             <MKTypography
               variant="body1"
@@ -116,8 +116,8 @@ function Schedule() {
               mt={1}
               mb={3}
             >
-              Navega entre os vários dias apresentados e agenda a consulta no
-              bloco que mais te agrada!
+              Navigate between the various days presented and schedule your appointment on the
+              block that you like the most!
             </MKTypography>
           </Grid>
         </Container>
@@ -147,47 +147,47 @@ function Schedule() {
                   fontWeight="bold"
                   sx={{ textAlign: "left", mb: 2 }}
                 >
-                  Detalhes do Utente
+                  Patient Details
                 </MKTypography>
                 <Divider sx={{ mb: 3 }} />
                 <Grid container spacing={2} direction="column">
                   <Grid item>
                     <MKBox textAlign="left">
                       <MKTypography variant="h6" fontWeight="medium">
-                        Nº de Utente:
+                        Patient Id:
                       </MKTypography>
                       <MKTypography variant="body1" color="text">
-                        {utente}
+                        {appointmentData.patientId}
                       </MKTypography>
                     </MKBox>
                   </Grid>
                   <Grid item>
                     <MKBox textAlign="left">
                       <MKTypography variant="h6" fontWeight="medium">
-                        Nome do Utente:
+                        Patient Name:
                       </MKTypography>
                       <MKTypography variant="body1" color="text">
-                        {nome}
+                        {appointmentData.fullName}
                       </MKTypography>
                     </MKBox>
                   </Grid>
                   <Grid item>
                     <MKBox textAlign="left">
                       <MKTypography variant="h6" fontWeight="medium">
-                        Nome do Hospital:
+                        Healthcare Unit:
                       </MKTypography>
                       <MKTypography variant="body1" color="text">
-                        {healthcareUnit}
+                        {appointmentData.healthcareUnit}
                       </MKTypography>
                     </MKBox>
                   </Grid>
                   <Grid item>
                     <MKBox textAlign="left">
                       <MKTypography variant="h6" fontWeight="medium">
-                        Especialidade:
+                        Speciality:
                       </MKTypography>
                       <MKTypography variant="body1" color="text">
-                        {medicalSpeciality}
+                        {appointmentData.medicalSpeciality}
                       </MKTypography>
                     </MKBox>
                   </Grid>
@@ -202,7 +202,7 @@ function Schedule() {
                   fontWeight="bold"
                   sx={{ textAlign: "left", mb: 2 }}
                 >
-                  Selecione uma Data
+                  Select a Date
                 </MKTypography>
                 <Divider sx={{ mb: 3 }} />
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
