@@ -21,6 +21,11 @@ public interface AppointmentService {
 
     Appointment getAppointmentById(Long id);
 
+    List<Appointment> getAppointmentByPatient(Long patientUtente);
+
+    Appointment updatePayment(Long id, boolean paid);
+
+    Appointment updateCheckIn(Long id, boolean checkedIn);
 
 
 }
