@@ -43,8 +43,6 @@ function Presentation() {
   console.log("Search Results: ", searchResult);
   const handleSearch = (numUtente, id) => {
     // Search for the patient and consult in consults array
-    console.log("Num Utente: ", numUtente);
-    console.log("Id: ", id);
 
     const params = id ? { id } : { numUtente };
 

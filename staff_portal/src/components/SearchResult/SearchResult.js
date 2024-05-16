@@ -6,32 +6,39 @@ import SimpleModal from "layouts/sections/attention-catchers/modals/components/S
 import MKButton from "components/MKButton";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import axios from "axios";
-//import MKAlert from "components/MKAlert";
 
 const SearchResult = ({ data }) => {
   const [isVisible, setIsVisible] = useState(true);
-  const [paymentConfirmed, setPaymentConfirmed] = useState(false);
-  const [checkInConfirmed, setCheckInConfirmed] = useState(false);
+  const [checkInConfirmed, setCheckInConfirmed] = useState(data.checkedIn);
+  const [paid, setPaid] = useState(data.paid); // Create a new state for payment status
 
   useEffect(() => {
     // Set initial visibility when data changes
     setIsVisible(true);
+    setPaid(data.paid); // Update the paid state when data changes
   }, [data]);
+
+  const handleGetTicket = () => {
+    axios
+      .post(`http://localhost:8080/newAppointmentTicket?specialty=${data.medicalSpecialty}`)
+      .then((response) => {
+        console.log("Check-in response: ", response);
+        setIsVisible(false);
+      })
+      .catch((error) => {
+        console.error("Error: ", error);
+      });
+  };
 
   const handleClose = () => {
     setIsVisible(false);
   };
 
-  const handlePayment = () => {
-    setPaymentConfirmed(true);
-  };
-
   const handleCheckIn = () => {
     axios
-      .post(`http://localhost:8080/newAppointmentTicket?specialty=${data.medicalSpecialty}`)
+      .put(`http://localhost:8080/appointment/setCheckInDone?appointmentId=${data.id}`)
       .then((response) => {
-        console.log("Check-in response: ", response);
-        alert("Check-in completed!");
+        console.log("Response: ", response);
         setCheckInConfirmed(true);
       })
       .catch((error) => {
@@ -39,9 +46,13 @@ const SearchResult = ({ data }) => {
       });
   };
 
+  const handlePaymentConfirmed = () => {
+    setPaid(true);
+  };
+
   return (
     <>
-      {isVisible && ( // Render container only if isVisible state is true
+      {isVisible && (
         <Box
           style={{
             position: "relative",
@@ -71,22 +82,37 @@ const SearchResult = ({ data }) => {
           <Typography variant="body2">Speciality: {data.medicalSpecialty}</Typography>
           <Typography variant="body2">Doctor: {data.doctorName}</Typography>
           <Typography variant="body2">Date: {data.date}</Typography>
+          <Typography variant="body2">Local: {data.healthcareUnit}</Typography>
           <Typography variant="body2">Price: {data.price}€</Typography>
-          {!checkInConfirmed ? (
-            <>
-              <SimpleModal onPaymentConfirmed={handlePayment} />
-              {paymentConfirmed && (
-                <MKButton color="info" size="small" onClick={handleCheckIn}>
-                  Complete Check-in
+          {data.patient ? (
+            paid ? (
+              checkInConfirmed ? (
+                <MKButton
+                  variant="outlined"
+                  color="success"
+                  startIcon={<CheckCircleOutlineIcon />}
+                  onClick={handleGetTicket}
+                >
+                  Get Ticket
                 </MKButton>
-              )}
-            </>
-          ) : (
-            <MKButton variant="outlined" color="success" size="small">
-              <CheckCircleOutlineIcon style={{ marginRight: "5px" }} />
-              Check-in Completed
-            </MKButton>
-          )}
+              ) : (
+                <>
+                  <MKButton
+                    variant="outlined"
+                    color="success"
+                    startIcon={<CheckCircleOutlineIcon />}
+                  >
+                    Paid
+                  </MKButton>
+                  <MKButton variant="contained" color="primary" onClick={handleCheckIn}>
+                    Check-in
+                  </MKButton>
+                </>
+              )
+            ) : (
+              <SimpleModal id={data.id} onPaymentConfirmed={handlePaymentConfirmed} />
+            )
+          ) : null}
         </Box>
       )}
     </>
@@ -99,10 +125,15 @@ SearchResult.propTypes = {
       name: PropTypes.string,
       numUtente: PropTypes.number,
     }),
+    id: PropTypes.number,
     medicalSpecialty: PropTypes.string,
     doctorName: PropTypes.string,
+    healthcareUnit: PropTypes.string,
+    time: PropTypes.string,
     date: PropTypes.string,
     price: PropTypes.number,
+    paid: PropTypes.bool,
+    checkedIn: PropTypes.bool,
   }).isRequired,
 };
 

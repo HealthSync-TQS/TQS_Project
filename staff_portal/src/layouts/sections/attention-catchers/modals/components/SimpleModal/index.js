@@ -1,61 +1,40 @@
-/*
-=========================================================
-* Material Kit 2 React - v2.1.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/material-kit-react
-* Copyright 2023 Creative Tim (https://www.creative-tim.com)
-
-Coded by www.creative-tim.com
-
- =========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-*/
-
 import { useState } from "react";
-
-// @mui material components
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
 import Modal from "@mui/material/Modal";
 import Divider from "@mui/material/Divider";
 import Slide from "@mui/material/Slide";
-
-// @mui icons
 import CloseIcon from "@mui/icons-material/Close";
-import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import PropTypes from "prop-types";
-
-// Material Kit 2 React components
 import MKBox from "components/MKBox";
 import MKButton from "components/MKButton";
 import MKTypography from "components/MKTypography";
+import axios from "axios";
 
-function SimpleModal({ onPaymentConfirmed }) {
+function SimpleModal({ id, onPaymentConfirmed }) {
   const [show, setShow] = useState(false);
   const toggleModal = () => setShow(!show);
 
-  const [paymentConfirmed, setPaymentConfirmed] = useState(false);
-
   const handlePayment = () => {
-    alert("Payment Confirmed!");
-    onPaymentConfirmed();
-    setPaymentConfirmed(true);
-    toggleModal();
+    console.log("Id2: ", id);
+    axios
+      .put(`http://localhost:8080/appointment/setPaymentDone?appointmentId=${id}`)
+      .then((response) => {
+        console.log("Response: ", response);
+        toggleModal();
+        onPaymentConfirmed(); // Call the callback to update the payment status
+      })
+      .catch((error) => {
+        console.error("Error: ", error);
+      });
   };
 
   return (
     <MKBox component="section" py={6}>
       <Container>
         <Grid container item xs={12} lg={10} justifyContent="center" mx="auto">
-          <MKButton
-            variant={paymentConfirmed ? "outlined" : "contained"}
-            color={paymentConfirmed ? "success" : "primary"}
-            startIcon={paymentConfirmed ? <CheckCircleOutlineIcon /> : null}
-            onClick={toggleModal}
-          >
-            {paymentConfirmed ? "Paid" : "To Be Paid"}
+          <MKButton variant={"contained"} color={"primary"} onClick={toggleModal}>
+            To Be Paid
           </MKButton>
         </Grid>
         <Modal open={show} onClose={toggleModal} sx={{ display: "grid", placeItems: "center" }}>
@@ -88,10 +67,10 @@ function SimpleModal({ onPaymentConfirmed }) {
               <Divider sx={{ my: 0 }} />
               <MKBox display="flex" justifyContent="space-between" p={1.5}>
                 <MKButton variant="gradient" color="dark" onClick={toggleModal}>
-                  close
+                  Close
                 </MKButton>
                 <MKButton variant="gradient" color="success" onClick={handlePayment}>
-                  Comfirm Payment
+                  Confirm Payment
                 </MKButton>
               </MKBox>
             </MKBox>
@@ -103,7 +82,8 @@ function SimpleModal({ onPaymentConfirmed }) {
 }
 
 SimpleModal.propTypes = {
-  onPaymentConfirmed: PropTypes.func,
+  id: PropTypes.number.isRequired,
+  onPaymentConfirmed: PropTypes.func.isRequired,
 };
 
 export default SimpleModal;
