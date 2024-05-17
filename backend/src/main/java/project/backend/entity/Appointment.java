@@ -23,6 +23,7 @@ public class Appointment {
     @JoinColumn(name = "patient_id", referencedColumnName = "numUtente", nullable = true)
     private Patient patient;
 
+    @Temporal(TemporalType.DATE) 
     @Column(name = "date")
     private Date date;
 

@@ -12,6 +12,7 @@ import project.backend.service.PatientService;
 
 import java.time.LocalTime;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 @RestController
@@ -68,13 +69,13 @@ public class AppointmentController {
     }
 
     @GetMapping("/appointments/{date}/")
-    public ResponseEntity<List<LocalTime>> getAvailableTimes(
+    public ResponseEntity<HashMap<Long, LocalTime>> getAvailableTimes(
             @PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd") Date date,
             @RequestParam String medicalSpeciality,
             @RequestParam String healthcareUnit) {
         try {
             return ResponseEntity.status(HttpStatus.OK)
-                    .body(appointmentService.getAvailableTimes(date, medicalSpeciality, healthcareUnit));
+                    .body(appointmentService.getAvailableAppointments(date, medicalSpeciality, healthcareUnit));
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
