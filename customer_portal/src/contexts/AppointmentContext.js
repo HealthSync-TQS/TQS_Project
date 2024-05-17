@@ -6,6 +6,7 @@ export const useAppointment = () => useContext(AppointmentContext);
 
 export const AppointmentProvider = ({ children }) => {
   const [appointmentData, setAppointmentData] = useState({
+      appointmentId: '',
       patientId: '',
       fullName: '',
       email: '',

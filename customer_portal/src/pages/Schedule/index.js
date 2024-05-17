@@ -1,61 +1,88 @@
-// @mui material components
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
 import Card from "@mui/material/Card";
 import Divider from "@mui/material/Divider";
 import TextField from "@mui/material/TextField";
-
-// Material Kit 2 React components
 import MKBox from "components/MKBox";
 import MKTypography from "components/MKTypography";
-
-// Material Kit 2 React examples
 import DefaultNavbar from "examples/Navbars/DefaultNavbar";
 import DefaultFooter from "examples/Footers/DefaultFooter";
-
-// Routes
 import routes from "routes";
 import footerRoutes from "footer.routes";
-
-// Images
 import bgImage from "assets/images/bgImage.jpg";
-
-// Calendar packages
 import { StaticDatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import dayjs from "dayjs";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useAppointment } from "contexts/AppointmentContext";
+import { CardActionArea } from "@mui/material";
+import MKButton from "components/MKButton";
+import { useNavigate } from "react-router-dom";
 
 function Schedule() {
-  const { appointmentData } = useAppointment(); // Destructure the necessary data
+  const navigate = useNavigate();
+  const { appointmentData } = useAppointment();
   const [selectedDate, setSelectedDate] = useState(dayjs());
+  const [selectedTime, setSelectedTime] = useState(null);
+  const [selectedTimeId, setSelectedTimeId] = useState(null);
   const [showDetails, setShowDetails] = useState(false);
   const [availableTimes, setAvailableTimes] = useState([]);
+  const [showButton, setShowButton] = useState(false);
+
+  useEffect(() => {
+    setShowButton(selectedTime !== null);
+  }, [selectedTime]);
+
+  const handleTimeSelect = (timeId, time) => {
+    if (selectedTimeId === timeId) {
+      setSelectedTimeId(null);
+      setSelectedTime(null);
+    } else {
+      setSelectedTimeId(timeId);
+      setSelectedTime(time);
+    }
+  };
 
   const handleDateChange = (newDate) => {
     const dayjsDate = dayjs(newDate);
     setSelectedDate(dayjsDate);
     console.log("Selected date:", dayjsDate.format("YYYY-MM-DD"));
     setShowDetails(true);
-    const times = fetchAvailableTimes(
-      dayjsDate,
-      appointmentData.medicalSpeciality,
-      appointmentData.healthcareUnit
-    );
-    console.log("Fetching available times...")
-    console.log("Times:", times);
+    fetchAvailableTimes(dayjsDate, appointmentData.medicalSpeciality, appointmentData.healthcareUnit);
   };
 
-  function fetchAvailableTimes(date, medicalSpeciality, healthcareUnit) {
+  const handleScheduling = () => {
+    const { patientId } = appointmentData;
+    const appointmentId = selectedTimeId;
+
+    if (!appointmentId) {
+      console.error("No appointment ID selected");
+      return;
+    }
+
+    const url = `http://localhost:8080/appointments/${appointmentId}/setPatient/${patientId}`;
+    console.log(`Sending PUT request to URL: ${url}`);
+
+    axios
+      .put(url)
+      .then((response) => {
+        console.log("Appointment Scheduled", response.data);
+        navigate("/");
+      })
+      .catch((error) => {
+        console.error("Error scheduling:", error);
+      });
+  };
+
+  const fetchAvailableTimes = (date, medicalSpeciality, healthcareUnit) => {
     if (!date.isValid()) {
       console.error("Invalid date provided");
       return;
     }
     const formattedDate = date.format("YYYY-MM-DD");
     const params = new URLSearchParams({
-      medicalSpeciality: medicalSpeciality,
+      medicalSpeciality,
       healthcareUnit,
     }).toString();
 
@@ -63,11 +90,12 @@ function Schedule() {
       .get(`http://localhost:8080/appointments/${formattedDate}/?${params}`)
       .then((response) => {
         setAvailableTimes(response.data);
+        console.log("Available times received:", response.data);
       })
       .catch((error) => {
         console.error("Error fetching times:", error);
       });
-  }
+  };
 
   return (
     <>
@@ -119,8 +147,8 @@ function Schedule() {
               mt={1}
               mb={3}
             >
-              Navigate between the various days presented and schedule your appointment on the
-              block that you like the most!
+              Navigate between the various days presented and schedule your
+              appointment on the block that you like the most!
             </MKTypography>
           </Grid>
         </Container>
@@ -139,7 +167,7 @@ function Schedule() {
             sx={{
               p: 3,
               mt: 5,
-              boxShadow: "none", // removed redundant shadow
+              boxShadow: "none",
               borderRadius: "lg",
             }}
           >
@@ -213,21 +241,44 @@ function Schedule() {
                     displayStaticWrapperAs="desktop"
                     orientation="landscape"
                     value={selectedDate}
-                    onChange={handleDateChange} // Pass reference to function directly
+                    onChange={handleDateChange}
                     renderInput={(params) => <TextField {...params} />}
                   />
                 </LocalizationProvider>
-                {showDetails && availableTimes.length > 0 && (
-                  <Grid container spacing={2}>
-                    {availableTimes.map((time, index) => (
-                      <Grid item xs={12} sm={6} md={3} key={index}>
-                        <Card raised>
-                          <MKBox p={2}>
-                            <MKTypography variant="h6">{time}</MKTypography>
-                          </MKBox>
-                        </Card>
-                      </Grid>
-                    ))}
+                {showDetails && Object.keys(availableTimes).length > 0 && (
+                  <>
+                    <MKTypography
+                      variant="h5"
+                      fontWeight="bold"
+                      sx={{ textAlign: "left", mt: 4, mb: 2 }}
+                    >
+                      Choose a slot
+                    </MKTypography>
+                    <Divider sx={{ mb: 3 }} />
+                    <Grid container spacing={2}>
+                      {Object.entries(availableTimes).map(([id, time]) => (
+                        <Grid item xs={12} sm={6} md={3} key={id}>
+                          <CardActionArea onClick={() => handleTimeSelect(id, time)}>
+                            <Card
+                              raised
+                              sx={{
+                                p: 2,
+                                backgroundColor: id === selectedTimeId ? "#cfe8fc" : "#fff",
+                              }}
+                            >
+                              <MKTypography variant="h6">{time}</MKTypography>
+                            </Card>
+                          </CardActionArea>
+                        </Grid>
+                      ))}
+                    </Grid>
+                  </>
+                )}
+                {showButton && (
+                  <Grid container mt={2}>
+                    <MKButton size="medium" color="primary" onClick={handleScheduling}>
+                      Schedule Appointment
+                    </MKButton>
                   </Grid>
                 )}
               </Grid>
