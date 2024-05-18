@@ -2,6 +2,8 @@ package project.backend.integration.controller;
 
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -93,10 +95,12 @@ public class AppointmentControllerIT {
 
     @Test
     public void givenValidAppointment_whenCreateAppointment_thenStatus201() throws Exception {
-
         appointmentService.setPatient(appointment, patient.getNumUtente());
 
         ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.registerModule(new JavaTimeModule());
+        objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+
         String appointmentJson = objectMapper.writeValueAsString(appointment);
 
         mockMvc.perform(MockMvcRequestBuilders.post("/appointments")
@@ -108,11 +112,7 @@ public class AppointmentControllerIT {
                 .andExpect(jsonPath("$.medicalSpecialty", is(appointment.getMedicalSpecialty())))
                 .andExpect(jsonPath("$.doctorName", is(appointment.getDoctorName())))
                 .andExpect(jsonPath("$.price", is(appointment.getPrice())));
-
-
-
     }
-
 
     @Test
     public void givenInvalidAppointment_whenCreateAppointment_thenStatus400() throws Exception {
