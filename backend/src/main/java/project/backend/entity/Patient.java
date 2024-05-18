@@ -31,5 +31,29 @@ public class Patient {
         this.email = email;
     }
 
+    // Getters and Setters
 
+    public int getNumUtente() {
+        return numUtente;
+    }
+
+    public void setNumUtente(int numUtente) {
+        this.numUtente = numUtente;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
 }
