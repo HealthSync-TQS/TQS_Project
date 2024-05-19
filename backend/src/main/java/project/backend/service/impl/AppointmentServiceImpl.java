@@ -75,4 +75,9 @@ public class AppointmentServiceImpl implements AppointmentService {
         }
         return availableTimes;
     }
+
+    @Override
+    public List<Appointment> getPatientAppointments(int patientId) {
+        return appointmentRepo.findByPatient_NumUtente(patientId);
+    }
 }

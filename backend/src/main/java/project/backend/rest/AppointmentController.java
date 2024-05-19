@@ -81,4 +81,13 @@ public class AppointmentController {
         }
     }
 
+    @GetMapping("/appointments/{patientId}/")
+    public ResponseEntity<List<Appointment>> getPatientAppointments(@PathVariable int patientId) {
+        try {
+            return ResponseEntity.status(HttpStatus.OK)
+                    .body(appointmentService.getPatientAppointments(patientId));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+    }
 }

@@ -26,4 +26,6 @@ public interface AppointmentService {
 
     HashMap<Long, LocalTime> getAvailableAppointments(Date date, String medicalSpeciality, String healthcareUnit);
 
+    List<Appointment> getPatientAppointments(int patientId);
+
 }
