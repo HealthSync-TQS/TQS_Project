@@ -23,6 +23,23 @@ import MKButton from "components/MKButton";
 import { useAppointment } from "contexts/AppointmentContext";
 
 function Presentation() {
+  const customSelectStyles = {
+    "& .MuiSelect-select": {
+      height: "40px",
+      display: "flex",
+      alignItems: "center",
+    },
+    "& .MuiInputBase-root": {
+      height: "40px",
+    },
+  };
+
+  const customMenuItemStyles = {
+    "& .MuiMenuItem-root": {
+      minHeight: "40px",
+    },
+  };
+
   const navigate = useNavigate();
   const { setAppointmentData } = useAppointment();
 
@@ -31,30 +48,29 @@ function Presentation() {
     fullName: "",
     email: "",
     healthcareUnit: "",
-    medicalSpeciality: ""
+    medicalSpeciality: "",
   });
 
   const handleChange = (event) => {
     const { name, value } = event.target;
-    setAppointmentData(prevState => ({
+    setAppointmentData((prevState) => ({
       ...prevState,
-      [name]: value
+      [name]: value,
     }));
-    setFormData(prevState => ({
+    setFormData((prevState) => ({
       ...prevState,
-      [name]: value
+      [name]: value,
     }));
   };
 
   const handleSubmit = async () => {
-    if (Object.values(formData).some(x => x === "")) {
+    if (Object.values(formData).some((x) => x === "")) {
       alert("Please fill in all fields");
       return;
     }
-    setAppointmentData(formData); 
+    setAppointmentData(formData);
     navigate("/schedule");
   };
-  
 
   return (
     <>
@@ -76,9 +92,7 @@ function Presentation() {
                 minHeight="650px"
               >
                 <MKBox textAlign="center">
-                  <MKTypography variant="h4">
-                    Patient Calendar
-                  </MKTypography>
+                  <MKTypography variant="h4">Patient Calendar</MKTypography>
                   <MKTypography variant="body1" fontWeight={400} mb={3}>
                     View your upcoming consultations and appointments here.
                   </MKTypography>
@@ -97,7 +111,7 @@ function Presentation() {
                 borderRadius="xl"
                 shadow="md"
                 bgColor="white"
-                maxHeight="650px"
+                minHeight="650px"
               >
                 <MKBox>
                   <MKTypography variant="h4" textAlign="center">
@@ -163,11 +177,19 @@ function Presentation() {
                             onChange={handleChange}
                             name="healthcareUnit"
                             label="Healthcare Unit"
+                            sx={customSelectStyles}
+                            MenuProps={{
+                              PaperProps: {
+                                sx: customMenuItemStyles,
+                              },
+                            }}
                           >
                             <MenuItem value="USF Alfa">USF Alfa</MenuItem>
                             <MenuItem value="USF Beta">USF Beta</MenuItem>
                             <MenuItem value="USF Gama">USF Gama</MenuItem>
-                            <MenuItem value="Centro de Saúde Delta">Centro de Saúde Delta</MenuItem>
+                            <MenuItem value="Centro de Saúde Delta">
+                              Centro de Saúde Delta
+                            </MenuItem>
                           </Select>
                         </FormControl>
                       </Grid>
@@ -179,6 +201,12 @@ function Presentation() {
                             onChange={handleChange}
                             name="medicalSpeciality"
                             label="medicalSpeciality"
+                            sx={customSelectStyles}
+                            MenuProps={{
+                              PaperProps: {
+                                sx: customMenuItemStyles,
+                              },
+                            }}
                           >
                             <MenuItem value="Cardiology">Cardiology</MenuItem>
                             <MenuItem value="Dermatology">Dermatology</MenuItem>
