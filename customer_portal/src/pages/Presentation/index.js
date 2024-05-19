@@ -23,23 +23,6 @@ import MKButton from "components/MKButton";
 import { useAppointment } from "contexts/AppointmentContext";
 
 function Presentation() {
-  const customSelectStyles = {
-    "& .MuiSelect-select": {
-      height: "40px",
-      display: "flex",
-      alignItems: "center",
-    },
-    "& .MuiInputBase-root": {
-      height: "40px",
-    },
-  };
-
-  const customMenuItemStyles = {
-    "& .MuiMenuItem-root": {
-      minHeight: "40px",
-    },
-  };
-
   const navigate = useNavigate();
   const { setAppointmentData } = useAppointment();
 
@@ -177,10 +160,10 @@ function Presentation() {
                             onChange={handleChange}
                             name="healthcareUnit"
                             label="Healthcare Unit"
-                            sx={customSelectStyles}
+                            sx={{ height: '46px', display: 'flex', alignItems: 'center' }}
                             MenuProps={{
                               PaperProps: {
-                                sx: customMenuItemStyles,
+                                sx: { minHeight: '46px' },
                               },
                             }}
                           >
@@ -200,11 +183,11 @@ function Presentation() {
                             value={formData.medicalSpeciality}
                             onChange={handleChange}
                             name="medicalSpeciality"
-                            label="medicalSpeciality"
-                            sx={customSelectStyles}
+                            label="Medical Speciality"
+                            sx={{ height: '46px', display: 'flex', alignItems: 'center' }}
                             MenuProps={{
                               PaperProps: {
-                                sx: customMenuItemStyles,
+                                sx: { minHeight: '46px' },
                               },
                             }}
                           >
