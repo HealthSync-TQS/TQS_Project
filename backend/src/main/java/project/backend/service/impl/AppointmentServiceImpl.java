@@ -10,7 +10,6 @@ import project.backend.repository.PatientRepo;
 import project.backend.service.AppointmentService;
 
 import java.time.LocalTime;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
