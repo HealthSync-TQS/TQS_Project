@@ -14,17 +14,39 @@ import CloseIcon from "@mui/icons-material/Close";
 import MKBox from "components/MKBox";
 import MKButton from "components/MKButton";
 import MKTypography from "components/MKTypography";
+import axios from "axios";
 
-function ConsultModal() {
+function BalconyModal() {
   const [show, setShow] = useState(false);
+  const [inputNextAppointmentValue, setInputValue] = useState(""); // Estado para armazenar o valor do input
+
   const toggleModal = () => setShow(!show);
+
+  // Função para lidar com mudanças no input
+  const handleInputChange = (event) => {
+    setInputValue(event.target.value);
+  };
+
+  // Função que será chamada ao clicar em "save changes"
+  const callNext = () => {
+    axios
+      .get(`http://localhost:8080/nextAppointmentTicket?clinic=${inputNextAppointmentValue}`)
+      .then((response) => {
+        console.log("Response: ", response);
+        toggleModal();
+      })
+      .catch((error) => {
+        console.error("Error: ", error);
+        alert("Error: " + error);
+      });
+  };
 
   return (
     <MKBox component="section" py={6}>
       <Container>
         <Grid container item xs={12} lg={10} justifyContent="center" mx="auto">
           <MKButton variant="gradient" color="dark" onClick={toggleModal}>
-            Pass Clinic Number
+            NEXT APPOINTMENT
           </MKButton>
         </Grid>
         <Modal open={show} onClose={toggleModal} sx={{ display: "grid", placeItems: "center" }}>
@@ -38,29 +60,31 @@ function ConsultModal() {
               bgColor="white"
               shadow="xl"
             >
-              <MKBox display="flex" alginItems="center" justifyContent="space-between" p={2}>
-                <MKTypography variant="h5">Your modal title</MKTypography>
+              <MKBox display="flex" alignItems="center" justifyContent="space-between" p={2}>
+                <MKTypography variant="h5">Clinic</MKTypography>
                 <CloseIcon fontSize="medium" sx={{ cursor: "pointer" }} onClick={toggleModal} />
               </MKBox>
               <Divider sx={{ my: 0 }} />
-              <MKBox p={2}>
-                <MKTypography variant="body2" color="secondary" fontWeight="regular">
-                  Society has put up so many boundaries, so many limitations on what&apos;s right
-                  and wrong that it&apos;s almost impossible to get a pure thought out.
-                  <br />
-                  <br />
-                  It&apos;s like a little kid, a little boy, looking at colors, and no one told him
-                  what colors are good, before somebody tells you you shouldn&apos;t like pink
-                  because that&apos;s for girls, or you&apos;d instantly become a gay two-year-old.
-                </MKTypography>
-              </MKBox>
+              <input
+                type="text"
+                value={inputNextAppointmentValue}
+                onChange={handleInputChange}
+                placeholder="Enter clinic number"
+                style={{
+                  alignSelf: "center",
+                  width: "50%",
+                  padding: "8px",
+                  borderRadius: "4px",
+                  border: "1px solid #ccc",
+                }}
+              />
               <Divider sx={{ my: 0 }} />
               <MKBox display="flex" justifyContent="space-between" p={1.5}>
                 <MKButton variant="gradient" color="dark" onClick={toggleModal}>
                   close
                 </MKButton>
-                <MKButton variant="gradient" color="info">
-                  save changes
+                <MKButton variant="gradient" color="info" onClick={callNext}>
+                  Next
                 </MKButton>
               </MKBox>
             </MKBox>
@@ -71,4 +95,4 @@ function ConsultModal() {
   );
 }
 
-export default ConsultModal;
+export default BalconyModal;
