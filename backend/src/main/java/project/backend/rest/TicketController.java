@@ -13,9 +13,9 @@ import java.util.*;
 @RestController
 public class TicketController {
 
-    private List<String> nextCheckInTickets = new ArrayList<>();
-    private List<String> nextAppointmentsTickets = new ArrayList<>();
-    private Map<String, String> pastTickets = new LinkedHashMap<>();
+    private final List<String> nextCheckInTickets = new ArrayList<>();
+    List<String> nextAppointmentsTickets = new ArrayList<>();
+    private final Map<String, String> pastTickets = new LinkedHashMap<>();
 
 
     private final SimpMessagingTemplate template;
@@ -44,6 +44,31 @@ public class TicketController {
             nextAppointmentsTickets.add(newTicket);
             notifyBoard();
             return ResponseEntity.ok(newTicket);
+        }
+        catch (Exception e) {
+            return ResponseEntity.badRequest().body("Error creating ticket");
+        }
+    }
+
+    @PostMapping("/clearCheckIn")
+    public ResponseEntity<String> clearCheckInQueue() {
+        try {
+            nextCheckInTickets.clear();
+            notifyBoard();
+            return ResponseEntity.ok("Queue cleared");
+
+        }
+        catch (Exception e) {
+            return ResponseEntity.badRequest().body("Error creating ticket");
+        }
+    }
+
+    @PostMapping("/clearAppointments")
+    public ResponseEntity<String> clearAppointmentQueue() {
+        try {
+            nextAppointmentsTickets.clear();
+            notifyBoard();
+            return ResponseEntity.ok("Queue cleared");
         }
         catch (Exception e) {
             return ResponseEntity.badRequest().body("Error creating ticket");

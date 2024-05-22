@@ -21,7 +21,7 @@ public interface AppointmentService {
 
     Appointment getAppointmentById(Long id);
 
-    List<Appointment> getAppointmentByPatient(Long patientUtente);
+    List<Appointment> getAppointmentByPatient(int patientUtente);
 
     Appointment updatePayment(Long id, boolean paid);
 

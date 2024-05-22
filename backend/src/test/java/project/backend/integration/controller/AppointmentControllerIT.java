@@ -22,6 +22,9 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -131,8 +134,6 @@ public class AppointmentControllerIT {
     @Test
     public void testGetAppointmentsWithoutPatient() throws Exception {
 
-
-
         mockMvc.perform(get("/appointments/withoutPatient")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
@@ -167,6 +168,23 @@ public class AppointmentControllerIT {
                 .andExpect(status().isBadRequest());
     }
 
+    @Test
+    void testSetPayment() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.put("/appointment/setPaymentDone")
+                        .param("appointmentId", "1"))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    void testSetCheckIn() throws Exception {
+
+        mockMvc.perform(MockMvcRequestBuilders.put("/appointment/setCheckInDone")
+                        .param("appointmentId", "1"))
+                .andExpect(status().isOk());
+    }
 }
+
+
+
 
 

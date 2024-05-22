@@ -77,7 +77,7 @@ public class AppointmentController {
     @GetMapping("/appointment")
     public ResponseEntity<List<Appointment>> getAppointment(
             @RequestParam(value = "id", required = false) Long appointmentId,
-            @RequestParam(value = "numUtente", required = false) Long numUtente) {
+            @RequestParam(value = "numUtente", required = false) Integer numUtente) {
         try {
 
             if(appointmentId != null)

@@ -21,8 +21,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -144,6 +143,48 @@ public class AppointmentServiceTest {
 
         assertNull(result);
         verify(appointmentRepo, times(1)).findById(appointmentId);
+    }
+
+    @Test
+    public void getAppointmentByPatientTest() {
+        Patient patient = new Patient(123456789, "John", "john@example.com");
+        List<Appointment> appointments = Arrays.asList(
+                new Appointment(patient, new Date(124, 10, 12), "Cardiology", "Dr. Smith", "USF Gama", LocalTime.now(), 100.0,false),
+                new Appointment(patient, new Date(124, 9, 12), "Dermatology", "Dr. Johnson", "Centro de Saude Delta", LocalTime.now(),150.0,true)
+        );
+        when(appointmentRepo.findByPatientNumUtente(patient.getNumUtente())).thenReturn(appointments);
+
+        List<Appointment> result = appointmentService.getAppointmentByPatient(patient.getNumUtente());
+
+        assertNotNull(result);
+        assertEquals(appointments, result);
+
+    }
+
+    @Test
+    public void updateCheckInTest() {
+        Long appointmentId = 1L;
+        Appointment appointment = new Appointment(new Date(124, 9,12), "Dermatology", "Dr. Johnson", "Centro de Saude Delta", LocalTime.now(),150.0);
+        when(appointmentRepo.findById(appointmentId)).thenReturn(Optional.of(appointment));
+
+
+        Appointment updated = appointmentService.updateCheckIn(appointmentId, true);
+        assertNotNull(updated);
+        assertTrue(updated.isCheckedIn());
+        assertEquals(appointment, updated);
+    }
+
+    @Test
+    public void updatePaymentTest() {
+        Long appointmentId = 1L;
+        Appointment appointment = new Appointment(new Date(124, 9,12), "Dermatology", "Dr. Johnson", "Centro de Saude Delta", LocalTime.now(),150.0);
+        when(appointmentRepo.findById(appointmentId)).thenReturn(Optional.of(appointment));
+
+
+        Appointment updated = appointmentService.updatePayment(appointmentId, true);
+        assertNotNull(updated);
+        assertTrue(updated.isPaid());
+        assertEquals(appointment, updated);
     }
 
     @Test
