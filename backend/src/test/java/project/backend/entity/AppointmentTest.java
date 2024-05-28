@@ -27,7 +27,7 @@ public class AppointmentTest {
 
         Date date = new Date();
         double price = 200.00;
-        String medicalSpecialty = "Cardiology";
+        String medicalSpeciality = "Cardiology";
         String doctorName = "Doctor Rafael";
         String healthcareUnit = "Central Hospital";
         LocalTime time = LocalTime.of(14, 30);
@@ -36,7 +36,7 @@ public class AppointmentTest {
         appointment.setPatient(mockPatient);
         appointment.setDate(date);
         appointment.setPrice(price);
-        appointment.setMedicalSpecialty(medicalSpecialty);
+        appointment.setMedicalSpeciality(medicalSpeciality);
         appointment.setDoctorName(doctorName);
         appointment.setHealthcareUnit(healthcareUnit);
         appointment.setTime(time);
@@ -45,7 +45,7 @@ public class AppointmentTest {
         assertEquals(mockPatient, appointment.getPatient());
         assertEquals(date, appointment.getDate());
         assertEquals(price, appointment.getPrice());
-        assertEquals(medicalSpecialty, appointment.getMedicalSpecialty());
+        assertEquals(medicalSpeciality, appointment.getMedicalSpeciality());
         assertEquals(doctorName, appointment.getDoctorName());
         assertEquals(healthcareUnit, appointment.getHealthcareUnit());
         assertEquals(time, appointment.getTime());
@@ -69,13 +69,13 @@ public class AppointmentTest {
         LocalTime time = LocalTime.of(14, 30);
 
         Appointment appointmentWithPatient = new Appointment(mockPatient, date, medicalSpecialty, doctorName,
-                healthcareUnit, time, price);
+                healthcareUnit, time, price, false);
 
         // Asserting constructor properties
         assertEquals(mockPatient, appointmentWithPatient.getPatient());
         assertEquals(date, appointmentWithPatient.getDate());
         assertEquals(price, appointmentWithPatient.getPrice());
-        assertEquals(medicalSpecialty, appointmentWithPatient.getMedicalSpecialty());
+        assertEquals(medicalSpecialty, appointmentWithPatient.getMedicalSpeciality());
         assertEquals(doctorName, appointmentWithPatient.getDoctorName());
         assertEquals(healthcareUnit, appointmentWithPatient.getHealthcareUnit());
         assertEquals(time, appointmentWithPatient.getTime());
@@ -99,13 +99,13 @@ public class AppointmentTest {
         LocalTime time = LocalTime.of(14, 30);
 
         Appointment appointmentWithoutPatient = new Appointment(date, medicalSpecialty, doctorName, healthcareUnit,
-                time, price);
+                time, price, false);
 
         // Asserting that patient is null and other properties are set correctly
         assertNull(appointmentWithoutPatient.getPatient());
         assertEquals(date, appointmentWithoutPatient.getDate());
         assertEquals(price, appointmentWithoutPatient.getPrice());
-        assertEquals(medicalSpecialty, appointmentWithoutPatient.getMedicalSpecialty());
+        assertEquals(medicalSpecialty, appointmentWithoutPatient.getMedicalSpeciality());
         assertEquals(doctorName, appointmentWithoutPatient.getDoctorName());
         assertEquals(healthcareUnit, appointmentWithoutPatient.getHealthcareUnit());
         assertEquals(time, appointmentWithoutPatient.getTime());

@@ -45,7 +45,7 @@ public class AppointmentRepoTest {
         String healthcareUnit = "Central Hospital";
         LocalTime time = LocalTime.of(14, 30);
 
-        appointment = new Appointment(date, medicalSpecialty, doctorName, healthcareUnit, time, price);
+        appointment = new Appointment(date, medicalSpecialty, doctorName, healthcareUnit, time, price, false);
 
         patient = new Patient();
         patient.setNumUtente(123456);

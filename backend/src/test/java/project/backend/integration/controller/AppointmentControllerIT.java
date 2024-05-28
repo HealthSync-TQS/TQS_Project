@@ -18,23 +18,13 @@ import project.backend.repository.PatientRepo;
 import project.backend.service.impl.AppointmentServiceImpl;
 
 import java.time.LocalTime;
-import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.MediaType;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
-import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import java.util.Arrays;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -71,7 +61,11 @@ public class AppointmentControllerIT {
         patient = new Patient(123456789, "John Doe", "john@example.com");
         patientRepo.save(patient);
 
-        appointment = new Appointment(new Date(124, 10, 12), "Cardiology", "Dr. Smith", "USF Gama", LocalTime.now(), 100.0);
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(2024, Calendar.NOVEMBER, 12);
+        Date appointmentDate = calendar.getTime();
+
+        appointment = new Appointment(appointmentDate, "Cardiology", "Dr. Smith", "USF Gama", LocalTime.now(), 100.0, false);
 
         appointmentRepo.save(appointment);
     }
@@ -109,7 +103,7 @@ public class AppointmentControllerIT {
                 .andExpect(status().isCreated())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.patient.numUtente", is(patient.getNumUtente())))
-                .andExpect(jsonPath("$.medicalSpecialty", is(appointment.getMedicalSpecialty())))
+                .andExpect(jsonPath("$.medicalSpecialty", is(appointment.getMedicalSpeciality())))
                 .andExpect(jsonPath("$.doctorName", is(appointment.getDoctorName())))
                 .andExpect(jsonPath("$.price", is(appointment.getPrice())));
     }
@@ -152,7 +146,7 @@ public class AppointmentControllerIT {
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.patient.numUtente").value(patient.getNumUtente()))
                 .andExpect(jsonPath("$.patient.name").value(patient.getName()))
-                .andExpect(jsonPath("$.medicalSpecialty").value(appointment.getMedicalSpecialty()))
+                .andExpect(jsonPath("$.medicalSpecialty").value(appointment.getMedicalSpeciality()))
                 .andExpect(jsonPath("$.doctorName").value(appointment.getDoctorName()))
                 .andExpect(jsonPath("$.price").value(appointment.getPrice()));
 

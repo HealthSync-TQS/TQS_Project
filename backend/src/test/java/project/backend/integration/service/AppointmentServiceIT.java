@@ -54,7 +54,7 @@ public class AppointmentServiceIT {
     @Test
     public void testAddAppointmentWithoutPatient() {
 
-        Appointment appointment = new Appointment(new Date(), "Cardiology", "Dr. Smith", "Centro de Saude Delta",  LocalTime.now(), 100.0);
+        Appointment appointment = new Appointment(new Date(), "Cardiology", "Dr. Smith", "Centro de Saude Delta",  LocalTime.now(), 100.0, false);
         Appointment addedAppointment = appointmentService.addAppointment(appointment);
 
         assertNotNull(addedAppointment.getId());
@@ -66,7 +66,7 @@ public class AppointmentServiceIT {
         Patient patient = new Patient(123, "John Doe", "john@example.com");
         patientService.addPatient(patient);
 
-        Appointment appointment = new Appointment(new Date(), "Cardiology", "Dr. Smith", "Centro de Saude Delta",  LocalTime.now(), 100.0);
+        Appointment appointment = new Appointment(new Date(), "Cardiology", "Dr. Smith", "Centro de Saude Delta",  LocalTime.now(), 100.0, false);
         appointmentService.addAppointment(appointment);
 
         Appointment updatedAppointment = appointmentService.setPatient(appointment, patient.getNumUtente());
@@ -84,7 +84,7 @@ public class AppointmentServiceIT {
         Appointment appointment1 = new Appointment(
                 patient, new Date(), "Cardiology", "Dr. Smith",
                 "Centro de Saude Delta",  LocalTime.now(), 100.0, false);
-        Appointment appointment2 = new Appointment(new Date(), "Cardiology", "Dr. Smith", "Centro de Saude Delta",  LocalTime.now(), 100.0);
+        Appointment appointment2 = new Appointment(new Date(), "Cardiology", "Dr. Smith", "Centro de Saude Delta",  LocalTime.now(), 100.0, false);
 
         appointmentService.addAppointment(appointment1);
         appointmentService.addAppointment(appointment2);
@@ -104,9 +104,9 @@ public class AppointmentServiceIT {
                         patient, new Date(), "Cardiology", "Dr. Smith",
                         "Centro de Saude Delta",  LocalTime.now(), 100.0, false),
                 new Appointment(new Date(), "Cardiology", "Dr. Smith",
-                        "Centro de Saude Delta",  LocalTime.now(), 100.0),
+                        "Centro de Saude Delta",  LocalTime.now(), 100.0, false),
                 new Appointment(new Date(), "Cardiology", "Dr. Smith",
-                        "Centro de Saude Delta",  LocalTime.now(), 100.0)
+                        "Centro de Saude Delta",  LocalTime.now(), 100.0, false)
 
         );
 
@@ -122,7 +122,7 @@ public class AppointmentServiceIT {
     public void testGetAppointmentById() {
 
         Appointment addedAppointment = appointmentService.addAppointment(new Appointment(new Date(), "Cardiology", "Dr. Smith",
-                "Centro de Saude Delta",  LocalTime.now(), 100.0));
+                "Centro de Saude Delta",  LocalTime.now(), 100.0, false));
 
         Long appointmentId = addedAppointment.getId();
         Appointment retrievedAppointment = appointmentService.getAppointmentById(appointmentId);
@@ -136,9 +136,9 @@ public class AppointmentServiceIT {
     @Test
     public void testDeleteAll() {
         appointmentService.addAppointment(new Appointment(new Date(), "Cardiology", "Dr. Smith",
-                "Centro de Saude Delta",  LocalTime.now(), 100.0));
+                "Centro de Saude Delta",  LocalTime.now(), 100.0, false));
         appointmentService.addAppointment(new Appointment(new Date(), "Cardiology", "Dr. Smith",
-                "Centro de Saude Delta",  LocalTime.now(), 100.0));
+                "Centro de Saude Delta",  LocalTime.now(), 100.0, false));
 
         appointmentService.deleteAll();
 

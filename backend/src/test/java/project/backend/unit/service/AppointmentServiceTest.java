@@ -1,18 +1,15 @@
 package project.backend.unit.service;
 
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 import project.backend.entity.Appointment;
 import project.backend.entity.Patient;
 import project.backend.repository.AppointmentRepo;
 import project.backend.repository.PatientRepo;
-import project.backend.service.AppointmentService;
 import project.backend.service.impl.AppointmentServiceImpl;
 
 import java.time.LocalTime;
@@ -20,6 +17,7 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.Calendar;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
@@ -55,7 +53,11 @@ public class AppointmentServiceTest {
 
     @Test
     public void addAppointmentWithoutPatientTest() {
-        Appointment appointment = new Appointment(new Date(124, 10, 12), "Cardiology", "Dr. Smith", "USF Gama", LocalTime.now(), 100.0);
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(2024, Calendar.NOVEMBER, 12);
+        Date appointmentDate = calendar.getTime();
+
+        Appointment appointment = new Appointment(appointmentDate, "Cardiology", "Dr. Smith", "USF Gama", LocalTime.now(), 100.0, false);
         when(appointmentRepo.save(appointment)).thenReturn(appointment);
 
         Appointment addedAppointment = appointmentService.addAppointment(appointment);
@@ -70,7 +72,12 @@ public class AppointmentServiceTest {
     @Test
     public void setPatientTest() {
         Patient patient = new Patient(123456789, "John Doe", "john@example.com");
-        Appointment appointment = new Appointment(new Date(124, 10, 12), "Cardiology", "Dr. Smith", "USF Gama", LocalTime.now(), 100.0);
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(2024, Calendar.NOVEMBER, 12);
+        Date appointmentDate = calendar.getTime();
+        
+        Appointment appointment = new Appointment(appointmentDate, "Cardiology", "Dr. Smith", "USF Gama", LocalTime.now(), 100.0, false);
         when(patientRepo.findById(123456789)).thenReturn(Optional.of(patient));
         when(appointmentRepo.save(appointment)).thenReturn(appointment);
 
@@ -84,7 +91,12 @@ public class AppointmentServiceTest {
     @Test
     public void setPatientNotFoundTest() {
         int patientId = 123;
-        Appointment appointment = new Appointment(new Date(124, 10, 12), "Cardiology", "Dr. Smith", "USF Gama", LocalTime.now(), 100.0);
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(2024, Calendar.NOVEMBER, 12);
+        Date appointmentDate = calendar.getTime();
+
+        Appointment appointment = new Appointment(appointmentDate, "Cardiology", "Dr. Smith", "USF Gama", LocalTime.now(), 100.0, false);
         when(patientRepo.findById(patientId)).thenReturn(Optional.empty());
 
         Appointment updatedAppointment = appointmentService.setPatient(appointment, patientId);
@@ -97,9 +109,13 @@ public class AppointmentServiceTest {
 
     @Test
     public void getAllAppointmentsTest() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(2024, Calendar.NOVEMBER, 12);
+        Date appointmentDate = calendar.getTime();
+
         List<Appointment> appointments = Arrays.asList(
-                new Appointment(new Date(124, 10, 12), "Cardiology", "Dr. Smith", "USF Gama", LocalTime.now(), 100.0),
-                new Appointment(new Date(124, 10, 12), "Dermatology", "Dr. Johnson", "Centro de Saude Delta", LocalTime.now(),150.0)
+                new Appointment(appointmentDate, "Cardiology", "Dr. Smith", "USF Gama", LocalTime.now(), 100.0, false),
+                new Appointment(appointmentDate, "Dermatology", "Dr. Johnson", "Centro de Saude Delta", LocalTime.now(),150.0, false)
         );
         when(appointmentRepo.findAll()).thenReturn(appointments);
 
@@ -111,9 +127,13 @@ public class AppointmentServiceTest {
 
     @Test
     public void getAppointmentsWithoutPatientTest() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(2024, Calendar.NOVEMBER, 12);
+        Date appointmentDate = calendar.getTime();
+
         List<Appointment> appointments = Arrays.asList(
-                new Appointment(new Date(124, 10, 12), "Cardiology", "Dr. Smith", "USF Gama", LocalTime.now(), 100.0),
-                new Appointment(new Date(124, 10, 12), "Dermatology", "Dr. Johnson", "Centro de Saude Delta", LocalTime.now(),150.0)
+                new Appointment(appointmentDate, "Cardiology", "Dr. Smith", "USF Gama", LocalTime.now(), 100.0, false),
+                new Appointment(appointmentDate, "Dermatology", "Dr. Johnson", "Centro de Saude Delta", LocalTime.now(),150.0, false)
                 );
         when(appointmentRepo.findByPatientIsNull()).thenReturn(appointments);
 
@@ -126,7 +146,12 @@ public class AppointmentServiceTest {
     @Test
     public void getAppointmentByIdTest() {
         Long appointmentId = 1L;
-        Appointment appointment = new Appointment(new Date(124, 10, 12), "Dermatology", "Dr. Johnson", "Centro de Saude Delta", LocalTime.now(),150.0);
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(2024, Calendar.NOVEMBER, 12);
+        Date appointmentDate = calendar.getTime();
+
+        Appointment appointment = new Appointment(appointmentDate, "Dermatology", "Dr. Johnson", "Centro de Saude Delta", LocalTime.now(),150.0, false);
         when(appointmentRepo.findById(appointmentId)).thenReturn(Optional.of(appointment));
 
         Appointment result = appointmentService.getAppointmentById(appointmentId);

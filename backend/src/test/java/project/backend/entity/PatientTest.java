@@ -1,7 +1,6 @@
 package project.backend.entity;
 
 import org.junit.jupiter.api.Test;
-import project.backend.entity.Patient;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
