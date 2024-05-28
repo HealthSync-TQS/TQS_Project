@@ -25,7 +25,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-public class AppointmentServiceTest {
+class AppointmentServiceTest {
 
 
     @Mock
@@ -39,7 +39,7 @@ public class AppointmentServiceTest {
 
 
     @Test
-    public void addAppointmentWithPatientTest() {
+    void addAppointmentWithPatientTest() {
         Patient patient = new Patient(123, "John Doe", "john@example.com");
         Appointment appointment = new Appointment(patient, new Date(), "Cardiology", "Dr. Smith", "Centro de Saude Delta",  LocalTime.now(), 100.0, false);
         when(appointmentRepo.save(appointment)).thenReturn(appointment);
@@ -53,7 +53,7 @@ public class AppointmentServiceTest {
     }
 
     @Test
-    public void addAppointmentWithoutPatientTest() {
+    void addAppointmentWithoutPatientTest() {
         Appointment appointment = new Appointment(new Date(124, 10, 12), "Cardiology", "Dr. Smith", "USF Gama", LocalTime.now(), 100.0);
         when(appointmentRepo.save(appointment)).thenReturn(appointment);
 
@@ -67,7 +67,7 @@ public class AppointmentServiceTest {
 
 
     @Test
-    public void setPatientTest() {
+    void setPatientTest() {
         Patient patient = new Patient(123456789, "John Doe", "john@example.com");
         Appointment appointment = new Appointment(new Date(124, 10, 12), "Cardiology", "Dr. Smith", "USF Gama", LocalTime.now(), 100.0);
         when(patientRepo.findById(123456789)).thenReturn(Optional.of(patient));
@@ -81,7 +81,7 @@ public class AppointmentServiceTest {
     }
 
     @Test
-    public void setPatientNotFoundTest() {
+    void setPatientNotFoundTest() {
         int patientId = 123;
         Appointment appointment = new Appointment(new Date(124, 10, 12), "Cardiology", "Dr. Smith", "USF Gama", LocalTime.now(), 100.0);
         when(patientRepo.findById(patientId)).thenReturn(Optional.empty());
@@ -95,7 +95,7 @@ public class AppointmentServiceTest {
 
 
     @Test
-    public void getAllAppointmentsTest() {
+    void getAllAppointmentsTest() {
         List<Appointment> appointments = Arrays.asList(
                 new Appointment(new Date(124, 10, 12), "Cardiology", "Dr. Smith", "USF Gama", LocalTime.now(), 100.0),
                 new Appointment(new Date(124, 10, 12), "Dermatology", "Dr. Johnson", "Centro de Saude Delta", LocalTime.now(),150.0)
@@ -109,7 +109,7 @@ public class AppointmentServiceTest {
     }
 
     @Test
-    public void getAppointmentsWithoutPatientTest() {
+    void getAppointmentsWithoutPatientTest() {
         List<Appointment> appointments = Arrays.asList(
                 new Appointment(new Date(124, 10, 12), "Cardiology", "Dr. Smith", "USF Gama", LocalTime.now(), 100.0),
                 new Appointment(new Date(124, 10, 12), "Dermatology", "Dr. Johnson", "Centro de Saude Delta", LocalTime.now(),150.0)
@@ -123,7 +123,7 @@ public class AppointmentServiceTest {
     }
 
     @Test
-    public void getAppointmentByIdTest() {
+    void getAppointmentByIdTest() {
         Long appointmentId = 1L;
         Appointment appointment = new Appointment(new Date(124, 10, 12), "Dermatology", "Dr. Johnson", "Centro de Saude Delta", LocalTime.now(),150.0);
         when(appointmentRepo.findById(appointmentId)).thenReturn(Optional.of(appointment));
@@ -135,7 +135,7 @@ public class AppointmentServiceTest {
     }
 
     @Test
-    public void getAppointmentByIdNotFoundTest() {
+    void getAppointmentByIdNotFoundTest() {
         Long appointmentId = 1L;
         when(appointmentRepo.findById(appointmentId)).thenReturn(Optional.empty());
 
@@ -146,7 +146,7 @@ public class AppointmentServiceTest {
     }
 
     @Test
-    public void getAppointmentByPatientTest() {
+    void getAppointmentByPatientTest() {
         Patient patient = new Patient(123456789, "John", "john@example.com");
         List<Appointment> appointments = Arrays.asList(
                 new Appointment(patient, new Date(124, 10, 12), "Cardiology", "Dr. Smith", "USF Gama", LocalTime.now(), 100.0,false),
@@ -162,7 +162,7 @@ public class AppointmentServiceTest {
     }
 
     @Test
-    public void updateCheckInTest() {
+    void updateCheckInTest() {
         Long appointmentId = 1L;
         Appointment appointment = new Appointment(new Date(124, 9,12), "Dermatology", "Dr. Johnson", "Centro de Saude Delta", LocalTime.now(),150.0);
         when(appointmentRepo.findById(appointmentId)).thenReturn(Optional.of(appointment));
@@ -175,7 +175,7 @@ public class AppointmentServiceTest {
     }
 
     @Test
-    public void updatePaymentTest() {
+    void updatePaymentTest() {
         Long appointmentId = 1L;
         Appointment appointment = new Appointment(new Date(124, 9,12), "Dermatology", "Dr. Johnson", "Centro de Saude Delta", LocalTime.now(),150.0);
         when(appointmentRepo.findById(appointmentId)).thenReturn(Optional.of(appointment));
@@ -188,7 +188,7 @@ public class AppointmentServiceTest {
     }
 
     @Test
-    public void deleteAllAppointmentsTest() {
+    void deleteAllAppointmentsTest() {
         doNothing().when(appointmentRepo).deleteAll();
 
         appointmentService.deleteAll();

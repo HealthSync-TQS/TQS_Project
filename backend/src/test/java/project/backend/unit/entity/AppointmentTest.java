@@ -40,11 +40,24 @@ class AppointmentTest {
 
     @Test
     void testEqualsAndHashCode() {
-        Appointment anotherAppointment = new Appointment(patient, date, "Cardiology", "Dr. Smith", "Health Unit 1", time, 150.0, true);
+        // Same object comparison
+        assertEquals(appointment1, appointment1);
 
+        // Null comparison
+        assertNotEquals(null, appointment1);
+
+        // Different class comparison
+        assertNotEquals(appointment1, new Object());
+
+        // Different attributes comparison
+        assertNotEquals(appointment1, appointment2);
+
+        // Same attributes comparison
+        Appointment anotherAppointment = new Appointment(patient, date, "Cardiology", "Dr. Smith", "Health Unit 1", time, 150.0, true);
         assertEquals(appointment1, anotherAppointment);
         assertEquals(appointment1.hashCode(), anotherAppointment.hashCode());
 
+        // Modify one attribute and compare again
         anotherAppointment.setDoctorName("Dr. Johnson");
         assertNotEquals(appointment1, anotherAppointment);
         assertNotEquals(appointment1.hashCode(), anotherAppointment.hashCode());
@@ -57,5 +70,30 @@ class AppointmentTest {
 
         appointment2.setPrice(200.0);
         assertEquals(200.0, appointment2.getPrice());
+
+        appointment2.setMedicalSpecialty("Cardiology");
+        assertEquals("Cardiology", appointment2.getMedicalSpecialty());
+
+        appointment2.setDoctorName("Dr. Smith");
+        assertEquals("Dr. Smith", appointment2.getDoctorName());
+
+        LocalTime newTime = LocalTime.now();
+        appointment2.setTime(newTime);
+        assertEquals(newTime, appointment2.getTime());
+
+        appointment2.setDate(new Date());
+        assertEquals(new Date(), appointment2.getDate());
+
+        appointment2.setPatient(patient);
+        assertEquals(patient, appointment2.getPatient());
+
+        appointment2.setId(1L);
+        assertEquals(1L, appointment2.getId());
+
+
+        appointment2.setCheckedIn(false);
+        assertFalse(appointment2.isCheckedIn());
+
+
     }
 }

@@ -20,7 +20,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @ActiveProfiles("test")
-public class AppointmentServiceIT {
+class AppointmentServiceIT {
 
     @Autowired
     private AppointmentServiceImpl appointmentService;
@@ -32,14 +32,14 @@ public class AppointmentServiceIT {
 
 
     @BeforeEach
-    public void cleanDatabase() {
+    void cleanDatabase() {
         appointmentService.deleteAll();
         patientService.deleteAll();
     }
 
 
     @Test
-    public void testAddAppointmentWithPatient() {
+    void testAddAppointmentWithPatient() {
         Patient patient = new Patient(123, "John Doe", "john@example.com");
         patientService.addPatient(patient);
 
@@ -52,7 +52,7 @@ public class AppointmentServiceIT {
 
 
     @Test
-    public void testAddAppointmentWithoutPatient() {
+    void testAddAppointmentWithoutPatient() {
 
         Appointment appointment = new Appointment(new Date(), "Cardiology", "Dr. Smith", "Centro de Saude Delta",  LocalTime.now(), 100.0);
         Appointment addedAppointment = appointmentService.addAppointment(appointment);
@@ -62,7 +62,7 @@ public class AppointmentServiceIT {
     }
 
     @Test
-    public void testSetPatient() {
+    void testSetPatient() {
         Patient patient = new Patient(123, "John Doe", "john@example.com");
         patientService.addPatient(patient);
 
@@ -77,7 +77,7 @@ public class AppointmentServiceIT {
     }
 
     @Test
-    public void testGetAllAppointments() {
+    void testGetAllAppointments() {
         Patient patient = new Patient(123, "John Doe", "john@example.com");
         patientService.addPatient(patient);
 
@@ -95,7 +95,7 @@ public class AppointmentServiceIT {
 
 
     @Test
-    public void testGetAppointments() {
+    void testGetAppointments() {
         Patient patient = new Patient(123, "John Doe", "john@example.com");
         patientService.addPatient(patient);
 
@@ -119,7 +119,7 @@ public class AppointmentServiceIT {
 
 
     @Test
-    public void testGetAppointmentById() {
+    void testGetAppointmentById() {
 
         Appointment addedAppointment = appointmentService.addAppointment(new Appointment(new Date(), "Cardiology", "Dr. Smith",
                 "Centro de Saude Delta",  LocalTime.now(), 100.0));
@@ -134,7 +134,7 @@ public class AppointmentServiceIT {
     }
 
     @Test
-    public void testDeleteAll() {
+    void testDeleteAll() {
         appointmentService.addAppointment(new Appointment(new Date(), "Cardiology", "Dr. Smith",
                 "Centro de Saude Delta",  LocalTime.now(), 100.0));
         appointmentService.addAppointment(new Appointment(new Date(), "Cardiology", "Dr. Smith",

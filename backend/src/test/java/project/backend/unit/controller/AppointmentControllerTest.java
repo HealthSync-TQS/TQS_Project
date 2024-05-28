@@ -70,6 +70,10 @@ class AppointmentControllerTest {
 
         assertEquals(HttpStatus.CREATED, response.getStatusCode());
         assertEquals("Cardiology", Objects.requireNonNull(response.getBody()).getMedicalSpecialty());
+
+        when(appointmentService.addAppointment(any(Appointment.class))).thenThrow(new RuntimeException());
+        ResponseEntity<Appointment> errorResponse = appointmentController.createAppointment(appointment);
+        assertEquals(HttpStatus.BAD_REQUEST, errorResponse.getStatusCode());
     }
 
     @Test
@@ -99,6 +103,10 @@ class AppointmentControllerTest {
 
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals("Cardiology", Objects.requireNonNull(response.getBody()).getMedicalSpecialty());
+
+        when(appointmentService.getAppointmentById(anyLong())).thenThrow(new RuntimeException());
+        ResponseEntity<Appointment> errorResponse = appointmentController.setPatient(1L, 12345);
+        assertEquals(HttpStatus.BAD_REQUEST, errorResponse.getStatusCode());
     }
 
     @Test
@@ -110,6 +118,18 @@ class AppointmentControllerTest {
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals(1, Objects.requireNonNull(response.getBody()).size());
         assertEquals("Cardiology", response.getBody().get(0).getMedicalSpecialty());
+
+        ResponseEntity<List<Appointment>> response1 = appointmentController.getAppointment(null, 12345);
+
+        assertEquals(HttpStatus.OK, response1.getStatusCode());
+
+        ResponseEntity<List<Appointment>> response2 = appointmentController.getAppointment(null, null);
+
+        assertEquals(HttpStatus.BAD_REQUEST, response2.getStatusCode());
+
+        when(appointmentService.getAppointmentById(anyLong())).thenThrow(new RuntimeException());
+        ResponseEntity<List<Appointment>> errorResponse = appointmentController.getAppointment(1L, null);
+        assertEquals(HttpStatus.NOT_FOUND, errorResponse.getStatusCode());
     }
 
     @Test
@@ -121,6 +141,10 @@ class AppointmentControllerTest {
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals("Cardiology", Objects.requireNonNull(response.getBody()).getMedicalSpecialty());
 
+        when(appointmentService.updatePayment(anyLong(), any(Boolean.class))).thenThrow(new RuntimeException());
+        ResponseEntity<Appointment> errorResponse = appointmentController.setPayment(1L);
+        assertEquals(HttpStatus.BAD_REQUEST, errorResponse.getStatusCode());
+
     }
 
     @Test
@@ -131,5 +155,10 @@ class AppointmentControllerTest {
 
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals("Cardiology", Objects.requireNonNull(response.getBody()).getMedicalSpecialty());
+
+
+        when(appointmentService.updateCheckIn(anyLong(), any(Boolean.class))).thenThrow(new RuntimeException());
+        ResponseEntity<Appointment> errorResponse = appointmentController.setCheckIn(1L);
+        assertEquals(HttpStatus.BAD_REQUEST, errorResponse.getStatusCode());
     }
 }
