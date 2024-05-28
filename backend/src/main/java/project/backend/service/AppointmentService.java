@@ -25,6 +25,12 @@ public interface AppointmentService {
     Appointment getAppointmentById(Long id);
 
     HashMap<Long, LocalTime> getAvailableAppointments(Date date, String medicalSpeciality, String healthcareUnit);
+    
+    List<Appointment> getAppointmentByPatient(Long patientUtente);
+
+    Appointment updatePayment(Long id, boolean paid);
+
+    Appointment updateCheckIn(Long id, boolean checkedIn);
 
     List<Appointment> getPatientAppointments(int patientId);
 

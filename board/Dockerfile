@@ -1,13 +1,15 @@
-FROM node:20.11.1-alpine AS build
+FROM node:20.11.1-alpine
 
 WORKDIR /app
 
-COPY package.json .
+COPY package*.json ./
+
+RUN npm cache clean --force
 
 RUN npm install
 
 COPY . .
 
-EXPOSE 8083
+EXPOSE 3002
 
-CMD [ "npm", "run", "dev" ]
+CMD ["npm", "start"]

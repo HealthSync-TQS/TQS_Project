@@ -13,6 +13,7 @@ import project.backend.service.PatientService;
 import java.time.LocalTime;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.logging.Logger;
 
 @Component
 public class DataInitializer implements CommandLineRunner {
@@ -20,6 +21,8 @@ public class DataInitializer implements CommandLineRunner {
     private final PatientService patientService;
 
     private final AppointmentService appointmentService;
+
+    private static final Logger logger = Logger.getLogger(DataInitializer.class.getName());
 
     @Autowired
     public DataInitializer(PatientService patientService, AppointmentService appointmentService) {
@@ -54,25 +57,25 @@ public class DataInitializer implements CommandLineRunner {
         patientService.addPatient(patient5);
 
         Appointment appointment1 = new Appointment(date, "Cardiology", "Dr. Smith", "Centro de Saúde Delta",
-                LocalTime.of(22, 20), 100.0);
+                LocalTime.of(22, 20), 100.0, false);
         Appointment appointment6 = new Appointment(date, "Cardiology", "Dr. Smith", "Centro de Saúde Delta",
-                LocalTime.of(23, 20), 100.0);
+                LocalTime.of(23, 20), 100.0, false);
         Appointment appointment7 = new Appointment(date, "Cardiology", "Dr. Smith", "Centro de Saúde Delta",
-                LocalTime.of(20, 20), 100.0);
+                LocalTime.of(20, 20), 100.0, false);
         Appointment appointment8 = new Appointment(date, "Cardiology", "Dr. Smith", "Centro de Saúde Delta",
-                LocalTime.of(19, 20), 100.0);
+                LocalTime.of(19, 20), 100.0, true);
         Appointment appointment9 = new Appointment(date, "Cardiology", "Dr. Smith", "Centro de Saúde Delta",
-                LocalTime.of(18, 20), 100.0);
+                LocalTime.of(18, 20), 100.0, false);
         Appointment appointment10 = new Appointment(date, "Cardiology", "Dr. Smith", "Centro de Saúde Delta",
-                LocalTime.of(16, 20), 100.0);
+                LocalTime.of(16, 20), 100.0, false);
         Appointment appointment2 = new Appointment(patient2, new Date(), "Dermatology", "Dr. Jones", "USF Alfa",
-                LocalTime.now(), 200.0);
+                LocalTime.now(), 200.0, false);
         Appointment appointment3 = new Appointment(patient3, new Date(), "Pediatry", "Dr. White", "USF Beta",
-                LocalTime.now(), 150.0);
+                LocalTime.now(), 150.0, false);
         Appointment appointment4 = new Appointment(patient4, new Date(), "Ginecology", "Dr. Black", "USF Gama",
-                LocalTime.now(), 180.0);
+                LocalTime.now(), 180.0, false);
         Appointment appointment5 = new Appointment(patient5, new Date(), "Cardiology", "Dr. Taylor",
-                "Centro de Saúde Delta", LocalTime.now(), 220.0);
+                "Centro de Saúde Delta", LocalTime.now(), 220.0, false);
         appointmentService.addAppointment(appointment1);
         appointmentService.addAppointment(appointment2);
         appointmentService.addAppointment(appointment3);
