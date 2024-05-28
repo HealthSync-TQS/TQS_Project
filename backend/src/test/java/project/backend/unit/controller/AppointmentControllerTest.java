@@ -24,7 +24,7 @@ import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-public class AppointmentControllerTest {
+class AppointmentControllerTest {
 
     @Mock
     private AppointmentService appointmentService;

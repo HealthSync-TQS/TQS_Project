@@ -10,7 +10,7 @@ import java.util.Date;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class AppointmentTest {
+class AppointmentTest {
 
     private Patient patient;
     private Date date;
@@ -19,7 +19,7 @@ public class AppointmentTest {
     private Appointment appointment2;
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         patient = new Patient();
         patient.setNumUtente(123456789);
 
@@ -31,7 +31,7 @@ public class AppointmentTest {
     }
 
     @Test
-    public void testAppointmentCreation() {
+    void testAppointmentCreation() {
         assertNotNull(appointment1);
         assertNotNull(appointment2);
         assertEquals("Cardiology", appointment1.getMedicalSpecialty());
@@ -39,7 +39,7 @@ public class AppointmentTest {
     }
 
     @Test
-    public void testEqualsAndHashCode() {
+    void testEqualsAndHashCode() {
         Appointment anotherAppointment = new Appointment(patient, date, "Cardiology", "Dr. Smith", "Health Unit 1", time, 150.0, true);
 
         assertEquals(appointment1, anotherAppointment);
@@ -51,7 +51,7 @@ public class AppointmentTest {
     }
 
     @Test
-    public void testGettersAndSetters() {
+    void testGettersAndSetters() {
         appointment2.setCheckedIn(true);
         assertTrue(appointment2.isCheckedIn());
 

@@ -5,14 +5,12 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 import project.backend.entity.Appointment;
 import project.backend.entity.Patient;
-import project.backend.repository.AppointmentRepo;
-import project.backend.repository.PatientRepo;
 import project.backend.service.AppointmentService;
 import project.backend.service.PatientService;
 
 import java.time.LocalTime;
+import java.util.Calendar;
 import java.util.Date;
-import java.util.logging.Logger;
 
 @Component
 public class DataInitializer implements CommandLineRunner {
@@ -20,8 +18,6 @@ public class DataInitializer implements CommandLineRunner {
     private final PatientService patientService;
 
     private final AppointmentService appointmentService;
-
-    private static final Logger logger = Logger.getLogger(DataInitializer.class.getName());
 
     @Autowired
     public DataInitializer(PatientService patientService, AppointmentService appointmentService) {
@@ -35,16 +31,21 @@ public class DataInitializer implements CommandLineRunner {
         patientService.deleteAll();
         appointmentService.deleteAll();
 
+        String speciality1 = "Cardiology";
+        String speciality2 = "Dermatology";
+        String doctor1 = "Dr. Smith";
+        String doctor2 = "Dr. Johnson";
+
         Patient patient1 = new Patient(123456789, "John", "John@example.com");
         Patient patient2 = new Patient(987654321, "Jane", "Jane@example.com");
         patientService.addPatient(patient1);
         patientService.addPatient(patient2);
 
-        Appointment appointment1 = new Appointment(patient1, new Date(), "Cardiology", "Dr. Smith", "Centro de Saude Delta",  LocalTime.now(), 100.0, false);
-        Appointment appointment2 = new Appointment(patient2, new Date(), "Dermatology", "Dr. Johnson", "USF Gama",  LocalTime.now(), 150.0, true);
-        Appointment appointment3 = new Appointment(new Date(124, 10, 12), "Cardiology", "Dr. Smith", "USF Gama", LocalTime.now(), 100.0);
-        Appointment appointment4 = new Appointment(new Date(124, 10, 12), "Dermatology", "Dr. Johnson", "Centro de Saude Delta", LocalTime.now(),150.0);
-        Appointment appointment5 = new Appointment(new Date(124, 5, 2), "Cardiology", "Dr. Smith", "USF Gama ", LocalTime.now(), 100.0);
+        Appointment appointment1 = new Appointment(patient1, new Date(), speciality1, doctor1, "Centro de Saude Delta",  LocalTime.now(), 100.0, false);
+        Appointment appointment2 = new Appointment(patient2, new Date(), speciality2, doctor2, "USF Gama",  LocalTime.now(), 150.0, true);
+        Appointment appointment3 = new Appointment(new Date(124, Calendar.NOVEMBER, 12), speciality1, doctor1, "USF Gama", LocalTime.now(), 100.0);
+        Appointment appointment4 = new Appointment(new Date(124, Calendar.NOVEMBER, 12), speciality2, doctor2, "Centro de Saude Delta", LocalTime.now(),150.0);
+        Appointment appointment5 = new Appointment(new Date(124, Calendar.JUNE, 2), speciality1, doctor1, "USF Gama ", LocalTime.now(), 100.0);
         appointmentService.addAppointment(appointment1);
         appointmentService.addAppointment(appointment2);
         appointmentService.addAppointment(appointment3);
