@@ -172,6 +172,11 @@ class AppointmentServiceTest {
         assertNotNull(updated);
         assertTrue(updated.isCheckedIn());
         assertEquals(appointment, updated);
+
+        // if not found return null
+        when(appointmentRepo.findById(appointmentId)).thenReturn(Optional.empty());
+        Appointment updated2 = appointmentService.updateCheckIn(appointmentId, true);
+        assertNull(updated2);
     }
 
     @Test
@@ -185,6 +190,11 @@ class AppointmentServiceTest {
         assertNotNull(updated);
         assertTrue(updated.isPaid());
         assertEquals(appointment, updated);
+
+        // if not found return null
+        when(appointmentRepo.findById(appointmentId)).thenReturn(Optional.empty());
+        Appointment updated2 = appointmentService.updatePayment(appointmentId, true);
+        assertNull(updated2);    
     }
 
     @Test
