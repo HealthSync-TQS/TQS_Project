@@ -1,0 +1,47 @@
+name: functional tests
+on:
+  push:
+    branches:
+      - dev
+  pull_request:
+    branches:
+      - dev
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v2
+        with:
+          java-version: 17
+          distribution: 'adopt'
+
+      - name: Install Google Chrome
+        run: |
+          wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
+          echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" | sudo tee /etc/apt/sources.list.d/google-chrome.list
+          sudo apt update
+          sudo apt install google-chrome-stable -y --allow-downgrades
+
+      - name: package backend with Maven
+        run: |
+          cd backend
+          mvn package
+
+      - name: Build the stack
+        run: docker compose up --build -d
+
+      - name: Run functional tests
+        run: rm -rf target/ && mvn test -Dtest=*TestRunner
+        working-directory: ./backend
+
+      - name: Tear down the stack
+        run: |
+          docker compose down --volumes
+          docker builder prune -a -f
+        
+

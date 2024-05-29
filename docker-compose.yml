@@ -1,5 +1,13 @@
 version: '3.7'
 
+networks:
+  tqs_project_network:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: "172.24.0.0/16"
+
 services:
 
   db:
@@ -20,11 +28,12 @@ services:
       interval: 30s
       timeout: 20s
       retries: 2
-
+    networks:
+      tqs_project_network:
+        ipv4_address: "172.24.0.2"
 
   backend:
     build: ./backend
-
     depends_on:
       db:
         condition: service_healthy
@@ -38,13 +47,9 @@ services:
                       }'
     ports:
       - "8080:8080"
-
-#  customer:
-#    build: ./customer_portal
-#    depends_on:
-#      - backend
-#    ports:
-#      - "3000:3000"
+    networks:
+      tqs_project_network:
+        ipv4_address: "172.24.0.3"
 
   staff:
     build: ./staff_portal
@@ -52,6 +57,9 @@ services:
       - backend
     ports:
       - "3001:3001"
+    networks:
+      tqs_project_network:
+        ipv4_address: "172.24.0.4"
 
   board:
     build: ./board
@@ -59,3 +67,6 @@ services:
       - backend
     ports:
       - "3002:3002"
+    networks:
+      tqs_project_network:
+        ipv4_address: "172.24.0.5"
