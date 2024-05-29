@@ -5,10 +5,10 @@ import project.backend.entity.Patient;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class PatientTest {
+class PatientTest {
 
     @Test
-    public void testGettersAndSetters() {
+    void testGettersAndSetters() {
         Patient patient = new Patient();
         int numUtente = 123;
         String name = "John Doe";
@@ -24,7 +24,7 @@ public class PatientTest {
     }
 
     @Test
-    public void testConstructors() {
+    void testConstructors() {
         int numUtente = 123;
         String name = "John Doe";
         String email = "john.doe@example.com";

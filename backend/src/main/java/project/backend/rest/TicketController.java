@@ -17,6 +17,8 @@ public class TicketController {
     List<String> nextAppointmentsTickets = new ArrayList<>();
     private final Map<String, String> pastTickets = new LinkedHashMap<>();
 
+    private String error = "Error creating ticket";
+
 
     private final SimpMessagingTemplate template;
 
@@ -33,7 +35,7 @@ public class TicketController {
             return ResponseEntity.ok(newTicket);
         }
         catch (Exception e) {
-            return ResponseEntity.badRequest().body("Error creating ticket");
+            return ResponseEntity.badRequest().body(error);
         }
     }
 
@@ -46,7 +48,7 @@ public class TicketController {
             return ResponseEntity.ok(newTicket);
         }
         catch (Exception e) {
-            return ResponseEntity.badRequest().body("Error creating ticket");
+            return ResponseEntity.badRequest().body(error);
         }
     }
 
@@ -59,7 +61,7 @@ public class TicketController {
 
         }
         catch (Exception e) {
-            return ResponseEntity.badRequest().body("Error creating ticket");
+            return ResponseEntity.badRequest().body(error);
         }
     }
 
@@ -71,7 +73,7 @@ public class TicketController {
             return ResponseEntity.ok("Queue cleared");
         }
         catch (Exception e) {
-            return ResponseEntity.badRequest().body("Error creating ticket");
+            return ResponseEntity.badRequest().body(error);
         }
     }
 
@@ -146,7 +148,6 @@ public class TicketController {
         Map<String, List<String>> queue = new HashMap<>();
         queue.put("checkin", nextCheckInTickets);
         queue.put("appointments", nextAppointmentsTickets);
-
 
 
         template.convertAndSend("/queue", queue);

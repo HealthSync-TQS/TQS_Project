@@ -13,7 +13,6 @@ import project.backend.service.PatientService;
 import java.util.Collections;
 import java.util.List;
 
-import java.util.logging.Logger;
 
 @RestController
 @CrossOrigin
@@ -22,7 +21,6 @@ public class AppointmentController {
     private final AppointmentService appointmentService;
     private final PatientService patientService;
 
-    private static final Logger logger = Logger.getLogger(AppointmentController.class.getName());
 
     @Autowired
     public AppointmentController(AppointmentService appointmentService, PatientService patientService) {
