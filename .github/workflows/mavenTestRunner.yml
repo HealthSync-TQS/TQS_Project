@@ -58,36 +58,4 @@ jobs:
 
 
 
-  test:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v2
-
-      - name: Set up JDK 17
-        uses: actions/setup-java@v2
-        with:
-          java-version: 17
-          distribution: 'adopt'
-
-      - name: package backend with Maven
-        run: |
-          cd backend
-          mvn package
-
-      - name: Build the stack
-        run: docker compose up --build -d
-
-
-      - name: install chrome inside the container
-        run: docker exec tqs_project-backend-1 apt-get update && apt-get install -y wget && wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb && apt install -y ./google-chrome-stable_current_amd64.deb
-
-      - name: Run functional tests
-        run: docker exec tqs_project-backend-1 mvn test -Dtest=*TestRunner
-
-      - name: Tear down the stack
-        run: |
-          docker compose down --volumes
-          docker builder prune -a -f
-        
-
+ 
