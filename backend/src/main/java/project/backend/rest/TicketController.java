@@ -149,7 +149,7 @@ public class TicketController {
 
 
 
-        //template.convertAndSend("/topic", queue);
+        template.convertAndSend("/queue", queue);
         template.convertAndSend("/topic", pastTickets);
     }
 
