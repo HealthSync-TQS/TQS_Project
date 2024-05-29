@@ -30,6 +30,9 @@ jobs:
           sudo apt-get update
           sudo apt install -y ./google-chrome-stable_current_amd64.deb --allow-downgrades
 
+      - name: mvn package
+        run: cd backend && mvn package
+
       - name: up containers
         run: docker compose up -d --build
 
