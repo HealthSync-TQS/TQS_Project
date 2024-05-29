@@ -8,6 +8,7 @@ import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -24,9 +25,11 @@ public class CheckInSteps {
 
 
 
+
     @When("I navigate to {string}")
     public void i_access(String string) {
-        driver = WebDriverManager.chromedriver().create();
+        WebDriverManager.chromedriver().driverVersion("122.0.6261.128").setup();
+        driver = new ChromeDriver();
         driver.get(string);
         driver.manage().window().setSize(new Dimension(1840, 1053));
     }
