@@ -9,6 +9,7 @@ import org.openqa.selenium.WebDriver;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -20,7 +21,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class CheckInSteps {
 
-    WebDriver driver;
+    private WebDriver driver;
 
 
 
@@ -28,10 +29,16 @@ public class CheckInSteps {
 
     @When("I navigate to {string}")
     public void i_access(String string) {
-        WebDriverManager.chromedriver().driverVersion("122.0.6261.128").setup();
-        driver = new ChromeDriver();
+        WebDriverManager.chromedriver().setup();
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("--headless");
+        options.addArguments("--no-sandbox");
+        options.addArguments("--disable-dev-shm-usage");
+        driver = new ChromeDriver(options);
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         driver.get(string);
-        driver.manage().window().setSize(new Dimension(1840, 1053));
+
+
     }
 
     @When("I search for appointment with id {string}")
