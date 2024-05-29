@@ -11,13 +11,6 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - name: Install Google Chrome
-        run: |
-          wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
-          echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" | sudo tee /etc/apt/sources.list.d/google-chrome.list
-          sudo apt update
-          sudo apt install google-chrome-stable -y --allow-downgrades
-
       - name: Checkout Repository
         uses: actions/checkout@v2
 
@@ -27,34 +20,27 @@ jobs:
           java-version: 17
           distribution: 'adopt'
 
+      - name: Install Google Chrome
+        run: |
+          wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
+          echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" | sudo tee /etc/apt/sources.list.d/google-chrome.list
+          sudo apt update
+          sudo apt install google-chrome-stable -y --allow-downgrades
 
       - name: package backend with Maven
         run: |
           cd backend
           mvn package
-          mvn spring-boot:run
 
-      - name: Set up node
-        uses: actions/setup-node@v2
-        with:
-          node-version: '20.11.1'
-          distribution: 'node'
-
-      - name: run front
-        run: |
-          cd staff_portal
-          npm install
-          npm start
+      - name: Build the stack
+        run: docker compose up --build -d
 
       - name: Run functional tests
+        run: docker exec tqs_project-backend-1 mvn test -Dtest=*TestRunner
+
+      - name: Tear down the stack
         run: |
-          cd backend
-          mvn test -Dtest=*TestRunner
-            
+          docker compose down --volumes
+          docker builder prune -a -f
         
-
-          
-        
-          
-
 
