@@ -20,13 +20,6 @@ jobs:
           java-version: 17
           distribution: 'adopt'
 
-      - name: Install Google Chrome
-        run: |
-          wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
-          echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" | sudo tee /etc/apt/sources.list.d/google-chrome.list
-          sudo apt update
-          sudo apt install google-chrome-stable -y --allow-downgrades
-
       - name: package backend with Maven
         run: |
           cd backend
@@ -34,6 +27,10 @@ jobs:
 
       - name: Build the stack
         run: docker compose up --build -d
+
+
+      - name: install chrome inside the container
+        run: docker exec tqs_project-backend-1 apt-get update && apt-get install -y wget && wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb && apt install -y ./google-chrome-stable_current_amd64.deb
 
       - name: Run functional tests
         run: docker exec tqs_project-backend-1 mvn test -Dtest=*TestRunner
