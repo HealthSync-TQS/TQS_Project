@@ -1,16 +1,6 @@
 import { useState } from "react";
-
-// @mui material components
-import Container from "@mui/material/Container";
-import Grid from "@mui/material/Grid";
-import Modal from "@mui/material/Modal";
-import Divider from "@mui/material/Divider";
-import Slide from "@mui/material/Slide";
-
-// @mui icons
+import { Container, Grid, Modal, Divider, Slide } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
-
-// Material Kit 2 React components
 import MKBox from "components/MKBox";
 import MKButton from "components/MKButton";
 import MKTypography from "components/MKTypography";
@@ -18,16 +8,14 @@ import axios from "axios";
 
 function BalconyModal() {
   const [show, setShow] = useState(false);
-  const [inputNextCheckInValue, setInputValue] = useState(""); // Estado para armazenar o valor do input
+  const [inputNextCheckInValue, setInputValue] = useState("");
 
   const toggleModal = () => setShow(!show);
 
-  // Função para lidar com mudanças no input
   const handleInputChange = (event) => {
     setInputValue(event.target.value);
   };
 
-  // Função que será chamada ao clicar em "save changes"
   const callNext = () => {
     axios
       .get(`http://localhost:8080/nextCheckInTicket?balcony=${inputNextCheckInValue}`)
@@ -46,25 +34,26 @@ function BalconyModal() {
       <Container>
         <Grid container item xs={12} lg={10} justifyContent="center" mx="auto">
           <MKButton variant="gradient" color="dark" onClick={toggleModal}>
-            Pass Balcony Number
+            Next Check-In
           </MKButton>
         </Grid>
         <Modal open={show} onClose={toggleModal} sx={{ display: "grid", placeItems: "center" }}>
           <Slide direction="down" in={show} timeout={500}>
             <MKBox
               position="relative"
-              width="500px"
+              width="400px"
               display="flex"
               flexDirection="column"
               borderRadius="xl"
               bgColor="white"
               shadow="xl"
+              p={3}
             >
-              <MKBox display="flex" alignItems="center" justifyContent="space-between" p={2}>
+              <MKBox display="flex" alignItems="center" justifyContent="space-between">
                 <MKTypography variant="h5">Balcony Number</MKTypography>
                 <CloseIcon fontSize="medium" sx={{ cursor: "pointer" }} onClick={toggleModal} />
               </MKBox>
-              <Divider sx={{ my: 0 }} />
+              <Divider sx={{ my: 2 }} />
               <input
                 type="text"
                 value={inputNextCheckInValue}
@@ -72,16 +61,16 @@ function BalconyModal() {
                 placeholder="Enter Balcony Number"
                 style={{
                   alignSelf: "center",
-                  width: "50%",
-                  padding: "8px",
-                  borderRadius: "4px",
+                  width: "80%",
+                  padding: "10px",
+                  borderRadius: "8px",
                   border: "1px solid #ccc",
+                  marginBottom: "16px",
                 }}
               />
-              <Divider sx={{ my: 0 }} />
-              <MKBox display="flex" justifyContent="space-between" p={1.5}>
+              <MKBox display="flex" justifyContent="space-between">
                 <MKButton variant="gradient" color="dark" onClick={toggleModal}>
-                  close
+                  Close
                 </MKButton>
                 <MKButton variant="gradient" color="info" onClick={callNext}>
                   Next
