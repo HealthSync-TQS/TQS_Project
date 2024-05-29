@@ -30,7 +30,7 @@ jobs:
 
 
       - name: install chrome inside the container
-        run: docker exec tqs_project-backend-1 apt-get update && apt-get install -y wget && wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb && apt install -y ./google-chrome-stable_current_amd64.deb
+        run: sudo docker exec tqs_project-backend-1 apt-get update && apt-get install -y wget && wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb && apt install -y ./google-chrome-stable_current_amd64.deb
 
       - name: Run functional tests
         run: docker exec tqs_project-backend-1 mvn test -Dtest=*TestRunner
