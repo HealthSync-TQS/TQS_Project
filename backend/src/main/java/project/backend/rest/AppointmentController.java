@@ -16,7 +16,6 @@ import java.util.HashMap;
 import java.util.Collections;
 import java.util.List;
 
-import java.util.logging.Logger;
 
 @RestController
 @CrossOrigin
@@ -25,7 +24,6 @@ public class AppointmentController {
     private final AppointmentService appointmentService;
     private final PatientService patientService;
 
-    private static final Logger logger = Logger.getLogger(AppointmentController.class.getName());
 
     @Autowired
     public AppointmentController(AppointmentService appointmentService, PatientService patientService) {
@@ -76,7 +74,7 @@ public class AppointmentController {
     @GetMapping("/appointment")
     public ResponseEntity<List<Appointment>> getAppointment(
             @RequestParam(value = "id", required = false) Long appointmentId,
-            @RequestParam(value = "numUtente", required = false) Long numUtente) {
+            @RequestParam(value = "numUtente", required = false) Integer numUtente) {
         try {
 
             if(appointmentId != null)

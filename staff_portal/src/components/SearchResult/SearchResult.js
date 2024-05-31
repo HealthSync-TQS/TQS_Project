@@ -70,11 +70,18 @@ const SearchResult = ({ data }) => {
           >
             <CloseIcon />
           </IconButton>
-          <Typography variant="h6">Consult Details</Typography>
+          <Typography data-testid="consult-details" variant="h6" className="consult-details">
+            Consult Details
+          </Typography>
+
           {data.patient ? (
             <>
-              <Typography variant="subtitle1">Patient: {data.patient.name}</Typography>
-              <Typography variant="subtitle1">NºUtente: {data.patient.numUtente}</Typography>
+              <Typography id="PatientName" variant="subtitle1">
+                Patient: {data.patient.name}
+              </Typography>
+              <Typography id="PatientUtente" variant="subtitle1">
+                Nº Utente: {data.patient.numUtente}
+              </Typography>
             </>
           ) : (
             <Typography variant="subtitle1">No patient assigned.</Typography>
@@ -88,6 +95,7 @@ const SearchResult = ({ data }) => {
             paid ? (
               checkInConfirmed ? (
                 <MKButton
+                  id="getTicket"
                   variant="outlined"
                   color="success"
                   startIcon={<CheckCircleOutlineIcon />}
@@ -98,13 +106,19 @@ const SearchResult = ({ data }) => {
               ) : (
                 <>
                   <MKButton
+                    id="paid"
                     variant="outlined"
                     color="success"
                     startIcon={<CheckCircleOutlineIcon />}
                   >
                     Paid
                   </MKButton>
-                  <MKButton variant="contained" color="primary" onClick={handleCheckIn}>
+                  <MKButton
+                    id="checkin"
+                    variant="contained"
+                    color="primary"
+                    onClick={handleCheckIn}
+                  >
                     Check-in
                   </MKButton>
                 </>

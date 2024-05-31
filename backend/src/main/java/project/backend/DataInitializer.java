@@ -5,15 +5,12 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 import project.backend.entity.Appointment;
 import project.backend.entity.Patient;
-import project.backend.repository.AppointmentRepo;
-import project.backend.repository.PatientRepo;
 import project.backend.service.AppointmentService;
 import project.backend.service.PatientService;
 
 import java.time.LocalTime;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.logging.Logger;
 
 @Component
 public class DataInitializer implements CommandLineRunner {
@@ -21,8 +18,6 @@ public class DataInitializer implements CommandLineRunner {
     private final PatientService patientService;
 
     private final AppointmentService appointmentService;
-
-    private static final Logger logger = Logger.getLogger(DataInitializer.class.getName());
 
     @Autowired
     public DataInitializer(PatientService patientService, AppointmentService appointmentService) {

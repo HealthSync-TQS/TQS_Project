@@ -23,6 +23,7 @@ const InputNumUtente = ({ onSearch }) => {
     >
       <div>
         <MKInput
+          id="inputUtente"
           variant="standard"
           label="Nº Utente"
           value={numUtente}
@@ -31,6 +32,7 @@ const InputNumUtente = ({ onSearch }) => {
       </div>
       <div>
         <MKInput
+          id="inputId"
           variant="standard"
           label="Consult ID"
           value={id}

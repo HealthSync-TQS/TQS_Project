@@ -82,7 +82,7 @@ public class AppointmentServiceImpl implements AppointmentService {
     }
 
     @Override
-    public List<Appointment> getAppointmentByPatient(Long patientUtente) {
+    public List<Appointment> getAppointmentByPatient(int patientUtente) {
         return appointmentRepo.findByPatientNumUtente(patientUtente);
     }
 

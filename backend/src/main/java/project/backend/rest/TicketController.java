@@ -13,9 +13,11 @@ import java.util.*;
 @RestController
 public class TicketController {
 
-    private List<String> nextCheckInTickets = new ArrayList<>();
-    private List<String> nextAppointmentsTickets = new ArrayList<>();
-    private Map<String, String> pastTickets = new LinkedHashMap<>();
+    private final List<String> nextCheckInTickets = new ArrayList<>();
+    List<String> nextAppointmentsTickets = new ArrayList<>();
+    private final Map<String, String> pastTickets = new LinkedHashMap<>();
+
+    private String error = "Error creating ticket";
 
 
     private final SimpMessagingTemplate template;
@@ -33,7 +35,7 @@ public class TicketController {
             return ResponseEntity.ok(newTicket);
         }
         catch (Exception e) {
-            return ResponseEntity.badRequest().body("Error creating ticket");
+            return ResponseEntity.badRequest().body(error);
         }
     }
 
@@ -46,7 +48,32 @@ public class TicketController {
             return ResponseEntity.ok(newTicket);
         }
         catch (Exception e) {
-            return ResponseEntity.badRequest().body("Error creating ticket");
+            return ResponseEntity.badRequest().body(error);
+        }
+    }
+
+    @PostMapping("/clearCheckIn")
+    public ResponseEntity<String> clearCheckInQueue() {
+        try {
+            nextCheckInTickets.clear();
+            notifyBoard();
+            return ResponseEntity.ok("Queue cleared");
+
+        }
+        catch (Exception e) {
+            return ResponseEntity.badRequest().body(error);
+        }
+    }
+
+    @PostMapping("/clearAppointments")
+    public ResponseEntity<String> clearAppointmentQueue() {
+        try {
+            nextAppointmentsTickets.clear();
+            notifyBoard();
+            return ResponseEntity.ok("Queue cleared");
+        }
+        catch (Exception e) {
+            return ResponseEntity.badRequest().body(error);
         }
     }
 
@@ -123,8 +150,7 @@ public class TicketController {
         queue.put("appointments", nextAppointmentsTickets);
 
 
-
-        //template.convertAndSend("/topic", queue);
+        template.convertAndSend("/queue", queue);
         template.convertAndSend("/topic", pastTickets);
     }
 

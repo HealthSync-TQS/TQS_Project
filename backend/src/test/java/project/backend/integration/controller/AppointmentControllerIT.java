@@ -22,6 +22,9 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -32,7 +35,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class AppointmentControllerIT {
+class AppointmentControllerIT {
 
 
     @Autowired
@@ -52,7 +55,7 @@ public class AppointmentControllerIT {
     private Patient patient;
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         // Clear repositories before each test
         appointmentRepo.deleteAll();
         patientRepo.deleteAll();
@@ -73,7 +76,7 @@ public class AppointmentControllerIT {
 
 
     @Test
-    public void testGetAppointments() throws Exception {
+    void testGetAppointments() throws Exception {
 
         List<Appointment> appointments = appointmentService.getAll();
 
@@ -88,7 +91,7 @@ public class AppointmentControllerIT {
 
 
     @Test
-    public void givenValidAppointment_whenCreateAppointment_thenStatus201() throws Exception {
+    void givenValidAppointment_whenCreateAppointment_thenStatus201() throws Exception {
         appointmentService.setPatient(appointment, patient.getNumUtente());
 
         ObjectMapper objectMapper = new ObjectMapper();
@@ -103,13 +106,13 @@ public class AppointmentControllerIT {
                 .andExpect(status().isCreated())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.patient.numUtente", is(patient.getNumUtente())))
-                .andExpect(jsonPath("$.medicalSpecialty", is(appointment.getMedicalSpeciality())))
+                .andExpect(jsonPath("$.medicalSpeciality", is(appointment.getMedicalSpeciality())))
                 .andExpect(jsonPath("$.doctorName", is(appointment.getDoctorName())))
                 .andExpect(jsonPath("$.price", is(appointment.getPrice())));
     }
 
     @Test
-    public void givenInvalidAppointment_whenCreateAppointment_thenStatus400() throws Exception {
+    void givenInvalidAppointment_whenCreateAppointment_thenStatus400() throws Exception {
 
         String invalidAppointmentJson = "{\"patient\": {\"id\": 123, \"name\": \"John Doe\", \"email\": \"john@example.com\"}, \"medicalSpecialty\": \"\", \"doctor\": \"\", \"fee\": 100.0}";
 
@@ -123,9 +126,7 @@ public class AppointmentControllerIT {
     }
 
     @Test
-    public void testGetAppointmentsWithoutPatient() throws Exception {
-
-
+    void testGetAppointmentsWithoutPatient() throws Exception {
 
         mockMvc.perform(get("/appointments/withoutPatient")
                         .contentType(MediaType.APPLICATION_JSON))
@@ -138,7 +139,7 @@ public class AppointmentControllerIT {
     }
 
     @Test
-    public void givenValidIds_whenSetPatient_thenStatus200() throws Exception {
+    void givenValidIds_whenSetPatient_thenStatus200() throws Exception {
 
         mockMvc.perform(MockMvcRequestBuilders.put("/appointments/{appointmentId}/setPatient/{patientId}", appointment.getId(), patient.getNumUtente())
                         .contentType(MediaType.APPLICATION_JSON))
@@ -146,7 +147,7 @@ public class AppointmentControllerIT {
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.patient.numUtente").value(patient.getNumUtente()))
                 .andExpect(jsonPath("$.patient.name").value(patient.getName()))
-                .andExpect(jsonPath("$.medicalSpecialty").value(appointment.getMedicalSpeciality()))
+                .andExpect(jsonPath("$.medicalSpeciality").value(appointment.getMedicalSpeciality()))
                 .andExpect(jsonPath("$.doctorName").value(appointment.getDoctorName()))
                 .andExpect(jsonPath("$.price").value(appointment.getPrice()));
 
@@ -155,12 +156,24 @@ public class AppointmentControllerIT {
     }
 
     @Test
-    public void givenInvalidPatientId_whenSetPatient_thenStatus400() throws Exception {
+    void givenInvalidPatientId_whenSetPatient_thenStatus400() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.put("/appointments/{appointmentId}/setPatient/{patientId}", appointment.getId(), 999)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest());
     }
 
+    @Test
+    void testSetPayment() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.put("/appointment/setPaymentDone")
+                        .param("appointmentId", "1"))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    void testSetCheckIn() throws Exception {
+
+        mockMvc.perform(MockMvcRequestBuilders.put("/appointment/setCheckInDone")
+                        .param("appointmentId", "1"))
+                .andExpect(status().isOk());
+    }
 }
-
-

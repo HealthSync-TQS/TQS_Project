@@ -19,12 +19,11 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Calendar;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-public class AppointmentServiceTest {
+class AppointmentServiceTest {
 
 
     @Mock
@@ -38,7 +37,7 @@ public class AppointmentServiceTest {
 
 
     @Test
-    public void addAppointmentWithPatientTest() {
+    void addAppointmentWithPatientTest() {
         Patient patient = new Patient(123, "John Doe", "john@example.com");
         Appointment appointment = new Appointment(patient, new Date(), "Cardiology", "Dr. Smith", "Centro de Saude Delta",  LocalTime.now(), 100.0, false);
         when(appointmentRepo.save(appointment)).thenReturn(appointment);
@@ -70,7 +69,7 @@ public class AppointmentServiceTest {
 
 
     @Test
-    public void setPatientTest() {
+    void setPatientTest() {
         Patient patient = new Patient(123456789, "John Doe", "john@example.com");
 
         Calendar calendar = Calendar.getInstance();
@@ -89,7 +88,7 @@ public class AppointmentServiceTest {
     }
 
     @Test
-    public void setPatientNotFoundTest() {
+    void setPatientNotFoundTest() {
         int patientId = 123;
 
         Calendar calendar = Calendar.getInstance();
@@ -144,7 +143,7 @@ public class AppointmentServiceTest {
     }
 
     @Test
-    public void getAppointmentByIdTest() {
+    void getAppointmentByIdTest() {
         Long appointmentId = 1L;
 
         Calendar calendar = Calendar.getInstance();
@@ -161,7 +160,7 @@ public class AppointmentServiceTest {
     }
 
     @Test
-    public void getAppointmentByIdNotFoundTest() {
+    void getAppointmentByIdNotFoundTest() {
         Long appointmentId = 1L;
         when(appointmentRepo.findById(appointmentId)).thenReturn(Optional.empty());
 
@@ -172,7 +171,70 @@ public class AppointmentServiceTest {
     }
 
     @Test
-    public void deleteAllAppointmentsTest() {
+    void getAppointmentByPatientTest() {
+        Patient patient = new Patient(123456789, "John", "john@example.com");
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(2024, Calendar.NOVEMBER, 12);
+        Date appointmentDate = calendar.getTime();
+
+        List<Appointment> appointments = Arrays.asList(
+                new Appointment(patient,appointmentDate, "Cardiology", "Dr. Smith", "USF Gama", LocalTime.now(), 100.0,false),
+                new Appointment(patient, appointmentDate, "Dermatology", "Dr. Johnson", "Centro de Saude Delta", LocalTime.now(),150.0,true)
+        );
+        when(appointmentRepo.findByPatientNumUtente(patient.getNumUtente())).thenReturn(appointments);
+
+        List<Appointment> result = appointmentService.getAppointmentByPatient(patient.getNumUtente());
+
+        assertNotNull(result);
+        assertEquals(appointments, result);
+
+    }
+
+    @Test
+    void updateCheckInTest() {
+        Long appointmentId = 1L;
+                Calendar calendar = Calendar.getInstance();
+        calendar.set(2024, Calendar.NOVEMBER, 12);
+        Date appointmentDate = calendar.getTime();
+
+        Appointment appointment = new Appointment(appointmentDate, "Dermatology", "Dr. Johnson", "Centro de Saude Delta", LocalTime.now(),150.0, false);
+        when(appointmentRepo.findById(appointmentId)).thenReturn(Optional.of(appointment));
+
+
+        Appointment updated = appointmentService.updateCheckIn(appointmentId, true);
+        assertNotNull(updated);
+        assertTrue(updated.isCheckedIn());
+        assertEquals(appointment, updated);
+
+        // if not found return null
+        when(appointmentRepo.findById(appointmentId)).thenReturn(Optional.empty());
+        Appointment updated2 = appointmentService.updateCheckIn(appointmentId, true);
+        assertNull(updated2);
+    }
+
+    @Test
+    void updatePaymentTest() {
+        Long appointmentId = 1L;
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(2024, Calendar.NOVEMBER, 12);
+        Date appointmentDate = calendar.getTime();
+        Appointment appointment = new Appointment(appointmentDate, "Dermatology", "Dr. Johnson", "Centro de Saude Delta", LocalTime.now(),150.0, false);
+        when(appointmentRepo.findById(appointmentId)).thenReturn(Optional.of(appointment));
+
+
+        Appointment updated = appointmentService.updatePayment(appointmentId, true);
+        assertNotNull(updated);
+        assertTrue(updated.isPaid());
+        assertEquals(appointment, updated);
+
+        // if not found return null
+        when(appointmentRepo.findById(appointmentId)).thenReturn(Optional.empty());
+        Appointment updated2 = appointmentService.updatePayment(appointmentId, true);
+        assertNull(updated2);    
+    }
+
+    @Test
+    void deleteAllAppointmentsTest() {
         doNothing().when(appointmentRepo).deleteAll();
 
         appointmentService.deleteAll();
