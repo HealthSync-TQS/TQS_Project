@@ -5,8 +5,6 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 import project.backend.entity.Appointment;
 import project.backend.entity.Patient;
-import project.backend.repository.AppointmentRepo;
-import project.backend.repository.PatientRepo;
 import project.backend.service.AppointmentService;
 import project.backend.service.PatientService;
 
@@ -73,6 +71,14 @@ public class DataInitializer implements CommandLineRunner {
                 LocalTime.now(), 180.0);
         Appointment appointment5 = new Appointment(patient5, new Date(), "Cardiology", "Dr. Taylor",
                 "Centro de Saúde Delta", LocalTime.now(), 220.0);
+        Appointment appointment11 = new Appointment(new Date(), "Cardiology", "Dr. Taylor",
+                "Centro de Saúde Delta",  LocalTime.of(22, 20), 220.0);
+        Appointment appointment12 = new Appointment(new Date(), "Cardiology", "Dr. Taylor",
+                "Centro de Saúde Delta",  LocalTime.of(23, 20), 220.0);
+        Appointment appointment13 = new Appointment(new Date(), "Cardiology", "Dr. Taylor",
+                "Centro de Saúde Delta",  LocalTime.of(20, 20), 220.0);
+        Appointment appointment14 = new Appointment(new Date(), "Cardiology", "Dr. Taylor",
+                "Centro de Saúde Delta",  LocalTime.of(19, 20), 220.0);
         appointmentService.addAppointment(appointment1);
         appointmentService.addAppointment(appointment2);
         appointmentService.addAppointment(appointment3);
@@ -83,6 +89,9 @@ public class DataInitializer implements CommandLineRunner {
         appointmentService.addAppointment(appointment8);
         appointmentService.addAppointment(appointment9);
         appointmentService.addAppointment(appointment10);
-
+        appointmentService.addAppointment(appointment11);
+        appointmentService.addAppointment(appointment12);
+        appointmentService.addAppointment(appointment13);
+        appointmentService.addAppointment(appointment14);
     }
 }

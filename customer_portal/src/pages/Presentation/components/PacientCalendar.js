@@ -15,7 +15,7 @@ function PatientCalendar() {
     const fetchAppointments = async () => {
       try {
         const patientId = appointmentData.patientId;
-        const response = await axios.get(`http://localhost:8080/appointments/${patientId}`);
+        const response = await axios.get(`http://localhost:8080/PatientAppointments/${patientId}`);
         const appointmentDates = response.data.map((appointment) => new Date(appointment.date));
         setAppointments(appointmentDates);
       } catch (error) {

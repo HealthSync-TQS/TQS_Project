@@ -49,7 +49,11 @@ function Schedule() {
     setSelectedDate(dayjsDate);
     console.log("Selected date:", dayjsDate.format("YYYY-MM-DD"));
     setShowDetails(true);
-    fetchAvailableTimes(dayjsDate, appointmentData.medicalSpeciality, appointmentData.healthcareUnit);
+    fetchAvailableTimes(
+      dayjsDate,
+      appointmentData.medicalSpeciality,
+      appointmentData.healthcareUnit
+    );
   };
 
   const handleScheduling = () => {
@@ -87,7 +91,9 @@ function Schedule() {
     }).toString();
 
     axios
-      .get(`http://localhost:8080/appointments/${formattedDate}/?${params}`)
+      .get(
+        `http://localhost:8080/appointments/${formattedDate}?${params}`
+      )
       .then((response) => {
         setAvailableTimes(response.data);
         console.log("Available times received:", response.data);
@@ -258,12 +264,15 @@ function Schedule() {
                     <Grid container spacing={2}>
                       {Object.entries(availableTimes).map(([id, time]) => (
                         <Grid item xs={12} sm={6} md={3} key={id}>
-                          <CardActionArea onClick={() => handleTimeSelect(id, time)}>
+                          <CardActionArea
+                            onClick={() => handleTimeSelect(id, time)}
+                          >
                             <Card
                               raised
                               sx={{
                                 p: 2,
-                                backgroundColor: id === selectedTimeId ? "#cfe8fc" : "#fff",
+                                backgroundColor:
+                                  id === selectedTimeId ? "#cfe8fc" : "#fff",
                               }}
                             >
                               <MKTypography variant="h6">{time}</MKTypography>
@@ -276,7 +285,11 @@ function Schedule() {
                 )}
                 {showButton && (
                   <Grid container mt={2}>
-                    <MKButton size="medium" color="primary" onClick={handleScheduling}>
+                    <MKButton
+                      size="medium"
+                      color="primary"
+                      onClick={handleScheduling}
+                    >
                       Schedule Appointment
                     </MKButton>
                   </Grid>

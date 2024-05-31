@@ -81,7 +81,7 @@ public class AppointmentController {
         }
     }
 
-    @GetMapping("/appointments/{patientId}/")
+    @GetMapping("/PatientAppointments/{patientId}/")
     public ResponseEntity<List<Appointment>> getPatientAppointments(@PathVariable int patientId) {
         try {
             return ResponseEntity.status(HttpStatus.OK)
