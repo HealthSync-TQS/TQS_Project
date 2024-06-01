@@ -15,8 +15,12 @@ function PatientCalendar() {
     const fetchAppointments = async () => {
       try {
         const patientId = appointmentData.patientId;
-        const response = await axios.get(`http://localhost:8080/appointments/${patientId}`);
-        const appointmentDates = response.data.map((appointment) => new Date(appointment.date));
+        const response = await axios.get(
+          `http://localhost:8080/appointments/patient/${patientId}`
+        );
+        const appointmentDates = response.data.map(
+          (appointment) => new Date(appointment.date)
+        );
         setAppointments(appointmentDates);
       } catch (error) {
         console.error("Erro ao buscar as consultas:", error);
@@ -48,7 +52,12 @@ function PatientCalendar() {
   };
 
   return (
-    <MKBox display="flex" flexDirection="column" alignItems="center" width="100%">
+    <MKBox
+      display="flex"
+      flexDirection="column"
+      alignItems="center"
+      width="100%"
+    >
       <MKBox
         className="patient-calendar"
         width="100%"

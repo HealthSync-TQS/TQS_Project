@@ -40,6 +40,19 @@ public class DataInitializer implements CommandLineRunner {
         calendar.set(Calendar.MILLISECOND, 0);
         date = calendar.getTime();
 
+        Date date2 = new Date();
+        Calendar calendar2 = Calendar.getInstance();
+        calendar2.setTime(date2);
+        calendar2.set(Calendar.HOUR_OF_DAY, 0);
+        calendar2.set(Calendar.MINUTE, 0);
+        calendar2.set(Calendar.SECOND, 0);
+        calendar2.set(Calendar.MILLISECOND, 0);
+        calendar2.add(Calendar.DAY_OF_MONTH, 1);
+        calendar2.set(Calendar.MONTH, 7);
+        calendar2.set(Calendar.YEAR, 2024);
+        date2 = calendar2.getTime();
+
+
         Patient patient1 = new Patient(1001, "John Doe", "john.doe@example.com");
         Patient patient2 = new Patient(1002, "Jane Doe", "jane.doe@example.com");
         Patient patient3 = new Patient(1003, "Alice Johnson", "alice.johnson@example.com");
@@ -71,6 +84,8 @@ public class DataInitializer implements CommandLineRunner {
                 LocalTime.now(), 180.0, false);
         Appointment appointment5 = new Appointment(patient5, new Date(), "Cardiology", "Dr. Taylor",
                 "Centro de Saúde Delta", LocalTime.now(), 220.0, false);
+        Appointment appointment13 = new Appointment(date2, "Cardiology", "Dr. Taylor",
+                "Centro de Saúde Delta", LocalTime.of(20,20), 220.0, false);
         appointmentService.addAppointment(appointment1);
         appointmentService.addAppointment(appointment2);
         appointmentService.addAppointment(appointment3);
@@ -81,6 +96,7 @@ public class DataInitializer implements CommandLineRunner {
         appointmentService.addAppointment(appointment8);
         appointmentService.addAppointment(appointment9);
         appointmentService.addAppointment(appointment10);
+        appointmentService.addAppointment(appointment13);
 
     }
 }
