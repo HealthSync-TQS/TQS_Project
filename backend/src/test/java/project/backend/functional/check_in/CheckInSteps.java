@@ -23,10 +23,6 @@ public class CheckInSteps {
 
     private WebDriver driver;
 
-
-
-
-
     @When("I navigate to {string}")
     public void i_access(String string) {
         WebDriverManager.chromedriver().setup();
