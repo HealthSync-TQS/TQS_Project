@@ -39,9 +39,9 @@
     "react-scripts": "5.0.1",
     "react-syntax-highlighter": "15.5.0",
     "web-vitals": "3.3.1"
-  },
-  "scripts": {
-    "start": "react-scripts start",
+  }, 
+   "scripts": {
+    "start": "PORT=3003 react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
@@ -67,13 +67,13 @@
     ]
   },
   "devDependencies": {
-    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "eslint": "8.38.0",
     "eslint-config-prettier": "8.8.0",
     "eslint-plugin-import": "2.27.5",
     "eslint-plugin-jsx-a11y": "6.7.1",
     "eslint-plugin-prettier": "4.2.1",
     "eslint-plugin-react": "7.32.2",
-    "eslint-plugin-react-hooks": "4.6.0"
+    "eslint-plugin-react-hooks": "4.6.0",
+    "prettier": "2.8.7"
   }
 }

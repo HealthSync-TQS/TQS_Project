@@ -70,3 +70,13 @@ services:
     networks:
       tqs_project_network:
         ipv4_address: "172.24.0.5"
+
+  costumer:
+    build: ./customer_portal
+    depends_on:
+      - backend
+    ports:
+      - "3003:3003"
+    networks:
+      tqs_project_network:
+        ipv4_address: "172.24.0.6"

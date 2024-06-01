@@ -87,7 +87,7 @@ function Schedule() {
     }).toString();
 
     axios
-      .get(`http://localhost:8080/appointments/${formattedDate}/?${params}`)
+      .get(`http://localhost:8080/appointments/date/${formattedDate}/?${params}`)
       .then((response) => {
         setAvailableTimes(response.data);
         console.log("Available times received:", response.data);

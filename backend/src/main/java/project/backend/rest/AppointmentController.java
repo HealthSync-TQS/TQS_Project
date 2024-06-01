@@ -106,7 +106,7 @@ public class AppointmentController {
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
-    }    @GetMapping("/appointments/{date}/")
+    }    @GetMapping("/appointments/date/{date}/")
     public ResponseEntity<HashMap<Long, LocalTime>> getAvailableTimes(
             @PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd") Date date,
             @RequestParam String medicalSpeciality,
@@ -119,7 +119,7 @@ public class AppointmentController {
         }
     }
 
-    @GetMapping("/appointments/{patientId}/")
+    @GetMapping("/appointments/patient/{patientId}/")
     public ResponseEntity<List<Appointment>> getPatientAppointments(@PathVariable int patientId) {
         try {
             return ResponseEntity.status(HttpStatus.OK)
