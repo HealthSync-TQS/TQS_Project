@@ -4,7 +4,7 @@ import Icon from "@mui/material/Icon";
 // Pages
 import Presentation from "pages/Presentation";
 import SignIn from "pages/LandingPages/SignIn";
-import SignUp from "pages/LandingPages/SignUp";
+import Schedule from "pages/Schedule";
 
 const routes = [
   {
@@ -22,7 +22,11 @@ const routes = [
   {
     name: "Sign Out",
     icon: <Icon>logout</Icon>,
-    route: "/signOut",
+    route: "/signIn",
+  },
+  {
+    route: "/schedule",
+    component: <Schedule />,
   }
 ];
 
