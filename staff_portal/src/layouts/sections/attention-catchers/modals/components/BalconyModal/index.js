@@ -33,7 +33,12 @@ function BalconyModal() {
     <MKBox component="section" py={6}>
       <Container>
         <Grid container item xs={12} lg={10} justifyContent="center" mx="auto">
-          <MKButton variant="gradient" color="dark" onClick={toggleModal}>
+          <MKButton
+            id="CallNextCheckInTicket"
+            variant="gradient"
+            color="dark"
+            onClick={toggleModal}
+          >
             Next Check-In
           </MKButton>
         </Grid>
@@ -55,6 +60,7 @@ function BalconyModal() {
               </MKBox>
               <Divider sx={{ my: 2 }} />
               <input
+                id="deskNumber"
                 type="text"
                 value={inputNextCheckInValue}
                 onChange={handleInputChange}
@@ -72,7 +78,7 @@ function BalconyModal() {
                 <MKButton variant="gradient" color="dark" onClick={toggleModal}>
                   Close
                 </MKButton>
-                <MKButton variant="gradient" color="info" onClick={callNext}>
+                <MKButton id="NextCheckin" variant="gradient" color="info" onClick={callNext}>
                   Next
                 </MKButton>
               </MKBox>
