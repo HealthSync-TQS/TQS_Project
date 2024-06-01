@@ -16,12 +16,14 @@ import java.util.HashMap;
 import java.util.Collections;
 import java.util.List;
 
+
 @RestController
 @CrossOrigin
 public class AppointmentController {
 
     private final AppointmentService appointmentService;
     private final PatientService patientService;
+
 
     @Autowired
     public AppointmentController(AppointmentService appointmentService, PatientService patientService) {
@@ -75,10 +77,10 @@ public class AppointmentController {
             @RequestParam(value = "numUtente", required = false) Integer numUtente) {
         try {
 
-            if (appointmentId != null)
+            if(appointmentId != null)
                 return ResponseEntity.status(HttpStatus.OK).body(Collections.singletonList(appointmentService.getAppointmentById(appointmentId)));
 
-            if (numUtente != null)
+            if(numUtente != null)
                 return ResponseEntity.status(HttpStatus.OK).body(appointmentService.getAppointmentByPatient(numUtente));
 
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
@@ -104,9 +106,7 @@ public class AppointmentController {
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
-    }
-
-    @GetMapping("/appointments/available-times/{date}")
+    }    @GetMapping("/appointments/{date}/")
     public ResponseEntity<HashMap<Long, LocalTime>> getAvailableTimes(
             @PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd") Date date,
             @RequestParam String medicalSpeciality,
@@ -119,7 +119,7 @@ public class AppointmentController {
         }
     }
 
-    @GetMapping("/appointments/patient/{patientId}")
+    @GetMapping("/appointments/{patientId}/")
     public ResponseEntity<List<Appointment>> getPatientAppointments(@PathVariable int patientId) {
         try {
             return ResponseEntity.status(HttpStatus.OK)
