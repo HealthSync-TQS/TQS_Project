@@ -1,6 +1,7 @@
 package project.backend.repository;
 
 import java.time.LocalTime;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -199,5 +200,78 @@ public class AppointmentRepoTest {
 
         assertThat(found).contains(appointment, appointment2);
     }
+
+        @Test
+    public void testFindByPatientIsNullAndDateAndMedicalSpecialityAndHealthcareUnit_thenReturnAppointment() {
+        entityManager.persist(appointment);
+        entityManager.flush();
+
+        List<Appointment> found = appointmentRepo.findByPatientIsNullAndDateAndMedicalSpecialityAndHealthcareUnit(
+                appointment.getDate(), appointment.getMedicalSpeciality(), appointment.getHealthcareUnit());
+
+        assertThat(found).contains(appointment);
+    }
+
+    @Test
+    public void testFindByPatientIsNullAndDateAndMedicalSpecialityAndHealthcareUnit_invalidParams_thenReturnEmpty() {
+        entityManager.persist(appointment);
+        entityManager.flush();
+
+        List<Appointment> found = appointmentRepo.findByPatientIsNullAndDateAndMedicalSpecialityAndHealthcareUnit(
+                appointment.getDate(), "InvalidSpeciality", appointment.getHealthcareUnit());
+
+        assertThat(found).isEmpty();
+    }
+
+    @Test
+    public void testFindByPatient_NumUtente_thenReturnAppointment() {
+        entityManager.persist(patient);
+
+        appointment.setPatient(patient);
+        entityManager.persist(appointment);
+        entityManager.flush();
+
+        List<Appointment> found = appointmentRepo.findByPatient_NumUtente(patient.getNumUtente());
+
+        assertThat(found).contains(appointment);
+    }
+
+    @Test
+    public void testFindByPatient_NumUtente_invalidId_thenReturnEmpty() {
+        entityManager.persist(patient);
+
+        appointment.setPatient(patient);
+        entityManager.persist(appointment);
+        entityManager.flush();
+
+        List<Appointment> found = appointmentRepo.findByPatient_NumUtente(999999);
+
+        assertThat(found).isEmpty();
+    }
+
+    @Test
+    public void testFindByDate_thenReturnAppointment() {
+        entityManager.persist(appointment);
+        entityManager.flush();
+
+        List<Appointment> found = appointmentRepo.findByDate(appointment.getDate());
+
+        assertThat(found).contains(appointment);
+    }
+
+    @Test
+    public void testFindByDate_invalidDate_thenReturnEmpty() {
+        entityManager.persist(appointment);
+        entityManager.flush();
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(2025, Calendar.JANUARY, 1);
+        Date invalidDate = calendar.getTime();
+
+        List<Appointment> found = appointmentRepo.findByDate(invalidDate);
+
+        assertThat(found).isEmpty();
+    }
+
 
 }
