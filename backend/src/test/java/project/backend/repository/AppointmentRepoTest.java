@@ -238,7 +238,7 @@ public class AppointmentRepoTest {
         entityManager.persist(appointment);
         entityManager.flush();
 
-        List<Appointment> found = appointmentRepo.findByPatient_NumUtente(patient.getNumUtente());
+        List<Appointment> found = appointmentRepo.findByPatientNumUtente(patient.getNumUtente());
 
         assertThat(found).contains(appointment);
     }
@@ -251,7 +251,7 @@ public class AppointmentRepoTest {
         entityManager.persist(appointment);
         entityManager.flush();
 
-        List<Appointment> found = appointmentRepo.findByPatient_NumUtente(999999);
+        List<Appointment> found = appointmentRepo.findByPatientNumUtente(999999);
 
         assertThat(found).isEmpty();
     }

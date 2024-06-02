@@ -14,12 +14,9 @@ import java.util.List;
 public interface AppointmentRepo extends JpaRepository<Appointment, Long> {
 
     List<Appointment> findByPatientIsNull();
-    List<Appointment> findByPatientNumUtente(Integer numUtente);
     List<Appointment> findByDoctorName(String doctorName);
     List<Appointment> findByPatientIsNullAndDateAndMedicalSpecialityAndHealthcareUnit(Date date, String medicalSpeciality, String healthcareUnit);
-    List<Appointment> findByPatient_NumUtente(int numUtente);
+    List<Appointment> findByPatientNumUtente(int numUtente);
     List<Appointment> findByDate(Date date);
-
-    List<Appointment> findByPatientNumUtente(Long patientId);
 
 }

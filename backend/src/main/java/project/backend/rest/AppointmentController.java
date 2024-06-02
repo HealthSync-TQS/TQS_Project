@@ -79,7 +79,7 @@ public class AppointmentController {
                 return ResponseEntity.status(HttpStatus.OK).body(Collections.singletonList(appointmentService.getAppointmentById(appointmentId)));
 
             if (numUtente != null)
-                return ResponseEntity.status(HttpStatus.OK).body(appointmentService.getAppointmentByPatient(numUtente));
+                return ResponseEntity.status(HttpStatus.OK).body(appointmentService.getPatientAppointments(numUtente));
 
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
 

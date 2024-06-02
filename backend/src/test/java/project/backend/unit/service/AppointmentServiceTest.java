@@ -183,7 +183,7 @@ class AppointmentServiceTest {
         );
         when(appointmentRepo.findByPatientNumUtente(patient.getNumUtente())).thenReturn(appointments);
 
-        List<Appointment> result = appointmentService.getAppointmentByPatient(patient.getNumUtente());
+        List<Appointment> result = appointmentService.getPatientAppointments(patient.getNumUtente());
 
         assertNotNull(result);
         assertEquals(appointments, result);
