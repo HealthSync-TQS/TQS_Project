@@ -16,7 +16,7 @@ import MKButton from "components/MKButton";
 import MKTypography from "components/MKTypography";
 import axios from "axios";
 
-function BalconyModal() {
+function ConsultModal() {
   const [show, setShow] = useState(false);
   const [inputNextAppointmentValue, setInputValue] = useState(""); // Estado para armazenar o valor do input
 
@@ -45,11 +45,21 @@ function BalconyModal() {
     <MKBox component="section" py={6}>
       <Container>
         <Grid container item xs={12} lg={10} justifyContent="center" mx="auto">
-          <MKButton variant="gradient" color="dark" onClick={toggleModal}>
+          <MKButton
+            id="CallNextAppointmentTicket"
+            variant="gradient"
+            color="dark"
+            onClick={toggleModal}
+          >
             NEXT APPOINTMENT
           </MKButton>
         </Grid>
-        <Modal open={show} onClose={toggleModal} sx={{ display: "grid", placeItems: "center" }}>
+        <Modal
+          id="clinicmodal"
+          open={show}
+          onClose={toggleModal}
+          sx={{ display: "grid", placeItems: "center" }}
+        >
           <Slide direction="down" in={show} timeout={500}>
             <MKBox
               position="relative"
@@ -66,6 +76,7 @@ function BalconyModal() {
               </MKBox>
               <Divider sx={{ my: 0 }} />
               <input
+                id="clinicInput"
                 type="text"
                 value={inputNextAppointmentValue}
                 onChange={handleInputChange}
@@ -83,7 +94,7 @@ function BalconyModal() {
                 <MKButton variant="gradient" color="dark" onClick={toggleModal}>
                   close
                 </MKButton>
-                <MKButton variant="gradient" color="info" onClick={callNext}>
+                <MKButton id="nextAppointment" variant="gradient" color="info" onClick={callNext}>
                   Next
                 </MKButton>
               </MKBox>
@@ -95,4 +106,4 @@ function BalconyModal() {
   );
 }
 
-export default BalconyModal;
+export default ConsultModal;

@@ -66,7 +66,7 @@ function SimpleModal({ id, onPaymentConfirmed }) {
               </MKBox>
               <Divider sx={{ my: 0 }} />
               <MKBox display="flex" justifyContent="space-between" p={1.5}>
-                <MKButton variant="gradient" color="dark" onClick={toggleModal}>
+                <MKButton id="closemodal" variant="gradient" color="dark" onClick={toggleModal}>
                   Close
                 </MKButton>
                 <MKButton

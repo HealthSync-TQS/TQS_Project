@@ -60,7 +60,7 @@ const DisplayScreen = () => {
           }}
         >
           <Typography variant="h6">Check-in</Typography>
-          <Typography variant="body1">
+          <Typography id="checkinQueue" variant="body1">
             {checkinQueue.length} {checkinQueue.length === 1 ? "person" : "people"} in queue
           </Typography>
         </Box>
@@ -76,7 +76,7 @@ const DisplayScreen = () => {
           }}
         >
           <Typography variant="h6">Appointments</Typography>
-          <Typography variant="body1">
+          <Typography id="appointmentQueue" variant="body1">
             {appointmentQueue.length} {appointmentQueue.length === 1 ? "person" : "people"} in queue
           </Typography>
         </Box>
