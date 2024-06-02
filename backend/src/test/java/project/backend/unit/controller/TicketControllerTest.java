@@ -76,5 +76,60 @@ class TicketControllerTest {
         assertEquals(HttpStatus.BAD_REQUEST, errorResponse.getStatusCode());
     }
 
+    @Test
+    void testGetNextCheckInTicket() {
+        ticketController.newTicket();
+        ResponseEntity<String> response = ticketController.getNextCheckInTicket("balcony1");
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertEquals("001 balcony=balcony1", response.getBody());
+
+        ResponseEntity<String> emptyResponse = ticketController.getNextCheckInTicket("balcony2");
+        assertEquals(HttpStatus.OK, emptyResponse.getStatusCode());
+        assertEquals("empty", emptyResponse.getBody());
+
+        // Test exception
+        // when(ticketController.getNextCheckInTicket("balcony1")).thenThrow(new RuntimeException());
+        // ResponseEntity<String> errorResponse = ticketController.getNextCheckInTicket("balcony1");
+        // assertEquals(HttpStatus.BAD_REQUEST, errorResponse.getStatusCode());
+    }
+
+    @Test
+    void testGetNextTicket() {
+        ticketController.newAppointmentTicket("specialty");
+        ResponseEntity<String> response = ticketController.getNextTicket("clinic1");
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertEquals("S001 clinic=clinic1", response.getBody());
+
+        ResponseEntity<String> emptyResponse = ticketController.getNextTicket("clinic2");
+        assertEquals(HttpStatus.OK, emptyResponse.getStatusCode());
+        assertEquals("empty", emptyResponse.getBody());
+    }
+
+    @Test
+    void testGetCheckInNotCalled() {
+        ticketController.newTicket();
+        ResponseEntity<List<String>> response = ticketController.getCheckInNotCalled();
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertEquals(Collections.singletonList("001"), response.getBody());
+    }
+
+    @Test
+    void testGetAppointmentsNotCalled() {
+        ticketController.newAppointmentTicket("specialty");
+        ResponseEntity<List<String>> response = ticketController.getAppointmentsotCalled();
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertEquals(Collections.singletonList("S001"), response.getBody());
+    }
+
+    @Test
+    void testGetCalledQueue() {
+        ticketController.newTicket();
+        ticketController.getNextCheckInTicket("balcony1");
+        ResponseEntity<Map<String, String>> response = ticketController.getCalledQueue();
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        Map<String, String> expectedMap = new HashMap<>();
+        expectedMap.put("001", "balcony1");
+        assertEquals(expectedMap, response.getBody());
+    }
 
 }

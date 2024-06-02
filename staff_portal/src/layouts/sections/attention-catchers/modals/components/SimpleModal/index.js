@@ -33,7 +33,7 @@ function SimpleModal({ id, onPaymentConfirmed }) {
     <MKBox component="section" py={6}>
       <Container>
         <Grid container item xs={12} lg={10} justifyContent="center" mx="auto">
-          <MKButton variant={"contained"} color={"primary"} onClick={toggleModal}>
+          <MKButton id="payButton" variant={"contained"} color={"primary"} onClick={toggleModal}>
             To Be Paid
           </MKButton>
         </Grid>
@@ -66,10 +66,15 @@ function SimpleModal({ id, onPaymentConfirmed }) {
               </MKBox>
               <Divider sx={{ my: 0 }} />
               <MKBox display="flex" justifyContent="space-between" p={1.5}>
-                <MKButton variant="gradient" color="dark" onClick={toggleModal}>
+                <MKButton id="closemodal" variant="gradient" color="dark" onClick={toggleModal}>
                   Close
                 </MKButton>
-                <MKButton variant="gradient" color="success" onClick={handlePayment}>
+                <MKButton
+                  id="confirmPaymentButton"
+                  variant="gradient"
+                  color="success"
+                  onClick={handlePayment}
+                >
                   Confirm Payment
                 </MKButton>
               </MKBox>
