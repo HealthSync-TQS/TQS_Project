@@ -226,7 +226,7 @@ public class DataInitializer implements CommandLineRunner {
                 Appointment appointment200 = new Appointment(appointmentDate, medicalSpeciality, "Dr. Taylor",
                                 healthcareUnit, LocalTime.of(22, 20), 220.0, false);
 
-                appointmentService.addAppointment(appointment1);
+                appointmentService.addAppointment(appointment1 );
                 appointmentService.addAppointment(appointment2);
                 appointmentService.addAppointment(appointment3);
                 appointmentService.addAppointment(appointment4);
