@@ -10,6 +10,7 @@ function PatientCalendar() {
   const [date, setDate] = useState(new Date());
   const [appointments, setAppointments] = useState([]);
   const [selectedAppointment, setSelectedAppointment] = useState(null); // Novo estado para o compromisso selecionado
+  const [selectedDate, setSelectedDate] = useState(null); // Novo estado para a data selecionada
 
   useEffect(() => {
     const fetchAppointments = async () => {
@@ -44,16 +45,19 @@ function PatientCalendar() {
 
   const handleDateChange = (selectedDate) => {
     setDate(selectedDate);
-    const appointment = appointments.find((appointment) =>
-      appointment.date.getFullYear() === selectedDate.getFullYear() &&
-      appointment.date.getMonth() === selectedDate.getMonth() &&
-      appointment.date.getDate() === selectedDate.getDate()
-    );
-    if (appointment) {
-      setSelectedAppointment(appointment.details); // Defina o compromisso selecionado
-    } else {
-      setSelectedAppointment(null); // Limpe o compromisso selecionado se não houver nenhum
-    }
+    setSelectedDate((prevSelectedDate) => {
+      if (prevSelectedDate && prevSelectedDate.getTime() === selectedDate.getTime()) {
+        setSelectedAppointment(null); // Desaparecer o card do compromisso se a mesma data for clicada novamente
+        return null;
+      }
+      const appointment = appointments.find((appointment) =>
+        appointment.date.getFullYear() === selectedDate.getFullYear() &&
+        appointment.date.getMonth() === selectedDate.getMonth() &&
+        appointment.date.getDate() === selectedDate.getDate()
+      );
+      setSelectedAppointment(appointment ? appointment.details : null);
+      return selectedDate;
+    });
   };
 
   const isAppointmentDay = (date) => {
