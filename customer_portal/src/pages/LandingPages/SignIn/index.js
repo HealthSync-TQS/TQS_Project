@@ -23,12 +23,6 @@ import { Link } from "react-router-dom";
 import Card from "@mui/material/Card";
 import Switch from "@mui/material/Switch";
 import Grid from "@mui/material/Grid";
-import MuiLink from "@mui/material/Link";
-
-// @mui icons
-import FacebookIcon from "@mui/icons-material/Facebook";
-import GitHubIcon from "@mui/icons-material/GitHub";
-import GoogleIcon from "@mui/icons-material/Google";
 
 // Material Kit 2 React components
 import MKBox from "components/MKBox";
@@ -46,17 +40,27 @@ import routes from "routes";
 // Images
 import bgImage from "assets/images/bg-sign-in-basic.jpg";
 
+import { useNavigate } from "react-router-dom";
+
 function SignInBasic() {
   const [rememberMe, setRememberMe] = useState(false);
+  const [numUtente, setNumUtente] = useState(""); 
+  const [password, setPassword] = useState(""); 
+  const navigate = useNavigate(); 
 
   const handleSetRememberMe = () => setRememberMe(!rememberMe);
 
+  const handleNumUtenteChange = (event) => setNumUtente(event.target.value);
+  const handlePasswordChange = (event) => setPassword(event.target.value);
+
+  const handleSignIn = () => {
+    localStorage.setItem("numUtente", numUtente);
+    navigate("/presentation");
+  };
+
   return (
     <>
-      <DefaultNavbar routes={routes}
-        transparent
-        light
-      />
+      <DefaultNavbar routes={routes} transparent light />
       <MKBox
         position="absolute"
         top={0}
@@ -97,10 +101,22 @@ function SignInBasic() {
               <MKBox pt={4} pb={3} px={3}>
                 <MKBox component="form" role="form">
                   <MKBox mb={2}>
-                    <MKInput type="input" label="Nº Utente" fullWidth />
+                    <MKInput 
+                      type="input" 
+                      label="Nº Utente" 
+                      fullWidth 
+                      value={numUtente}
+                      onChange={handleNumUtenteChange} 
+                    />
                   </MKBox>
                   <MKBox mb={2}>
-                    <MKInput type="password" label="Password" fullWidth />
+                    <MKInput 
+                      type="password" 
+                      label="Password" 
+                      fullWidth 
+                      value={password}
+                      onChange={handlePasswordChange} 
+                    />
                   </MKBox>
                   <MKBox display="flex" alignItems="center" ml={-1}>
                     <Switch checked={rememberMe} onChange={handleSetRememberMe} />
@@ -115,9 +131,12 @@ function SignInBasic() {
                     </MKTypography>
                   </MKBox>
                   <MKBox mt={4} mb={1}>
-                    <MKButton variant="gradient" color="info"                     
-                    component={Link}
-                    to="/" fullWidth>
+                    <MKButton 
+                      variant="gradient" 
+                      color="info" 
+                      fullWidth 
+                      onClick={handleSignIn} 
+                    >
                       sign in
                     </MKButton>
                   </MKBox>
