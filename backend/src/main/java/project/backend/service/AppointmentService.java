@@ -4,6 +4,9 @@ package project.backend.service;
 import org.springframework.stereotype.Service;
 import project.backend.entity.Appointment;
 
+import java.time.LocalTime;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 @Service
@@ -21,11 +24,12 @@ public interface AppointmentService {
 
     Appointment getAppointmentById(Long id);
 
-    List<Appointment> getAppointmentByPatient(int patientUtente);
+    HashMap<Long, LocalTime> getAvailableAppointments(Date date, String medicalSpeciality, String healthcareUnit);
 
     Appointment updatePayment(Long id, boolean paid);
 
     Appointment updateCheckIn(Long id, boolean checkedIn);
 
+    List<Appointment> getPatientAppointments(int patientId);
 
 }

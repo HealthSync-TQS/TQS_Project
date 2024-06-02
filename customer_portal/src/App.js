@@ -27,7 +27,7 @@ import theme from "assets/theme";
 
 // Material Kit 2 React routes
 import routes from "routes";
-import Presentation from "pages/Presentation";
+import SignInPage from "layouts/pages/authentication/sign-in";
 
 export default function App() {
   const { pathname } = useLocation();
@@ -56,7 +56,7 @@ export default function App() {
       <CssBaseline />
       <Routes>
         {getRoutes(routes)}
-        <Route path="/" element={<Presentation />} />
+        <Route path="/" element={<SignInPage />} />
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
     </ThemeProvider>

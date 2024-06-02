@@ -27,15 +27,15 @@ class AppointmentTest {
         time = LocalTime.now();
 
         appointment1 = new Appointment(patient, date, "Cardiology", "Dr. Smith", "Health Unit 1", time, 150.0, true);
-        appointment2 = new Appointment(date, "Dermatology", "Dr. Johnson", "Health Unit 2", time, 100.0);
+        appointment2 = new Appointment(date, "Dermatology", "Dr. Johnson", "Health Unit 2", time, 100.0, false);
     }
 
     @Test
     void testAppointmentCreation() {
         assertNotNull(appointment1);
         assertNotNull(appointment2);
-        assertEquals("Cardiology", appointment1.getMedicalSpecialty());
-        assertEquals("Dermatology", appointment2.getMedicalSpecialty());
+        assertEquals("Cardiology", appointment1.getMedicalSpeciality());
+        assertEquals("Dermatology", appointment2.getMedicalSpeciality());
     }
 
     @Test
@@ -71,8 +71,8 @@ class AppointmentTest {
         appointment2.setPrice(200.0);
         assertEquals(200.0, appointment2.getPrice());
 
-        appointment2.setMedicalSpecialty("Cardiology");
-        assertEquals("Cardiology", appointment2.getMedicalSpecialty());
+        appointment2.setMedicalSpeciality("Cardiology");
+        assertEquals("Cardiology", appointment2.getMedicalSpeciality());
 
         appointment2.setDoctorName("Dr. Smith");
         assertEquals("Dr. Smith", appointment2.getDoctorName());

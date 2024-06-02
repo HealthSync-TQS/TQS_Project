@@ -9,6 +9,9 @@ import project.backend.repository.AppointmentRepo;
 import project.backend.repository.PatientRepo;
 import project.backend.service.AppointmentService;
 
+import java.time.LocalTime;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 @Service
@@ -61,8 +64,21 @@ public class AppointmentServiceImpl implements AppointmentService {
     }
 
     @Override
-    public List<Appointment> getAppointmentByPatient(int patientUtente) {
-        return appointmentRepo.findByPatientNumUtente(patientUtente);
+    public HashMap<Long, LocalTime> getAvailableAppointments(Date date, String medicalSpeciality, String healthcareUnit) {
+        List<Appointment> appointments = appointmentRepo.findByPatientIsNullAndDateAndMedicalSpecialityAndHealthcareUnit(date, medicalSpeciality, healthcareUnit);
+        System.out.println(appointments);
+        HashMap<Long, LocalTime> availableTimes = new HashMap<Long, LocalTime>();
+        for (Appointment appointment : appointments) {
+            LocalTime time = appointment.getTime();
+            Long id = appointment.getId(); 
+            availableTimes.put(id, time);
+        }
+        return availableTimes;
+    }
+
+    @Override
+    public List<Appointment> getPatientAppointments(int patientId) {
+        return appointmentRepo.findByPatientNumUtente(patientId);
     }
 
     @Override

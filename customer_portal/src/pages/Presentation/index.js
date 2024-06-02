@@ -1,83 +1,58 @@
-/*
-=========================================================
-* Material Kit 2 React - v2.1.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/material-kit-react
-* Copyright 2023 Creative Tim (https://www.creative-tim.com)
-
-Coded by www.creative-tim.com
-
- =========================================================
-*/
-
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
+// Routes
 import routes from "routes";
 import footerRoutes from "footer.routes";
+
 import DefaultNavbar from "examples/Navbars/DefaultNavbar";
 import DefaultFooter from "examples/Footers/DefaultFooter";
 import MKBox from "components/MKBox";
-import Container from "@mui/material/Container";
-import Grid from "@mui/material/Grid";
 import MKTypography from "components/MKTypography";
 import PatientCalendar from "pages/Presentation/components/PacientCalendar";
+
+import Container from "@mui/material/Container";
+import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import InputLabel from "@mui/material/InputLabel";
 import FormControl from "@mui/material/FormControl";
 import MKButton from "components/MKButton";
-import axios from "axios";
-import { Alert } from "@mui/material";
-import { useNavigate } from "react-router-dom";
+
+import { useAppointment } from "contexts/AppointmentContext";
 
 function Presentation() {
-  const handleUnidadeSaudeChange = (event) => {
-    setUnidadeSaude(event.target.value);
-  };
-
-  const handleEspecialidadeChange = (event) => {
-    setEspecialidade(event.target.value);
-  };
-
   const navigate = useNavigate();
-  const [utente, setUtente] = useState("");
-  const [nome, setNome] = useState("");
-  const [email, setEmail] = useState("");
-  const [telemovel, setTelemovel] = useState("");
-  const [unidadeSaude, setUnidadeSaude] = useState("");
-  const [especialidade, setEspecialidade] = useState("");
-  const [errorMessage, setErrorMessage] = useState("");
+  const { setAppointmentData } = useAppointment();
 
-  const sendData = () => {
-    if (
-      !utente ||
-      !nome ||
-      !email ||
-      !telemovel ||
-      !unidadeSaude ||
-      !especialidade
-    ) {
-      setErrorMessage("Por favor, preencha todos os campos obrigatórios.");
+  const [formData, setFormData] = useState({
+    patientId: "",
+    fullName: "",
+    email: "",
+    healthcareUnit: "",
+    medicalSpeciality: "",
+  });
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setAppointmentData((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+    setFormData((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmit = async () => {
+    if (Object.values(formData).some((x) => x === "")) {
+      alert("Please fill in all fields");
       return;
     }
-    const postData = {
-      utente,
-      nome,
-      email,
-      telemovel,
-      unidadeSaude,
-      especialidade,
-    };
-
-    axios.post("http://localhost:8080/appointments", postData)
-      .then(response => {
-        navigate('/schedule', { state: postData }); // Redireciona e passa os dados para a página de agendamento
-      })
-      .catch(error => {
-        console.error("Error:", error);
-        setErrorMessage("Erro ao enviar dados.");
-      });
+    setAppointmentData(formData);
+    navigate("/schedule");
   };
 
   return (
@@ -100,11 +75,9 @@ function Presentation() {
                 minHeight="650px"
               >
                 <MKBox textAlign="center">
-                  <MKTypography variant="h4">
-                    Calendário do Paciente
-                  </MKTypography>
+                  <MKTypography variant="h4">Patient Calendar</MKTypography>
                   <MKTypography variant="body1" fontWeight={400} mb={3}>
-                    Veja suas próximas consultas e compromissos aqui.
+                    View your upcoming consultations and appointments here.
                   </MKTypography>
                   <PatientCalendar />
                 </MKBox>
@@ -121,11 +94,11 @@ function Presentation() {
                 borderRadius="xl"
                 shadow="md"
                 bgColor="white"
-                maxHeight="650px"
+                minHeight="650px"
               >
                 <MKBox>
                   <MKTypography variant="h4" textAlign="center">
-                    Marcar Consulta
+                    Schedule Appointment
                   </MKTypography>
                   <MKTypography
                     variant="body1"
@@ -133,7 +106,7 @@ function Presentation() {
                     fontWeight={400}
                     mb={3}
                   >
-                    Agende suas consultas facilmente.
+                    Easily schedule your appointments.
                   </MKTypography>
                   <MKBox
                     color="white"
@@ -147,9 +120,10 @@ function Presentation() {
                     <Grid container spacing={2}>
                       <Grid item xs={12}>
                         <TextField
-                          value={utente}
-                          onChange={(e) => setUtente(e.target.value)}
-                          label="Nº de Utente"
+                          value={formData.patientId}
+                          onChange={handleChange}
+                          name="patientId"
+                          label="Patient Number"
                           variant="outlined"
                           fullWidth
                           required
@@ -157,9 +131,10 @@ function Presentation() {
                       </Grid>
                       <Grid item xs={12}>
                         <TextField
-                          value={nome}
-                          onChange={(e) => setNome(e.target.value)}
-                          label="Nome Completo"
+                          value={formData.fullName}
+                          onChange={handleChange}
+                          name="fullName"
+                          label="Full Name"
                           variant="outlined"
                           fullWidth
                           required
@@ -167,8 +142,9 @@ function Presentation() {
                       </Grid>
                       <Grid item xs={12}>
                         <TextField
-                          value={email}
-                          onChange={(e) => setEmail(e.target.value)}
+                          value={formData.email}
+                          onChange={handleChange}
+                          name="email"
                           label="Email"
                           type="email"
                           variant="outlined"
@@ -177,23 +153,19 @@ function Presentation() {
                         />
                       </Grid>
                       <Grid item xs={12}>
-                        <TextField
-                          value={telemovel}
-                          onChange={(e) => setTelemovel(e.target.value)}
-                          label="Telemóvel"
-                          type="tel"
-                          variant="outlined"
-                          fullWidth
-                          required
-                        />
-                      </Grid>
-                      <Grid item xs={12}>
                         <FormControl fullWidth variant="outlined">
-                          <InputLabel>Unidade de Saúde</InputLabel>
+                          <InputLabel>Healthcare Unit</InputLabel>
                           <Select
-                            value={unidadeSaude}
-                            onChange={handleUnidadeSaudeChange}
-                            label="Unidade de Saúde"
+                            value={formData.healthcareUnit}
+                            onChange={handleChange}
+                            name="healthcareUnit"
+                            label="Healthcare Unit"
+                            sx={{ height: '46px', display: 'flex', alignItems: 'center' }}
+                            MenuProps={{
+                              PaperProps: {
+                                sx: { minHeight: '46px' },
+                              },
+                            }}
                           >
                             <MenuItem value="USF Alfa">USF Alfa</MenuItem>
                             <MenuItem value="USF Beta">USF Beta</MenuItem>
@@ -206,18 +178,23 @@ function Presentation() {
                       </Grid>
                       <Grid item xs={12}>
                         <FormControl fullWidth variant="outlined">
-                          <InputLabel>Especialidade</InputLabel>
+                          <InputLabel>Medical Speciality</InputLabel>
                           <Select
-                            value={especialidade}
-                            onChange={handleEspecialidadeChange}
-                            label="Especialidade"
+                            value={formData.medicalSpeciality}
+                            onChange={handleChange}
+                            name="medicalSpeciality"
+                            label="Medical Speciality"
+                            sx={{ height: '46px', display: 'flex', alignItems: 'center' }}
+                            MenuProps={{
+                              PaperProps: {
+                                sx: { minHeight: '46px' },
+                              },
+                            }}
                           >
-                            <MenuItem value="Cardiologia">Cardiologia</MenuItem>
-                            <MenuItem value="Dermatologia">
-                              Dermatologia
-                            </MenuItem>
-                            <MenuItem value="Pediatria">Pediatria</MenuItem>
-                            <MenuItem value="Ginecologia">Ginecologia</MenuItem>
+                            <MenuItem value="Cardiology">Cardiology</MenuItem>
+                            <MenuItem value="Dermatology">Dermatology</MenuItem>
+                            <MenuItem value="Pediatrics">Pediatrics</MenuItem>
+                            <MenuItem value="Gynecology">Gynecology</MenuItem>
                           </Select>
                         </FormControl>
                       </Grid>
@@ -227,9 +204,9 @@ function Presentation() {
                           color="info"
                           variant="gradient"
                           sx={{ mt: 3 }}
-                          onClick={sendData}
+                          onClick={handleSubmit}
                         >
-                          Procurar Horários
+                          Search Times
                         </MKButton>
                       </Grid>
                     </Grid>

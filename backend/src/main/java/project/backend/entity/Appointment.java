@@ -25,14 +25,15 @@ public class Appointment {
     @JoinColumn(name = "patient_id", referencedColumnName = "numUtente", nullable = true)
     private Patient patient;
 
+    @Temporal(TemporalType.DATE) 
     @Column(name = "date")
     private Date date;
 
     @Column(name="price")
     private double price;
 
-    @Column(name = "medical_specialty")
-    private String medicalSpecialty;
+    @Column(name = "medical_speciality")
+    private String medicalSpeciality;
 
     @Column(name = "doctor_name")
     private String doctorName;
@@ -52,11 +53,11 @@ public class Appointment {
     public Appointment() {
     }
 
-    public Appointment(Patient patient, Date date, String medicalSpecialty, String doctorName, String healthcareUnit, LocalTime time, double price, boolean paid) {
+    public Appointment(Patient patient, Date date, String medicalSpeciality, String doctorName, String healthcareUnit, LocalTime time, double price, boolean paid) {
         this.patient = patient;
         this.date = date;
         this.price = price;
-        this.medicalSpecialty = medicalSpecialty;
+        this.medicalSpeciality = medicalSpeciality;
         this.doctorName = doctorName;
         this.healthcareUnit = healthcareUnit;
         this.time = time;
@@ -64,11 +65,11 @@ public class Appointment {
         this.checkedIn = false;
     }
 
-    public Appointment(Date date, String medicalSpecialty, String doctorName, String healthcareUnit, LocalTime time, double price) {
+    public Appointment(Date date, String medicalSpeciality, String doctorName, String healthcareUnit, LocalTime time, double price, boolean paid) {
         this.patient = null;
         this.date = date;
         this.price = price;
-        this.medicalSpecialty = medicalSpecialty;
+        this.medicalSpeciality = medicalSpeciality;
         this.doctorName = doctorName;
         this.healthcareUnit = healthcareUnit;
         this.time = time;
@@ -85,7 +86,7 @@ public class Appointment {
                 Objects.equals(patient, that.patient) &&
                 Objects.equals(doctorName, that.doctorName) &&
                 Objects.equals(price, that.price) &&
-                Objects.equals(medicalSpecialty, that.medicalSpecialty)
+                Objects.equals(medicalSpeciality, that.medicalSpeciality)
                 && Objects.equals(healthcareUnit, that.healthcareUnit)
                 && Objects.equals(time, that.time);
 
@@ -94,7 +95,7 @@ public class Appointment {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, patient, doctorName, price, medicalSpecialty, healthcareUnit, time);
+        return Objects.hash(id, patient, doctorName, price, medicalSpeciality, healthcareUnit, time);
     }
 
 

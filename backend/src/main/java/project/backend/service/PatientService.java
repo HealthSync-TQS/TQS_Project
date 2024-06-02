@@ -7,7 +7,6 @@ import project.backend.entity.Patient;
 @Service
 public interface PatientService {
 
-
     void deleteAll();
 
     void addPatient(Patient patient);
