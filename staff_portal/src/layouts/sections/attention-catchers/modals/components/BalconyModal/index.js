@@ -42,7 +42,12 @@ function BalconyModal() {
             Next Check-In
           </MKButton>
         </Grid>
-        <Modal open={show} onClose={toggleModal} sx={{ display: "grid", placeItems: "center" }}>
+        <Modal
+          id="checkInModal"
+          open={show}
+          onClose={toggleModal}
+          sx={{ display: "grid", placeItems: "center" }}
+        >
           <Slide direction="down" in={show} timeout={500}>
             <MKBox
               position="relative"

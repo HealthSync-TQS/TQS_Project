@@ -16,7 +16,7 @@ import MKButton from "components/MKButton";
 import MKTypography from "components/MKTypography";
 import axios from "axios";
 
-function BalconyModal() {
+function ConsultModal() {
   const [show, setShow] = useState(false);
   const [inputNextAppointmentValue, setInputValue] = useState(""); // Estado para armazenar o valor do input
 
@@ -54,7 +54,12 @@ function BalconyModal() {
             NEXT APPOINTMENT
           </MKButton>
         </Grid>
-        <Modal open={show} onClose={toggleModal} sx={{ display: "grid", placeItems: "center" }}>
+        <Modal
+          id="clinicmodal"
+          open={show}
+          onClose={toggleModal}
+          sx={{ display: "grid", placeItems: "center" }}
+        >
           <Slide direction="down" in={show} timeout={500}>
             <MKBox
               position="relative"
@@ -101,4 +106,4 @@ function BalconyModal() {
   );
 }
 
-export default BalconyModal;
+export default ConsultModal;
