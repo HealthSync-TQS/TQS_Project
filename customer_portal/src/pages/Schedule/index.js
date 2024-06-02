@@ -68,7 +68,7 @@ function Schedule() {
       .put(url)
       .then((response) => {
         console.log("Appointment Scheduled", response.data);
-        navigate("/");
+        navigate("/presentation");
       })
       .catch((error) => {
         console.error("Error scheduling:", error);

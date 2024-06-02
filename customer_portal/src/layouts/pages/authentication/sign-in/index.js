@@ -17,5 +17,6 @@ Coded by www.creative-tim.com
 import SignIn from "pages/LandingPages/SignIn";
 
 export default function SignInPage() {
+  
   return <SignIn />;
 }

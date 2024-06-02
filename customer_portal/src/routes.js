@@ -10,19 +10,20 @@ const routes = [
   {
     name: "Costumer Portal",
     icon: <Icon>dashboard</Icon>, // Use an appropriate icon for your route
-    route: "/",
+    route: "/presentation",
     component: <Presentation />,
   },
   {
     name: "Sign In",
     icon: <Icon>locker</Icon>,
-    route: "/signIn",
+    route: "/",
     component: <SignIn />,
   },
   {
     name: "Sign Out",
     icon: <Icon>logout</Icon>,
-    route: "/signIn",
+    route: "/",
+    component: <SignIn />,
   },
   {
     route: "/schedule",
