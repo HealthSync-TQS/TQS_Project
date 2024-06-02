@@ -40,6 +40,10 @@ public class DataInitializer implements CommandLineRunner {
                 calendar.set(Calendar.MILLISECOND, 0);
                 date = calendar.getTime();
 
+                String medicalSpeciality = "Cardiology";
+                String doctor = "Dr. Smith";
+                String healthcareUnit = "Centro de Saúde Delta";
+
                 Patient patient1 = new Patient(1001, "John Doe", "john.doe@example.com");
                 Patient patient2 = new Patient(1002, "Jane Doe", "jane.doe@example.com");
                 Patient patient3 = new Patient(1003, "Alice Johnson", "alice.johnson@example.com");
@@ -51,17 +55,17 @@ public class DataInitializer implements CommandLineRunner {
                 patientService.addPatient(patient4);
                 patientService.addPatient(patient5);
 
-                Appointment appointment1 = new Appointment(date, "Cardiology", "Dr. Smith", "Centro de Saúde Delta",
+                Appointment appointment1 = new Appointment(date, medicalSpeciality, doctor, healthcareUnit,
                                 LocalTime.of(22, 20), 100.0, false);
-                Appointment appointment6 = new Appointment(date, "Cardiology", "Dr. Smith", "Centro de Saúde Delta",
+                Appointment appointment6 = new Appointment(date, medicalSpeciality, doctor, healthcareUnit,
                                 LocalTime.of(23, 20), 100.0, false);
-                Appointment appointment7 = new Appointment(date, "Cardiology", "Dr. Smith", "Centro de Saúde Delta",
+                Appointment appointment7 = new Appointment(date, medicalSpeciality, doctor, healthcareUnit,
                                 LocalTime.of(20, 20), 100.0, false);
-                Appointment appointment8 = new Appointment(date, "Cardiology", "Dr. Smith", "Centro de Saúde Delta",
+                Appointment appointment8 = new Appointment(date, medicalSpeciality, doctor, healthcareUnit,
                                 LocalTime.of(19, 20), 100.0, true);
-                Appointment appointment9 = new Appointment(date, "Cardiology", "Dr. Smith", "Centro de Saúde Delta",
+                Appointment appointment9 = new Appointment(date, medicalSpeciality, doctor, healthcareUnit,
                                 LocalTime.of(18, 20), 100.0, false);
-                Appointment appointment10 = new Appointment(date, "Cardiology", "Dr. Smith", "Centro de Saúde Delta",
+                Appointment appointment10 = new Appointment(date, medicalSpeciality, doctor, healthcareUnit,
                                 LocalTime.of(16, 20), 100.0, false);
                 Appointment appointment2 = new Appointment(patient2, new Date(), "Dermatology", "Dr. Jones", "USF Alfa",
                                 LocalTime.now(), 200.0, false);
@@ -69,16 +73,16 @@ public class DataInitializer implements CommandLineRunner {
                                 LocalTime.now(), 150.0, false);
                 Appointment appointment4 = new Appointment(patient4, new Date(), "Ginecology", "Dr. Black", "USF Gama",
                                 LocalTime.now(), 180.0, false);
-                Appointment appointment5 = new Appointment(patient5, new Date(), "Cardiology", "Dr. Taylor",
-                                "Centro de Saúde Delta", LocalTime.now(), 220.0, false);
+                Appointment appointment5 = new Appointment(patient5, new Date(), medicalSpeciality, "Dr. Taylor",
+                                healthcareUnit, LocalTime.now(), 220.0, false);
 
                 Calendar calendar2 = Calendar.getInstance();
                 calendar2.set(2024, Calendar.JUNE, 6, 22, 20);
                 Date appointmentDate = calendar2.getTime();
 
                 // Configura a consulta
-                Appointment appointment20 = new Appointment(appointmentDate, "Cardiology", "Dr. Taylor",
-                                "Centro de Saúde Delta", LocalTime.of(22, 20), 220.0, false);
+                Appointment appointment20 = new Appointment(appointmentDate, medicalSpeciality, "Dr. Taylor",
+                                healthcareUnit, LocalTime.of(22, 20), 220.0, false);
 
                 appointmentService.addAppointment(appointment1);
                 appointmentService.addAppointment(appointment2);
