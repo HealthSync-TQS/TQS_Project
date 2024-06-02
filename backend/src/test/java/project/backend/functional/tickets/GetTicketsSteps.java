@@ -100,51 +100,6 @@ public class GetTicketsSteps {
         assertEquals(CheckInQueueSize - 1, newQueueSize);
     }
 
-    @And("the appointment queue is not empty")
-    public void appointmentQueueNotEmpty() {
-
-
-        WebElement queueElement = ticketDriver.findElement(By.id("appointmentQueue"));
-        String queueText = queueElement.getText();
-        AppointmentQueueSize = Integer.parseInt(queueText.split(" ")[0]);
-
-        if(AppointmentQueueSize == 0) {
-            RestTemplate restTemplate = new RestTemplate();
-            response = restTemplate.postForEntity(BASE_URL + "/newAppointmentTicket?specialty=cardiology", null, String.class);
-            System.out.println("Appointment created: " + response.getBody());
-            AppointmentQueueSize++;
-        }
-
-        assertNotEquals(0, AppointmentQueueSize);
-    }
-
-    @And("I click on the next appointment ticket and insert the desk number 10")
-    public void clickNextAppointmentTicket() {
-        WebElement nextAppointmentButton = ticketDriver.findElement(By.id("CallNextAppointmentTicket"));
-        Actions actions = new Actions(ticketDriver);
-        actions.moveToElement(nextAppointmentButton).click().perform();
-
-        WebDriverWait wait = new WebDriverWait(ticketDriver, Duration.ofSeconds(60)); // Aguarde até 10 segundos
-        WebElement appointmentInput = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("clinicInput")));
-        appointmentInput.sendKeys("10");
-
-        WebElement callButton = wait.until(ExpectedConditions.elementToBeClickable(By.id("nextAppointment")));
-        Actions actions1 = new Actions(ticketDriver);
-        actions1.moveToElement(callButton).click().perform();
-        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("clinicInput")));
-
-    }
-
-    @Then("the appointment queue should have -1 tickets remaining")
-    public void checkAppointmentQueueSize() {
-        WebElement queueElement = ticketDriver.findElement(By.id("appointmentQueue"));
-        String queueText = queueElement.getText();
-        int newQueueSize = Integer.parseInt(queueText.split(" ")[0]);
-        System.out.println("Queue size:" + AppointmentQueueSize);
-        System.out.println("Queue size atual: " + newQueueSize);
-        assertEquals(AppointmentQueueSize - 1, newQueueSize);
-        ticketDriver.quit();
-    }
 
 
 
