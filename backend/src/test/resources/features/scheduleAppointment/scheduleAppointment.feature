@@ -9,7 +9,7 @@ Feature: Schedule Appointment
         And I select Specialty "Cardiology"
         And I click on the search times button
         Then I should go to "http://localhost:3003/schedule"
-        When I choose date "1 June"
+        When I choose date "6 June"
         And I choose slot "22:20:00"
         And I click on the schedule appointment button
         Then I should go to home "http://localhost:3003/"
