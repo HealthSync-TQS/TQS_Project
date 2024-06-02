@@ -10,6 +10,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
@@ -22,13 +23,12 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 public class GetTicketsSteps {
 
-    private WebDriver ticketDriver;
+    WebDriver ticketDriver;
     private final String BASE_URL = "http://localhost:8080"; // Ajuste a URL conforme necessário
     private ResponseEntity<String> response;
 
     int CheckInQueueSize = 0;
     int AppointmentQueueSize = 0;
-
 
     @When("I navigate to staff portal at {string}")
     public void navigateToAppointmentManagementSystem(String url) {
@@ -37,6 +37,7 @@ public class GetTicketsSteps {
         options.addArguments("--headless");
         options.addArguments("--no-sandbox");
         options.addArguments("--disable-dev-shm-usage");
+
 
 
         ticketDriver = new ChromeDriver(options);
@@ -69,22 +70,23 @@ public class GetTicketsSteps {
     }
 
 
-    @And("I click on the next check-in ticket")
+    @And("I click on the next check-in ticket and insert the desk number 10")
     public void clickNextCheckInTicket() {
         WebElement nextTicketButton = ticketDriver.findElement(By.id("CallNextCheckInTicket"));
         Actions actions = new Actions(ticketDriver);
         actions.moveToElement(nextTicketButton).click().perform();
+
+        WebDriverWait wait = new WebDriverWait(ticketDriver, Duration.ofSeconds(60)); // Aguarde até 10 segundos
+        WebElement checkinput = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("deskNumber")));
+        checkinput.sendKeys("10");
+
+        WebElement callButton = wait.until(ExpectedConditions.elementToBeClickable(By.id("NextCheckin")));
+        Actions actions1 = new Actions(ticketDriver);
+        actions1.moveToElement(callButton).click().perform();
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("deskNumber")));
+
     }
 
-
-    @And("I insert the desk number {string}")
-    public void insertDeskNumber(String deskNumber) {
-        WebElement deskNumberInput = ticketDriver.findElement(By.id("deskNumber"));
-        deskNumberInput.sendKeys(deskNumber);
-        WebElement callButton = ticketDriver.findElement(By.id("NextCheckin"));
-        callButton.click();
-
-    }
 
 
     @Then("the check-in queue should have -1 tickets remaining")
@@ -93,7 +95,8 @@ public class GetTicketsSteps {
         WebElement queueElement = ticketDriver.findElement(By.id("checkinQueue"));
         String queueText = queueElement.getText();
         int newQueueSize = Integer.parseInt(queueText.split(" ")[0]);
-        System.out.println("New queue size: " + newQueueSize);
+        System.out.println("Queue size:" + CheckInQueueSize);
+        System.out.println("Queue size atual: " + newQueueSize);
         assertEquals(CheckInQueueSize - 1, newQueueSize);
     }
 
@@ -112,23 +115,24 @@ public class GetTicketsSteps {
             AppointmentQueueSize++;
         }
 
-        System.out.println("Queue size: " + AppointmentQueueSize);
         assertNotEquals(0, AppointmentQueueSize);
     }
 
-    @And("I click on the next appointment ticket")
+    @And("I click on the next appointment ticket and insert the desk number 10")
     public void clickNextAppointmentTicket() {
-        WebElement nextTicketButton = ticketDriver.findElement(By.id("CallNextAppointmentTicket"));
+        WebElement nextAppointmentButton = ticketDriver.findElement(By.id("CallNextAppointmentTicket"));
         Actions actions = new Actions(ticketDriver);
-        actions.moveToElement(nextTicketButton).click().perform();
-    }
+        actions.moveToElement(nextAppointmentButton).click().perform();
 
-    @And("I insert the clinic number {string}")
-    public void insertClinicNumber(String clinicNumber) {
-        WebElement clinicInput = ticketDriver.findElement(By.id("clinicInput"));
-        clinicInput.sendKeys(clinicNumber);
-        WebElement callButton = ticketDriver.findElement(By.id("nextAppointment"));
-        callButton.click();
+        WebDriverWait wait = new WebDriverWait(ticketDriver, Duration.ofSeconds(60)); // Aguarde até 10 segundos
+        WebElement appointmentInput = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("clinicInput")));
+        appointmentInput.sendKeys("10");
+
+        WebElement callButton = wait.until(ExpectedConditions.elementToBeClickable(By.id("nextAppointment")));
+        Actions actions1 = new Actions(ticketDriver);
+        actions1.moveToElement(callButton).click().perform();
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("clinicInput")));
+
     }
 
     @Then("the appointment queue should have -1 tickets remaining")
@@ -136,7 +140,9 @@ public class GetTicketsSteps {
         WebElement queueElement = ticketDriver.findElement(By.id("appointmentQueue"));
         String queueText = queueElement.getText();
         int newQueueSize = Integer.parseInt(queueText.split(" ")[0]);
-        assertEquals(CheckInQueueSize - 1, newQueueSize);
+        System.out.println("Queue size:" + AppointmentQueueSize);
+        System.out.println("Queue size atual: " + newQueueSize);
+        assertEquals(AppointmentQueueSize - 1, newQueueSize);
         ticketDriver.quit();
     }
 
