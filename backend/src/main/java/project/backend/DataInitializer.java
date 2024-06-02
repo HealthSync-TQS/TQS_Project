@@ -45,7 +45,7 @@ public class DataInitializer implements CommandLineRunner {
 
 
         String healthCareUnit1 = "Centro de Saude Delta";
-        String healthCareUnit2 = "USF Gama";
+        String healthCareUnit2 = "USF Gama ";
 
         Patient patient1 = new Patient(123456789, "John", "John@example.com");
         Patient patient2 = new Patient(987654321, "Jane", "Jane@example.com");
@@ -74,41 +74,41 @@ public class DataInitializer implements CommandLineRunner {
         // Create appointments without patients
         Appointment appointment3 = new Appointment(new Date(124, Calendar.NOVEMBER, 12), speciality1, doctor1, healthCareUnit2, LocalTime.now(), 100., false);
         Appointment appointment4 = new Appointment(new Date(124, Calendar.NOVEMBER, 12), speciality2, doctor2, healthCareUnit1, LocalTime.now(),150.0, false);
-        Appointment appointment5 = new Appointment(new Date(124, Calendar.JUNE, 2), speciality1, doctor1, "USF Gama ", LocalTime.now(), 100.0, false);
+        Appointment appointment5 = new Appointment(new Date(124, Calendar.JUNE, 2), speciality1, doctor1, healthCareUnit2, LocalTime.now(), 100.0, false);
         Appointment appointment14 = new Appointment(new Date(124, Calendar.JULY, 2), speciality2, doctor2, healthCareUnit1, LocalTime.now(),150.0, false);
-        Appointment appointment15 = new Appointment(new Date(124, Calendar.AUGUST, 20), speciality3, doctor3, "USF Gama ", LocalTime.now(), 100.0, false);
+        Appointment appointment15 = new Appointment(new Date(124, Calendar.AUGUST, 20), speciality3, doctor3, healthCareUnit2, LocalTime.now(), 100.0, false);
         Appointment appointment16 = new Appointment(new Date(124, Calendar.SEPTEMBER, 25), speciality4, doctor4, healthCareUnit1, LocalTime.now(),150.0, false);
-        Appointment appointment17 = new Appointment(new Date(124, Calendar.OCTOBER, 30), speciality1, doctor1, "USF Gama ", LocalTime.now(), 100.0, false);
+        Appointment appointment17 = new Appointment(new Date(124, Calendar.OCTOBER, 30), speciality1, doctor1, healthCareUnit2, LocalTime.now(), 100.0, false);
         Appointment appointment18 = new Appointment(new Date(124, Calendar.DECEMBER, 31), speciality2, doctor2, healthCareUnit1, LocalTime.now(),150.0, false);
-        Appointment appointment19 = new Appointment(new Date(124, Calendar.JULY, 1), speciality3, doctor3, "USF Gama ", LocalTime.now(), 100.0, false);
+        Appointment appointment19 = new Appointment(new Date(124, Calendar.JULY, 1), speciality3, doctor3, healthCareUnit2, LocalTime.now(), 100.0, false);
         Appointment appointment20 = new Appointment(new Date(124, Calendar.JULY, 2), speciality4, doctor4, healthCareUnit1, LocalTime.now(),150.0, false);
-        Appointment appointment21 = new Appointment(new Date(124, Calendar.JULY, 3), speciality1, doctor1, "USF Gama ", LocalTime.now(), 100.0, false);
+        Appointment appointment21 = new Appointment(new Date(124, Calendar.JULY, 3), speciality1, doctor1, healthCareUnit2, LocalTime.now(), 100.0, false);
         Appointment appointment22 = new Appointment(new Date(124, Calendar.JULY, 4), speciality2, doctor2, healthCareUnit1, LocalTime.now(),150.0, false);
-        Appointment appointment23 = new Appointment(new Date(124, Calendar.JULY, 5), speciality3, doctor3, "USF Gama ", LocalTime.now(), 100.0, false);
+        Appointment appointment23 = new Appointment(new Date(124, Calendar.JULY, 5), speciality3, doctor3, healthCareUnit2, LocalTime.now(), 100.0, false);
         Appointment appointment24 = new Appointment(new Date(124, Calendar.JULY, 15), speciality4, doctor4, healthCareUnit1, LocalTime.now(),150.0, false);
-        Appointment appointment25 = new Appointment(new Date(124, Calendar.JULY, 16), speciality1, doctor1, "USF Gama ", LocalTime.now(), 100.0, false);
+        Appointment appointment25 = new Appointment(new Date(124, Calendar.JULY, 16), speciality1, doctor1, healthCareUnit2, LocalTime.now(), 100.0, false);
         Appointment appointment26 = new Appointment(new Date(124, Calendar.JULY, 17), speciality2, doctor2, healthCareUnit1, LocalTime.now(),150.0, false);
-        Appointment appointment27 = new Appointment(new Date(124, Calendar.AUGUST, 3), speciality3, doctor3, "USF Gama ", LocalTime.now(), 100.0, false);
+        Appointment appointment27 = new Appointment(new Date(124, Calendar.AUGUST, 3), speciality3, doctor3, healthCareUnit2, LocalTime.now(), 100.0, false);
         Appointment appointment28 = new Appointment(new Date(124, Calendar.AUGUST, 4), speciality4, doctor4, healthCareUnit1, LocalTime.now(),150.0, false);
-        Appointment appointment29 = new Appointment(new Date(124, Calendar.AUGUST, 5), speciality1, doctor1, "USF Gama ", LocalTime.now(), 100.0, false);
+        Appointment appointment29 = new Appointment(new Date(124, Calendar.AUGUST, 5), speciality1, doctor1, healthCareUnit2, LocalTime.now(), 100.0, false);
         Appointment appointment30 = new Appointment(new Date(124, Calendar.AUGUST, 6), speciality2, doctor2, healthCareUnit1, LocalTime.now(),150.0, false);
-        Appointment appointment31 = new Appointment(new Date(124, Calendar.AUGUST, 27), speciality3, doctor3, "USF Gama ", LocalTime.now(), 100.0, false);
+        Appointment appointment31 = new Appointment(new Date(124, Calendar.AUGUST, 27), speciality3, doctor3, healthCareUnit2, LocalTime.now(), 100.0, false);
         Appointment appointment32 = new Appointment(new Date(124, Calendar.AUGUST, 28), speciality4, doctor4, healthCareUnit1, LocalTime.now(),150.0, false);
-        Appointment appointment33 = new Appointment(new Date(124, Calendar.AUGUST, 29), speciality1, doctor1, "USF Gama ", LocalTime.now(), 100.0, false);
+        Appointment appointment33 = new Appointment(new Date(124, Calendar.AUGUST, 29), speciality1, doctor1, healthCareUnit2, LocalTime.now(), 100.0, false);
         Appointment appointment34 = new Appointment(new Date(124, Calendar.AUGUST, 30), speciality2, doctor2, healthCareUnit1, LocalTime.now(),150.0, false);
-        Appointment appointment35 = new Appointment(new Date(124, Calendar.AUGUST, 31), speciality3, doctor3, "USF Gama ", LocalTime.now(), 100.0, false);
+        Appointment appointment35 = new Appointment(new Date(124, Calendar.AUGUST, 31), speciality3, doctor3, healthCareUnit2, LocalTime.now(), 100.0, false);
         Appointment appointment36 = new Appointment(new Date(124, Calendar.SEPTEMBER, 1), speciality4, doctor4, healthCareUnit1, LocalTime.now(),150.0, false);
-        Appointment appointment37 = new Appointment(new Date(124, Calendar.SEPTEMBER, 5), speciality1, doctor1, "USF Gama ", LocalTime.now(), 100.0, false);
+        Appointment appointment37 = new Appointment(new Date(124, Calendar.SEPTEMBER, 5), speciality1, doctor1, healthCareUnit2, LocalTime.now(), 100.0, false);
         Appointment appointment38 = new Appointment(new Date(124, Calendar.SEPTEMBER, 10), speciality2, doctor2, healthCareUnit1, LocalTime.now(),150.0, false);
-        Appointment appointment39 = new Appointment(new Date(124, Calendar.SEPTEMBER, 15), speciality3, doctor3, "USF Gama ", LocalTime.now(), 100.0, false);
+        Appointment appointment39 = new Appointment(new Date(124, Calendar.SEPTEMBER, 15), speciality3, doctor3, healthCareUnit2, LocalTime.now(), 100.0, false);
         Appointment appointment40 = new Appointment(new Date(124, Calendar.SEPTEMBER, 20), speciality4, doctor4, healthCareUnit1, LocalTime.now(),150.0, false);
-        Appointment appointment41 = new Appointment(new Date(124, Calendar.SEPTEMBER, 25), speciality1, doctor1, "USF Gama ", LocalTime.now(), 100.0, false);
+        Appointment appointment41 = new Appointment(new Date(124, Calendar.SEPTEMBER, 25), speciality1, doctor1, healthCareUnit2, LocalTime.now(), 100.0, false);
         Appointment appointment42 = new Appointment(new Date(124, Calendar.SEPTEMBER, 30), speciality2, doctor2, healthCareUnit1, LocalTime.now(),150.0, false);
-        Appointment appointment43 = new Appointment(new Date(124, Calendar.OCTOBER, 5), speciality3, doctor3, "USF Gama ", LocalTime.now(), 100.0, false);
+        Appointment appointment43 = new Appointment(new Date(124, Calendar.OCTOBER, 5), speciality3, doctor3, healthCareUnit2, LocalTime.now(), 100.0, false);
         Appointment appointment44 = new Appointment(new Date(124, Calendar.OCTOBER, 10), speciality4, doctor4, healthCareUnit1, LocalTime.now(),150.0, false);
-        Appointment appointment45 = new Appointment(new Date(124, Calendar.OCTOBER, 15), speciality1, doctor1, "USF Gama ", LocalTime.now(), 100.0, false);
+        Appointment appointment45 = new Appointment(new Date(124, Calendar.OCTOBER, 15), speciality1, doctor1, healthCareUnit2, LocalTime.now(), 100.0, false);
         Appointment appointment46 = new Appointment(new Date(124, Calendar.OCTOBER, 20), speciality2, doctor2, healthCareUnit1, LocalTime.now(),150.0, false);
-        Appointment appointment47 = new Appointment(new Date(124, Calendar.OCTOBER, 25), speciality3, doctor3, "USF Gama ", LocalTime.now(), 100.0, false);
+        Appointment appointment47 = new Appointment(new Date(124, Calendar.OCTOBER, 25), speciality3, doctor3, healthCareUnit2, LocalTime.now(), 100.0, false);
         Appointment appointment48 = new Appointment(new Date(124, Calendar.OCTOBER, 30), speciality4, doctor4, healthCareUnit1, LocalTime.now(),150.0, false);
 
 

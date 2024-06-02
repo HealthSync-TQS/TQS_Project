@@ -80,6 +80,8 @@ public class AppointmentRepoTest {
 
         List<Appointment> found = appointmentRepo.findByPatientIsNull();
 
+        assertThat(found).isEmpty();
+
         assertThat(found).doesNotContain(appointment);
     }
 
@@ -123,16 +125,19 @@ public class AppointmentRepoTest {
     @Test
     public void testFindByPatientNumUtente_invalidId_thenReturnEmpty() {
         entityManager.persist(patient);
-
+    
         appointment.setPatient(patient);
-
+    
         entityManager.persist(appointment);
         entityManager.flush();
-
+    
         List<Appointment> found = appointmentRepo.findByPatientNumUtente(123457);
-
+    
+        assertThat(found).isEmpty();
+    
         assertThat(found).doesNotContain(appointment);
     }
+    
 
     /**
      * Tests finding multiple appointments by patient's NumUtente.
@@ -179,6 +184,8 @@ public class AppointmentRepoTest {
         entityManager.flush();
 
         List<Appointment> found = appointmentRepo.findByDoctorName("Doctor Rafaela");
+
+        assertThat(found).isEmpty();
 
         assertThat(found).doesNotContain(appointment);
     }
