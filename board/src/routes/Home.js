@@ -22,7 +22,7 @@ function Home() {
     return (
         <div>
             <SockJsClient
-                url='http://172.24.0.3:8080/ws'
+                url='http://localhost:8080/ws'
                 topics={['/topic']}
                 onMessage={(msg) => {
                     handleQueueData(msg);

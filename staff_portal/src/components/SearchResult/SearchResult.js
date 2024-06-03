@@ -20,7 +20,7 @@ const SearchResult = ({ data }) => {
 
   const handleGetTicket = () => {
     axios
-      .post(`http://localhost:8080/newAppointmentTicket?specialty=${data.medicalSpecialty}`)
+      .post(`http://localhost:8080/newAppointmentTicket?specialty=${data.medicalSpeciality}`)
       .then((response) => {
         console.log("Check-in response: ", response);
         setIsVisible(false);
@@ -86,7 +86,7 @@ const SearchResult = ({ data }) => {
           ) : (
             <Typography variant="subtitle1">No patient assigned.</Typography>
           )}
-          <Typography variant="body2">Speciality: {data.medicalSpecialty}</Typography>
+          <Typography variant="body2">Speciality: {data.medicalSpeciality}</Typography>
           <Typography variant="body2">Doctor: {data.doctorName}</Typography>
           <Typography variant="body2">Date: {data.date}</Typography>
           <Typography variant="body2">Local: {data.healthcareUnit}</Typography>
@@ -140,7 +140,7 @@ SearchResult.propTypes = {
       numUtente: PropTypes.number,
     }),
     id: PropTypes.number,
-    medicalSpecialty: PropTypes.string,
+    medicalSpeciality: PropTypes.string,
     doctorName: PropTypes.string,
     healthcareUnit: PropTypes.string,
     time: PropTypes.string,
