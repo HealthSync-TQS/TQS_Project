@@ -41,3 +41,15 @@ jobs:
         run: |
           cd backend
           mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=HealthSync-TQS_TQS_Project
+
+  deploy:
+    name: Deploy to self-hosted runner
+    needs: build
+    runs-on: self-hosted
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
+      - name: deploy with docker compose
+        run: |
+          docker-compose up -d
