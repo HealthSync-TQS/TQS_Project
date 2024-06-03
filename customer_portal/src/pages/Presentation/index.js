@@ -170,7 +170,7 @@ function Presentation() {
                             <MenuItem value="USF Alfa">USF Alfa</MenuItem>
                             <MenuItem value="USF Beta">USF Beta</MenuItem>
                             <MenuItem value="USF Gama">USF Gama</MenuItem>
-                            <MenuItem value="Centro de Saúde Delta">
+                            <MenuItem value="Centro de Saude Delta">
                               Centro de Saúde Delta
                             </MenuItem>
                           </Select>
