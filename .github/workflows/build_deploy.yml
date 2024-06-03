@@ -52,4 +52,4 @@ jobs:
           fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
       - name: deploy with docker compose
         run: |
-          docker compose up --build -d
+          docker compose -f docker-compose.yml up --build -d
